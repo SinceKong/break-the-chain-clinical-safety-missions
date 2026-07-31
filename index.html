@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4efe6">
+  <meta name="description" content="Break the Chain clinical safety learning missions">
+  <link rel="canonical" href="https://sincekong.github.io/break-the-chain-clinical-safety-missions/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Break the Chain - Clinical Safety Missions">
+  <meta property="og:description" content="Thirteen clinical incidents transformed into eleven short interactive safety missions.">
+  <meta property="og:url" content="https://sincekong.github.io/break-the-chain-clinical-safety-missions/">
+  <meta property="og:image" content="https://sincekong.github.io/break-the-chain-clinical-safety-missions/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Break the Chain - Clinical Safety Missions</title>
+  <link rel="stylesheet" href="styles.css?v=5.6">
+</head>
+<body>
+  <div id="app"></div>
+  <dialog id="aboutDialog">
+    <header><h2 id="aboutTitle"></h2><button class="icon-btn" data-close-dialog aria-label="Close">×</button></header>
+    <div class="dialog-body" id="aboutBody"></div>
+  </dialog>
+  <dialog id="imageDialog">
+    <header><h2 id="imageTitle"></h2><button class="icon-btn" data-close-dialog aria-label="Close">×</button></header>
+    <div class="dialog-body comic-dialog-body">
+      <div class="viewer-toolbar" aria-label="Comic zoom controls">
+        <button type="button" data-viewer-zoom="out" aria-label="Zoom out">−</button>
+        <button type="button" data-viewer-zoom="reset"><span data-viewer-scale>100%</span></button>
+        <button type="button" data-viewer-zoom="in" aria-label="Zoom in">+</button>
+        <span>Scroll to zoom · Drag to pan · Pinch with two fingers</span>
+      </div>
+      <div class="comic-viewport" data-comic-viewport>
+        <img id="dialogImage" alt="" draggable="false">
+      </div>
+    </div>
+  </dialog>
+  <script src="app.js?v=5.6"></script>
+</body>
+</html>
