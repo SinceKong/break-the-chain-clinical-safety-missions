@@ -573,7 +573,7 @@
       {
         consequences: [
           "Worsening hypokalaemia",
-          "Life- threatening arrhythmia",
+          "Life-\u2060\u00a0threatening arrhythmia",
           "Cardiac arrest",
         ],
       },
