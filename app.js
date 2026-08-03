@@ -1772,7 +1772,6 @@
             <span class="risk-skull" aria-hidden="true">☠️</span>
             <div class="risk-card-body">
               ${risk.label ? `<span class="risk-case">${esc(risk.label)}</span>` : ""}
-              <strong class="risk-label">Possible serious consequences:</strong>
               <ul class="risk-list">
                 ${risk.consequences.map((consequence) => `<li>${esc(consequence)}</li>`).join("")}
               </ul>
@@ -1788,13 +1787,12 @@
       <section class="debrief-stage">
         <section class="risk-brief" aria-labelledby="risk-title-${item.id}">
           <div class="risk-heading">
-            <h2 id="risk-title-${item.id}">WHY THIS MATTERS</h2>
+            <h2 id="risk-title-${item.id}">POSSIBLE SERIOUS CONSEQUENCES</h2>
           </div>
           <div class="risk-grid ${riskItems.length > 1 ? "multiple" : ""}">${riskCards}</div>
         </section>
         <div class="challenge-kicker">${ICONS.shield}Teach-back</div>
         <h2>${item.teach.question}</h2>
-        <p>Choose the action that best protects the safety barrier.</p>
         <div class="choices teach-choices" ${missionComplete ? 'inert aria-disabled="true"' : ""}>${options}</div>
         ${
           runtime.teachFeedback
