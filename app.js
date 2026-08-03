@@ -542,96 +542,75 @@
   const DEBRIEF = {
     clonazepam: [
       {
-        consequence:
-          "Treatment failure or, when used for seizures, breakthrough seizures or status epilepticus.",
-        safer:
-          "Do not let a familiar medicine turn checking into counting - Recalculate the prescribed dose each time.",
+        consequences: ["Treatment failure", "Breakthrough seizures", "Status epilepticus"],
       },
     ],
     dormicum: [
       {
-        consequence: "Profound sedation, respiratory arrest, or death.",
-        safer:
-          "Do not use an unlabelled syringe or leftover preparation - Verify the prescribed dose before injection.",
+        consequences: ["Profound sedation", "Respiratory arrest", "Death"],
       },
     ],
     "patient-id": [
       {
-        consequence:
-          "Severe allergic reaction, dangerous arrhythmia, or deterioration from delayed treatment.",
-        safer:
-          "Never bypass a Patient Not Match alert to save time - Stop and re-identify the patient.",
+        consequences: [
+          "Severe allergic reaction",
+          "Dangerous arrhythmia",
+          "Deterioration from delayed treatment",
+        ],
       },
     ],
     barcode: [
       {
-        consequence: "Excess sedation, respiratory depression, or uncontrolled pain.",
-        safer:
-          "Do not trade barcode speed for safety - Verify the patient, drug, formulation, dose, and route.",
+        consequences: ["Excess sedation", "Respiratory depression", "Uncontrolled pain"],
       },
     ],
     "misfiled-potassium": [
       {
-        consequence:
-          "Worsening hypokalaemia, life-threatening arrhythmia, or cardiac arrest.",
-        safer:
-          "Do not treat a result in isolation - Confirm identity, current potassium, and clinical context first.",
+        consequences: [
+          "Worsening hypokalaemia",
+          "Life-threatening arrhythmia",
+          "Cardiac arrest",
+        ],
       },
     ],
     "iv-stopcock": [
       {
-        consequence: "Severe hypotension, organ hypoperfusion, or cardiac arrest.",
-        safer:
-          "Do not wait for an alarm - Trace the full line and confirm patency before starting the infusion.",
+        consequences: ["Severe hypotension", "Organ hypoperfusion", "Cardiac arrest"],
       },
     ],
     "oxygen-safety": [
       {
         label: "Case 1 - Cannula not connected",
-        consequence: "Hypoxaemia, cardiorespiratory deterioration, or cardiac arrest.",
-        safer:
-          "Do not assume a fitted cannula is delivering oxygen - Confirm the connection and patient-end flow.",
+        consequences: ["Hypoxaemia", "Cardiorespiratory deterioration", "Cardiac arrest"],
       },
       {
         label: "Case 2 - Cylinder valve not opened",
-        consequence: "Severe desaturation, emergency intubation, or cardiac arrest.",
-        safer:
-          "Do not rush a transfer - Complete 3-2-1 and a final oxygen-flow check first.",
+        consequences: ["Severe desaturation", "Emergency intubation", "Cardiac arrest"],
       },
     ],
     "transfer-safety": [
       {
         label: "Case 1 - Transfer surfaces",
-        consequence: "Head injury, fracture, or permanent disability.",
-        safer:
-          "Do not start the move to save time - Lock, align, and remove the gap first.",
+        consequences: ["Head injury", "Fracture", "Permanent disability"],
       },
       {
         label: "Case 2 - Sling and hoist",
-        consequence: "Intracranial bleeding, fracture, or permanent disability.",
-        safer:
-          "Do not lift until the sling, attachments, and receiving surface pass the final check.",
+        consequences: ["Intracranial bleeding", "Fracture", "Permanent disability"],
       },
     ],
     "ng-tube": [
       {
-        consequence: "Aspiration pneumonia, acute respiratory failure, or death.",
-        safer:
-          "Do not risk an unverified feed to avoid delay - Wait for documented tube-position confirmation.",
+        consequences: ["Aspiration pneumonia", "Acute respiratory failure", "Death"],
       },
     ],
     "retained-tourniquet": [
       {
-        consequence: "Nerve injury, limb gangrene, or loss of fingers.",
-        safer:
-          "Do not leave after blood taking until both arms are checked and every tourniquet is accounted for.",
+        consequences: ["Nerve injury", "Limb gangrene", "Loss of fingers"],
       },
     ],
     "missing-denture": [
       {
-        consequence: "Nutritional decline, airway obstruction, or aspiration pneumonia.",
-        safer:
-          "Do not wait for a denture to go missing - Label, store, and document it on admission.",
+        consequences: ["Nutritional decline", "Airway obstruction", "Aspiration pneumonia"],
       },
     ],
   };
@@ -714,9 +693,14 @@
 
   function openImageViewer(src, title) {
     const image = document.getElementById("dialogImage");
+    const viewport = document.querySelector("[data-comic-viewport]");
     image.src = src;
     image.alt = title;
     image.classList.toggle("white-backdrop", src.includes("oxygen-cylinder-safety-3-2-1"));
+    viewport?.classList.toggle(
+      "white-backdrop-viewer",
+      src.includes("oxygen-cylinder-safety-3-2-1"),
+    );
     document.getElementById("imageTitle").textContent = title;
     resetViewer();
     document.getElementById("imageDialog").showModal();
@@ -1785,9 +1769,14 @@
       .map(
         (risk) => `
           <article class="risk-card" data-incident-consequence>
-            ${risk.label ? `<span class="risk-case">${esc(risk.label)}</span>` : ""}
-            <p><strong>Possible serious consequences:</strong> ${esc(risk.consequence)}</p>
-            <p class="risk-safer"><strong>SAFER CHOICE:</strong> ${esc(risk.safer)}</p>
+            <span class="risk-skull" aria-hidden="true">☠️</span>
+            <div class="risk-card-body">
+              ${risk.label ? `<span class="risk-case">${esc(risk.label)}</span>` : ""}
+              <strong class="risk-label">Possible serious consequences:</strong>
+              <ul class="risk-list">
+                ${risk.consequences.map((consequence) => `<li>${esc(consequence)}</li>`).join("")}
+              </ul>
+            </div>
           </article>`,
       )
       .join("");
@@ -1799,11 +1788,7 @@
       <section class="debrief-stage">
         <section class="risk-brief" aria-labelledby="risk-title-${item.id}">
           <div class="risk-heading">
-            ${ICONS.alert}
-            <div>
-              <span>Risk trade-off</span>
-              <h2 id="risk-title-${item.id}">WHY THIS MATTERS</h2>
-            </div>
+            <h2 id="risk-title-${item.id}">WHY THIS MATTERS</h2>
           </div>
           <div class="risk-grid ${riskItems.length > 1 ? "multiple" : ""}">${riskCards}</div>
         </section>

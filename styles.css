@@ -1387,6 +1387,11 @@ main {
   display: block;
 }
 
+.toggle-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .toggle-copy strong {
   font-size: 16px;
 }
@@ -1399,8 +1404,10 @@ main {
 }
 
 .switch {
+  flex: 0 0 54px;
   width: 54px;
   height: 31px;
+  margin-left: auto;
   padding: 3px;
   border: 0;
   border-radius: 99px;
@@ -2616,6 +2623,11 @@ main {
   background: #fff;
 }
 
+.comic-panel.learning-points .comic-reveal img {
+  position: relative;
+  left: -3.58%;
+}
+
 .comic-panel figcaption {
   margin-bottom: 7px;
   color: var(--blue-deep);
@@ -2698,25 +2710,8 @@ main {
 }
 
 .risk-heading {
-  display: flex;
-  align-items: center;
-  gap: 11px;
   margin-bottom: 15px;
   color: #9b4028;
-}
-
-.risk-heading > .icon {
-  width: 29px;
-  height: 29px;
-}
-
-.risk-heading span {
-  display: block;
-  margin-bottom: 2px;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .risk-heading h2 {
@@ -2735,6 +2730,10 @@ main {
 }
 
 .risk-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
   padding: 16px;
   border: 1px solid rgba(173, 73, 44, 0.16);
   border-radius: 16px;
@@ -2754,29 +2753,32 @@ main {
   text-transform: uppercase;
 }
 
-.risk-card p {
+.risk-skull {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.risk-card-body {
+  min-width: 0;
+}
+
+.risk-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #913c27;
+  font-size: 15px;
+}
+
+.risk-list {
   margin: 0;
+  padding-left: 20px;
   color: #3e2d28;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-.risk-card p + p {
-  margin-top: 10px;
-}
-
-.risk-card p strong {
-  color: #913c27;
-}
-
-.risk-card .risk-safer {
-  padding-top: 10px;
-  border-top: 1px solid rgba(173, 73, 44, 0.12);
-  color: #334c40;
-}
-
-.risk-card .risk-safer strong {
-  color: #237053;
+.risk-list li + li {
+  margin-top: 3px;
 }
 
 .debrief-stage > p {
@@ -3064,6 +3066,12 @@ dialog h2 {
 }
 
 #dialogImage.white-backdrop {
+  position: relative;
+  left: -3.58%;
+  background: #fff;
+}
+
+.comic-viewport.white-backdrop-viewer {
   background: #fff;
 }
 
