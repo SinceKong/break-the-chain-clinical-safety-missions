@@ -210,16 +210,21 @@
       summary:
         "Check the patient' s current parameters and clinical context before giving treatment.",
       instruction:
-        "You are about to administer potassium-lowering treatment. Decide which patient checks must agree before the medication is given.",
+        "You are about to administer treatment to lower potassium. Decide which patient checks must agree before the medication is given.",
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-p1.webp",
       comic: "assets/misfiled-potassium-comic.png",
       thumbView: { src: "assets/misfiled-potassium-comic.png", width: 2000, height: 1125, viewBox: "0 115 660 480" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
+      decisionCue: {
+        label: "Medication order",
+        title: "Treatment to lower potassium prescribed",
+        text: "Review the patient before administration.",
+      },
       question: "What must agree before you administer the treatment?",
       prompt:
-        "A potassium-lowering regimen appears in the open record. The patient' s current K+ is 2.8 mmol/L. Select only the checks that must be completed before administration.",
+        "A doctor has prescribed treatment to lower potassium. Select only the checks that must be completed before administration.",
       wrong:
         "Do not act on the open record alone. Confirm patient identity, the latest potassium result and trend, and whether the treatment fits the current clinical context.",
       teach: {
@@ -568,7 +573,7 @@
       {
         consequences: [
           "Worsening hypokalaemia",
-          "Life-threatening arrhythmia",
+          "Life- threatening arrhythmia",
           "Cardiac arrest",
         ],
       },
@@ -1192,16 +1197,25 @@
     ];
     return `
       <div class="case-grid">
-        <section class="briefing-card ${briefings.length > 1 ? "paired-briefing" : ""}">
-          ${briefings
-            .map(
-              (briefing) => `
-                <figure class="briefing-frame">
-                  ${briefing.label ? `<figcaption>${esc(briefing.label)}</figcaption>` : ""}
-                  <img src="${briefing.src}" alt="${esc(briefing.alt)}">
-                </figure>`,
-            )
-            .join("")}
+        <section class="briefing-card ${briefings.length > 1 ? "paired-briefing" : ""} ${item.decisionCue ? "briefing-card-cue" : ""}">
+          ${
+            item.decisionCue
+              ? `<div class="decision-cue">
+                  <span class="decision-cue-icon">${ICONS.shield}</span>
+                  <span class="decision-cue-label">${esc(item.decisionCue.label)}</span>
+                  <h2>${esc(item.decisionCue.title)}</h2>
+                  <p>${esc(item.decisionCue.text)}</p>
+                </div>`
+              : briefings
+                  .map(
+                    (briefing) => `
+                      <figure class="briefing-frame">
+                        ${briefing.label ? `<figcaption>${esc(briefing.label)}</figcaption>` : ""}
+                        <img src="${briefing.src}" alt="${esc(briefing.alt)}">
+                      </figure>`,
+                  )
+                  .join("")
+          }
         </section>
         <aside class="challenge ${["oxygen-combined", "transfer-combined"].includes(item.type) ? "combined-challenge" : ""}">
           <div class="challenge-kicker">${ICONS.alert}Decision point</div>
@@ -1329,8 +1343,8 @@
       <div class="context-check">
         <div class="context-alert">
           <span>Before medication</span>
-          <strong>Current K+ 2.8 mmol/L</strong>
-          <small>Potassium-lowering treatment requires reconciliation</small>
+          <strong>Treatment to lower potassium prescribed</strong>
+          <small>Decide what must be checked before administration</small>
         </div>
         <div class="context-pick">
           ${checks
