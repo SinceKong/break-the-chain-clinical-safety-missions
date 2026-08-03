@@ -42,8 +42,8 @@
       skills: ["Dose calculation", "Five Rights"],
       thumb: "assets/clonazepam-thumb.webp",
       briefing: "assets/clonazepam-p1.webp",
-      comic: "assets/clonazepam-comic.png",
-      thumbView: { src: "assets/clonazepam-comic.png", width: 2560, height: 1440, viewBox: "820 150 830 630" },
+      comic: "assets/clonazepam-comic-2026-08-03.png",
+      thumbView: { src: "assets/clonazepam-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "536 98 542 412" },
       briefingAlt: "A nurse reviews the Clonazepam prescription.",
       question: "How many tablets should be prepared?",
       prompt:
@@ -85,8 +85,8 @@
       skills: ["Exact dose", "Syringe labelling"],
       thumb: "assets/dormicum-thumb.webp",
       briefing: "assets/dormicum-p1.webp",
-      comic: "assets/dormicum-comic.png",
-      thumbView: { src: "assets/dormicum-comic.png", width: 2560, height: 1440, viewBox: "850 150 800 635" },
+      comic: "assets/dormicum-comic-2026-08-03.png",
+      thumbView: { src: "assets/dormicum-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "555 98 523 415" },
       briefingAlt: "The intravenous Dormicum prescription is reviewed.",
       question: "What syringe should be handed over?",
       prompt:
@@ -128,8 +128,8 @@
       skills: ["Identity verification", "Alert response"],
       thumb: "assets/patient-id-thumb.webp",
       briefing: "assets/patient-id-p2.webp",
-      comic: "assets/patient-id-comic.png",
-      thumbView: { src: "assets/patient-id-comic.png", width: 2560, height: 1440, viewBox: "850 150 795 600" },
+      comic: "assets/patient-id-comic-2026-08-03.png",
+      thumbView: { src: "assets/patient-id-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "555 98 519 392" },
       briefingAlt: "The handheld scanner shows a Patient Not Match alert.",
       question: "What should happen after the alert?",
       prompt:
@@ -171,8 +171,8 @@
       skills: ["Barcode scanning", "Formulation check"],
       thumb: "assets/barcode-thumb.webp",
       briefing: "assets/barcode-p2.webp",
-      comic: "assets/barcode-comic.png",
-      thumbView: { src: "assets/barcode-comic.png", width: 2560, height: 1440, viewBox: "850 150 785 600" },
+      comic: "assets/barcode-comic-2026-08-03.png",
+      thumbView: { src: "assets/barcode-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "555 98 513 392" },
       briefingAlt: "The medication system presents the barcode administration workflow.",
       question: "How will you pass the safety gate?",
       prompt:
@@ -214,8 +214,8 @@
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-p1.webp",
-      comic: "assets/misfiled-potassium-comic.png",
-      thumbView: { src: "assets/misfiled-potassium-comic.png", width: 2000, height: 1125, viewBox: "0 115 660 480" },
+      comic: "assets/misfiled-potassium-comic-2026-08-03.png",
+      thumbView: { src: "assets/misfiled-potassium-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 96 552 401" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
       decisionCue: {
         label: "Medication order",
@@ -262,8 +262,8 @@
       skills: ["Full-route trace", "Pre-infusion patency"],
       thumb: "assets/iv-stopcock-thumb.webp",
       briefing: "assets/iv-stopcock-p1.webp",
-      comic: "assets/iv-stopcock-comic.png",
-      thumbView: { src: "assets/iv-stopcock-comic.png", width: 2000, height: 1125, viewBox: "0 570 1010 555" },
+      comic: "assets/iv-stopcock-comic-2026-08-03.png",
+      thumbView: { src: "assets/iv-stopcock-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 477 844 464" },
       briefingAlt: "An IV Dopamine infusion route runs from the patient to the infusion pump.",
       question: "Which parts of the infusion route must you check?",
       prompt:
@@ -305,8 +305,8 @@
       skills: ["Cylinder 3-2-1", "Final delivery check"],
       thumbs: ["assets/oxygen-case-1-thumb.webp", "assets/oxygen-case-2-thumb.webp"],
       thumbViews: [
-        { src: "assets/oxygen-case-1-comic.png", width: 2000, height: 1125, viewBox: "1100 585 900 540" },
-        { src: "assets/oxygen-case-2-comic.png", width: 2000, height: 1125, viewBox: "0 585 940 540" },
+        { src: "assets/oxygen-case-1-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "920 489 752 452" },
+        { src: "assets/oxygen-case-2-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 489 786 452" },
       ],
       briefings: [
         {
@@ -321,8 +321,8 @@
         },
       ],
       comics: [
-        { label: "Case 1", src: "assets/oxygen-case-1-comic.png" },
-        { label: "Case 2", src: "assets/oxygen-case-2-comic.png" },
+        { label: "Case 1", src: "assets/oxygen-case-1-comic-2026-08-03.png" },
+        { label: "Case 2", src: "assets/oxygen-case-2-comic-2026-08-03.png" },
         {
           label: "Oxygen Cylinder Safety 3-2-1",
           src: "assets/oxygen-cylinder-safety-3-2-1.png",
@@ -369,8 +369,8 @@
       skills: ["Surface alignment", "Pre-lift safety gate"],
       thumbs: ["assets/transfer-fall-case-1-thumb.webp", "assets/transfer-fall-case-2-thumb.webp"],
       thumbViews: [
-        { src: "assets/transfer-fall-comic.png", width: 2000, height: 1125, viewBox: "610 130 610 500" },
-        { src: "assets/transfer-fall-comic.png", width: 2000, height: 1125, viewBox: "0 630 610 495" },
+        { src: "assets/transfer-fall-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "510 109 510 418" },
+        { src: "assets/transfer-fall-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 527 510 414" },
       ],
       briefings: [
         {
@@ -384,7 +384,7 @@
           alt: "A patient sits in a sling attached to a mechanical hoist before chair transfer.",
         },
       ],
-      comic: "assets/transfer-fall-comic.png",
+      comic: "assets/transfer-fall-comic-2026-08-03.png",
       question: "Can you clear both transfer safety gates before movement begins?",
       prompt:
         '<span class="prompt-round"><strong>Round 1:</strong> Prepare an OT stretcher and electric bed for a lateral transfer.</span><span class="prompt-round"><strong>Round 2:</strong> Prepare a mechanical hoist and sling for a bed-to-chair transfer.</span>',
@@ -425,8 +425,8 @@
       skills: ["CXR review", "Independent verification"],
       thumb: "assets/ng-tube-thumb.webp",
       briefing: "assets/ng-tube-p1.webp",
-      comic: "assets/ng-tube-comic.png",
-      thumbView: { src: "assets/ng-tube-comic.png", width: 2000, height: 1125, viewBox: "0 635 990 490" },
+      comic: "assets/ng-tube-comic-2026-08-03.png",
+      thumbView: { src: "assets/ng-tube-comic-2026-08-03.png", width: 1671, height: 941, viewBox: "0 531 827 410" },
       briefingAlt: "A nasogastric tube is inserted during an operation and a chest X-ray is available for review.",
       question: "The feed order is written. What do you do before starting it?",
       prompt:
@@ -511,8 +511,8 @@
       skills: ["Inventory", "Designated storage"],
       thumb: "assets/missing-denture-thumb.webp",
       briefing: "assets/missing-denture-p1.webp",
-      comic: "assets/missing-denture-comic.png",
-      thumbView: { src: "assets/missing-denture-comic.png", width: 2000, height: 1125, viewBox: "1000 115 1000 495" },
+      comic: "assets/missing-denture-comic-2026-08-03.png",
+      thumbView: { src: "assets/missing-denture-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "836 96 836 414" },
       briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
       question: "What should you do when the denture is identified at admission?",
       prompt:
@@ -1333,7 +1333,7 @@
 
   function clinicalContextInteraction() {
     const checks = [
-      ["five-rights", "Right patient, right time, right route, right medication, right dosage", "Complete all five medication rights before administration"],
+      ["five-rights", "Right patient, right medication, right time, right dosage, right routes", "Complete all five medication rights before administration"],
       ["allergy", "Check allergy", "Confirm the patient' s documented allergy status"],
       ["clinical-context", "Clinical context and indication", "Review the current K+ level and trend"],
       ["open-record", "The open record is enough", "Assume the result belongs to this patient because it appears here"],
