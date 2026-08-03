@@ -210,7 +210,7 @@
       summary:
         "Check the patient' s current parameters and clinical context before giving treatment.",
       instruction:
-        "You are about to administer treatment to lower potassium. Decide which patient checks must agree before the medication is given.",
+        "You are about to administer treatment to lower potassium. Decide which safety checks must be completed before the medication is given.",
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-p1.webp",
@@ -222,11 +222,11 @@
         title: "Treatment to lower potassium prescribed",
         text: "Review the patient before administration.",
       },
-      question: "What must agree before you administer the treatment?",
+      question: "Which checks must be completed before you administer the treatment?",
       prompt:
         "A doctor has prescribed treatment to lower potassium. Select only the checks that must be completed before administration.",
       wrong:
-        "Do not act on the open record alone. Confirm patient identity, the latest potassium result and trend, and whether the treatment fits the current clinical context.",
+        "Do not act on the open record alone. Complete the five medication rights, check allergy, and confirm the clinical context and indication, including the current K+ and trend.",
       teach: {
         question: "What is the final safety barrier before giving treatment for a critical result?",
         options: [
@@ -875,7 +875,7 @@
       runtime.medication = "tablet";
     }
     if (item.type === "clinical-context") {
-      runtime.contextChecks = ["identity", "current-result", "clinical-context"];
+      runtime.contextChecks = ["five-rights", "allergy", "clinical-context"];
     }
     if (item.type === "infusion-route") {
       runtime.infusionPoints = ["iv-access", "stopcock", "tubing", "pump"];
@@ -1333,9 +1333,9 @@
 
   function clinicalContextInteraction() {
     const checks = [
-      ["identity", "Patient identity", "Match the wristband, order, and result to the same patient"],
-      ["current-result", "Current K+ and trend", "Review the latest value, timing, and direction of change"],
-      ["clinical-context", "Clinical context and indication", "Confirm that the treatment fits the patient' s condition now"],
+      ["five-rights", "Right patient, right time, right route, right medication, right dosage", "Complete all five medication rights before administration"],
+      ["allergy", "Check allergy", "Confirm the patient' s documented allergy status"],
+      ["clinical-context", "Clinical context and indication", "Review the current K+ level and trend"],
       ["open-record", "The open record is enough", "Assume the result belongs to this patient because it appears here"],
     ];
 
@@ -2110,7 +2110,7 @@
     if (item.type === "identity") correct = runtime.idChoice === "verify";
     if (item.type === "barcode") correct = runtime.scanMode === "scan" && runtime.medication === "tablet";
     if (item.type === "clinical-context") {
-      const requiredChecks = ["identity", "current-result", "clinical-context"];
+      const requiredChecks = ["five-rights", "allergy", "clinical-context"];
       correct =
         runtime.contextChecks.length === requiredChecks.length &&
         requiredChecks.every((check) => runtime.contextChecks.includes(check));
