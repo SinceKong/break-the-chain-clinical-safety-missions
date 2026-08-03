@@ -203,42 +203,42 @@
     {
       id: "misfiled-potassium",
       n: 5,
-      type: "lab-match",
-      category: "Clinical document safety",
+      type: "clinical-context",
+      category: "Clinical context safety",
       title: "Wrong medication administration due to misfiled result",
-      playTitle: "Match the Critical Result",
+      playTitle: "Check the Patient Before Treatment",
       summary:
-        "Route a critical potassium result to the correct patient record before treatment.",
+        "Check the patient' s current parameters and clinical context before giving treatment.",
       instruction:
-        "Match the critical result to the correct record, then confirm the clinical data before treatment begins.",
-      skills: ["Result filing", "Clinical data check"],
+        "You are about to administer potassium-lowering treatment. Decide which patient checks must agree before the medication is given.",
+      skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-p1.webp",
       comic: "assets/misfiled-potassium-comic.png",
       thumbView: { src: "assets/misfiled-potassium-comic.png", width: 2000, height: 1125, viewBox: "0 115 660 480" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
-      question: "Which patient record should receive the critical result?",
+      question: "What must agree before you administer the treatment?",
       prompt:
-        "Critical result: K+ 6.9 mmol/L. The laboratory label and request both identify Patient B. Patient A' s own result is K+ 2.8 mmol/L.",
+        "A potassium-lowering regimen appears in the open record. The patient' s current K+ is 2.8 mmol/L. Select only the checks that must be completed before administration.",
       wrong:
-        "The K+ 6.9 mmol/L result belongs to Patient B. Verify the identifiers, filing location, and clinical data before any treatment is prescribed or administered.",
+        "Do not act on the open record alone. Confirm patient identity, the latest potassium result and trend, and whether the treatment fits the current clinical context.",
       teach: {
-        question: "What is the safest response before treating an abnormal result?",
+        question: "What is the final safety barrier before giving treatment for a critical result?",
         options: [
           {
-            text: "Treat the patient whose folder is already open, then correct the filing later.",
+            text: "Give the treatment because it appears in the open patient record.",
             ok: false,
-            why: "The open folder is not proof of identity and treatment must not start from a misfiled result.",
+            why: "An open record does not prove that the result and treatment match the patient' s current condition.",
           },
           {
-            text: "Reconcile the patient identifiers, file the result correctly, and verify the clinical data before treatment.",
+            text: "Confirm identity, review the latest parameters and trend, and verify that the treatment fits the patient' s clinical context.",
             ok: true,
-            why: "This restores document accuracy and confirms that treatment is based on the correct patient' s result.",
+            why: "These checks confirm that the medication is intended and clinically appropriate for this patient now.",
           },
           {
-            text: "Use the most abnormal value because critical results should always be treated urgently.",
+            text: "Treat first because critical results are urgent, then reconcile the patient data afterwards.",
             ok: false,
-            why: "Urgency does not replace correct patient matching and verification of the clinical record.",
+            why: "Urgency does not replace patient identification and verification of current clinical parameters.",
           },
         ],
       },
@@ -251,37 +251,37 @@
       title: "Intravenous Infusion Error",
       playTitle: "Trace the Infusion Route",
       summary:
-        "Respond to an occlusion alarm by checking the entire IV Dopamine route.",
+        "Prevent interruption by checking the entire IV Dopamine route before starting the infusion.",
       instruction:
-        "You are caring for a newborn receiving IV Dopamine. Trace every checkpoint from the patient to the pump before deciding whether the infusion can restart.",
-      skills: ["Full-route trace", "Occlusion response"],
+        "You are preparing IV Dopamine for a newborn. Trace every checkpoint from the patient to the pump and confirm patency before starting.",
+      skills: ["Full-route trace", "Pre-infusion patency"],
       thumb: "assets/iv-stopcock-thumb.webp",
       briefing: "assets/iv-stopcock-p1.webp",
       comic: "assets/iv-stopcock-comic.png",
       thumbView: { src: "assets/iv-stopcock-comic.png", width: 2000, height: 1125, viewBox: "0 570 1010 555" },
-      briefingAlt: "An IV Dopamine infusion pump displays an occlusion alarm.",
+      briefingAlt: "An IV Dopamine infusion route runs from the patient to the infusion pump.",
       question: "Which parts of the infusion route must you check?",
       prompt:
-        "The IV Dopamine pump sounds an occlusion alarm. Tap every checkpoint you must assess before restarting the infusion.",
+        "The IV Dopamine infusion has not started. Tap every checkpoint you must trace and verify before opening the line.",
       wrong:
-        "The blockage is not always at one fixed point. Trace all four checkpoints: IV access, three-way stopcock, primary infusion tubing, and infusion pump.",
+        "Do not rely on a later alarm. Before starting, trace all four checkpoints: IV access, three-way stopcock, primary infusion tubing, and infusion pump.",
       teach: {
-        question: "Which action best responds to an infusion-pump occlusion alarm?",
+        question: "Which action best prevents an unnoticed interruption of IV Dopamine?",
         options: [
           {
-            text: "Silence the alarm and increase the pump pressure limit.",
+            text: "Start the pump and rely on the occlusion alarm to identify any blockage.",
             ok: false,
-            why: "Changing the alarm limit does not identify or remove the occlusion.",
+            why: "An alarm is a late warning and may not identify an interruption promptly.",
           },
           {
-            text: "Trace the whole route, check patency and connections, and verify the three-way stopcock before restarting.",
+            text: "Trace the full route, confirm patency and connections, and verify every three-way stopcock before starting.",
             ok: true,
-            why: "The full route check identifies the obstruction without bypassing the alarm' s safety function.",
+            why: "The pre-infusion trace prevents a closed stopcock or other blockage from interrupting delivery.",
           },
           {
-            text: "Replace the pump immediately without checking the patient-side tubing.",
+            text: "Check only the pump because it controls the medication delivery.",
             ok: false,
-            why: "The pump may be functioning correctly; the obstruction can be in the access, tubing, connection, or stopcock.",
+            why: "The route can be blocked at the access, tubing, connections, or stopcock even when the pump is working.",
           },
         ],
       },
@@ -318,6 +318,11 @@
       comics: [
         { label: "Case 1", src: "assets/oxygen-case-1-comic.png" },
         { label: "Case 2", src: "assets/oxygen-case-2-comic.png" },
+        {
+          label: "Oxygen Cylinder Safety 3-2-1",
+          src: "assets/oxygen-cylinder-safety-3-2-1.png",
+          className: "learning-points",
+        },
       ],
       question: "Can you make both oxygen setups ready for the patient?",
       prompt:
@@ -452,9 +457,9 @@
       title: "Retained tourniquet after blood taking",
       playTitle: "Close the Blood-taking Procedure",
       summary:
-        "Inspect both attempted sites and complete the equipment sweep before leaving.",
+        "Inspect both attempted sites, remove the tourniquet, and account for it before leaving.",
       instruction:
-        "You have completed blood taking after attempts on both arms. Inspect the patient and account for every item before leaving.",
+        "You have completed blood taking after attempts on both arms. Inspect both limbs, remove any tourniquet immediately, and return it to storage.",
       skills: ["Immediate removal", "Equipment close-out"],
       thumb: "assets/retained-tourniquet-thumb.webp",
       briefing: "assets/retained-tourniquet-p1.webp",
@@ -490,23 +495,23 @@
     {
       id: "missing-denture",
       n: 11,
-      type: "denture-handoff",
+      type: "denture-admission",
       category: "Personal item safety",
       title: "Missing Denture",
       playTitle: "Protect a Patient' s Denture",
       summary:
-        "Choose a safe storage and accountability plan before the denture leaves the patient' s care.",
+        "Identify, store, and document the denture when the patient is admitted.",
       instruction:
-        "You are helping a patient remove a denture before breakfast. Build a storage and handoff plan that keeps it traceable.",
+        "During admission, you identify that the patient has a denture. Set up safe storage and an accountable record before routine care begins.",
       skills: ["Inventory", "Designated storage"],
       thumb: "assets/missing-denture-thumb.webp",
       briefing: "assets/missing-denture-p1.webp",
       comic: "assets/missing-denture-comic.png",
       thumbView: { src: "assets/missing-denture-comic.png", width: 2000, height: 1125, viewBox: "1000 115 1000 495" },
-      briefingAlt: "A patient eats breakfast while personal denture storage must be checked.",
-      question: "How will you keep the denture safe and traceable?",
+      briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
+      question: "What should you do when the denture is identified at admission?",
       prompt:
-        "The patient is about to remove the denture. Choose the storage method and complete both accountability checks before the meal begins.",
+        "Choose the storage method and complete both admission-time accountability checks.",
       wrong:
         "Use the designated denture box, complete the denture inventory, and document the denture information. Tissue paper and meal trays are not safe storage.",
       sourceWarning:
@@ -515,17 +520,17 @@
         question: "A colleague comes to tell you that the designated denture box cannot be located. What should you do next?",
         options: [
           {
-            text: "Assume the patient has kept it and complete the handover without checking.",
+            text: "Assume the patient has kept it and close the concern without checking.",
             ok: false,
             why: "An unlocated denture is an unresolved discrepancy and cannot be closed by assumption.",
           },
           {
-            text: "Pause the handover, reconcile the inventory with the patient and ward, document the discrepancy, and escalate the search.",
+            text: "Reconcile the inventory with the patient and ward, document the discrepancy, and escalate the search.",
             ok: true,
             why: "This keeps the missing item traceable and ensures that the unresolved discrepancy is actively followed up.",
           },
           {
-            text: "Add a verbal note for the next shift and continue the handover without documenting the discrepancy.",
+            text: "Leave a verbal message only and continue care without documenting the discrepancy.",
             ok: false,
             why: "A verbal message alone does not create an accountable record or an active search plan.",
           },
@@ -533,6 +538,103 @@
       },
     },
   ];
+
+  const DEBRIEF = {
+    clonazepam: [
+      {
+        consequence:
+          "Treatment failure or, when used for seizures, breakthrough seizures or status epilepticus.",
+        safer:
+          "Do not let a familiar medicine turn checking into counting - Recalculate the prescribed dose each time.",
+      },
+    ],
+    dormicum: [
+      {
+        consequence: "Profound sedation, respiratory arrest, or death.",
+        safer:
+          "Do not use an unlabelled syringe or leftover preparation - Verify the prescribed dose before injection.",
+      },
+    ],
+    "patient-id": [
+      {
+        consequence:
+          "Severe allergic reaction, dangerous arrhythmia, or deterioration from delayed treatment.",
+        safer:
+          "Never bypass a Patient Not Match alert to save time - Stop and re-identify the patient.",
+      },
+    ],
+    barcode: [
+      {
+        consequence: "Excess sedation, respiratory depression, or uncontrolled pain.",
+        safer:
+          "Do not trade barcode speed for safety - Verify the patient, drug, formulation, dose, and route.",
+      },
+    ],
+    "misfiled-potassium": [
+      {
+        consequence:
+          "Worsening hypokalaemia, life-threatening arrhythmia, or cardiac arrest.",
+        safer:
+          "Do not treat a result in isolation - Confirm identity, current potassium, and clinical context first.",
+      },
+    ],
+    "iv-stopcock": [
+      {
+        consequence: "Severe hypotension, organ hypoperfusion, or cardiac arrest.",
+        safer:
+          "Do not wait for an alarm - Trace the full line and confirm patency before starting the infusion.",
+      },
+    ],
+    "oxygen-safety": [
+      {
+        label: "Case 1 - Cannula not connected",
+        consequence: "Hypoxaemia, cardiorespiratory deterioration, or cardiac arrest.",
+        safer:
+          "Do not assume a fitted cannula is delivering oxygen - Confirm the connection and patient-end flow.",
+      },
+      {
+        label: "Case 2 - Cylinder valve not opened",
+        consequence: "Severe desaturation, emergency intubation, or cardiac arrest.",
+        safer:
+          "Do not rush a transfer - Complete 3-2-1 and a final oxygen-flow check first.",
+      },
+    ],
+    "transfer-safety": [
+      {
+        label: "Case 1 - Transfer surfaces",
+        consequence: "Head injury, fracture, or permanent disability.",
+        safer:
+          "Do not start the move to save time - Lock, align, and remove the gap first.",
+      },
+      {
+        label: "Case 2 - Sling and hoist",
+        consequence: "Intracranial bleeding, fracture, or permanent disability.",
+        safer:
+          "Do not lift until the sling, attachments, and receiving surface pass the final check.",
+      },
+    ],
+    "ng-tube": [
+      {
+        consequence: "Aspiration pneumonia, acute respiratory failure, or death.",
+        safer:
+          "Do not risk an unverified feed to avoid delay - Wait for documented tube-position confirmation.",
+      },
+    ],
+    "retained-tourniquet": [
+      {
+        consequence: "Nerve injury, limb gangrene, or loss of fingers.",
+        safer:
+          "Do not leave after blood taking until both arms are checked and every tourniquet is accounted for.",
+      },
+    ],
+    "missing-denture": [
+      {
+        consequence: "Nutritional decline, airway obstruction, or aspiration pneumonia.",
+        safer:
+          "Do not wait for a denture to go missing - Label, store, and document it on admission.",
+      },
+    ],
+  };
 
   let state = load();
   let runtime = null;
@@ -614,6 +716,7 @@
     const image = document.getElementById("dialogImage");
     image.src = src;
     image.alt = title;
+    image.classList.toggle("white-backdrop", src.includes("oxygen-cylinder-safety-3-2-1"));
     document.getElementById("imageTitle").textContent = title;
     resetViewer();
     document.getElementById("imageDialog").showModal();
@@ -741,7 +844,7 @@
       idChoice: null,
       scanMode: null,
       medication: null,
-      potassiumRecord: null,
+      contextChecks: [],
       infusionPoints: [],
       oxygenSource: null,
       oxygenFlow: 0,
@@ -782,7 +885,9 @@
       runtime.scanMode = "scan";
       runtime.medication = "tablet";
     }
-    if (item.type === "lab-match") runtime.potassiumRecord = "patient-b";
+    if (item.type === "clinical-context") {
+      runtime.contextChecks = ["identity", "current-result", "clinical-context"];
+    }
     if (item.type === "infusion-route") {
       runtime.infusionPoints = ["iv-access", "stopcock", "tubing", "pump"];
     }
@@ -807,7 +912,7 @@
       runtime.tourniquetArms = ["left", "right"];
       runtime.tourniquetAction = "remove-store";
     }
-    if (item.type === "denture-handoff") {
+    if (item.type === "denture-admission") {
       runtime.dentureStorage = "box";
       runtime.dentureInventory = true;
       runtime.dentureDocumented = true;
@@ -1141,13 +1246,13 @@
     if (item.type === "syringe") return syringeInteraction();
     if (item.type === "identity") return identityInteraction();
     if (item.type === "barcode") return barcodeInteraction();
-    if (item.type === "lab-match") return potassiumInteraction();
+    if (item.type === "clinical-context") return clinicalContextInteraction();
     if (item.type === "infusion-route") return infusionRouteInteraction();
     if (item.type === "oxygen-combined") return oxygenCombinedInteraction();
     if (item.type === "transfer-combined") return transferCombinedInteraction();
     if (item.type === "evidence-gate") return ngEvidenceInteraction();
     if (item.type === "tourniquet-loop") return tourniquetLoopInteraction();
-    return dentureHandoffInteraction();
+    return dentureAdmissionInteraction();
   }
 
   function doseInteraction() {
@@ -1228,40 +1333,39 @@
       .join("")}</div>`;
   }
 
-  function potassiumInteraction() {
-    const options = [
-      [
-        "patient-a",
-        "Patient A record",
-        "Existing result: K+ 2.8 mmol/L. The critical-result label does not match this record.",
-      ],
-      [
-        "patient-b",
-        "Patient B record",
-        "The critical-result label and request both identify this patient.",
-      ],
+  function clinicalContextInteraction() {
+    const checks = [
+      ["identity", "Patient identity", "Match the wristband, order, and result to the same patient"],
+      ["current-result", "Current K+ and trend", "Review the latest value, timing, and direction of change"],
+      ["clinical-context", "Clinical context and indication", "Confirm that the treatment fits the patient' s condition now"],
+      ["open-record", "The open record is enough", "Assume the result belongs to this patient because it appears here"],
     ];
 
     return `
-      <div class="record-match">
-        <div class="critical-result">
-          <span>Critical result</span>
-          <strong>K+ 6.9</strong>
-          <small>mmol/L</small>
+      <div class="context-check">
+        <div class="context-alert">
+          <span>Before medication</span>
+          <strong>Current K+ 2.8 mmol/L</strong>
+          <small>Potassium-lowering treatment requires reconciliation</small>
         </div>
-        <div class="choices">
-          ${options
-            .map((option) =>
-              choice(
-                "potassium-record",
-                option[0],
-                option[1],
-                option[2],
-                runtime.potassiumRecord === option[0],
-              ),
+        <div class="context-pick">
+          ${checks
+            .map(
+              ([value, label, detail]) => `
+                <button
+                  class="context-option ${runtime.contextChecks.includes(value) ? "selected" : ""}"
+                  data-context-check="${value}"
+                  type="button"
+                  aria-pressed="${runtime.contextChecks.includes(value)}"
+                >
+                  <i>${runtime.contextChecks.includes(value) ? "✓" : ""}</i>
+                  <strong>${label}</strong>
+                  <small>${detail}</small>
+                </button>`,
             )
             .join("")}
         </div>
+        <p class="interaction-note">Select the checks that independently confirm whether this treatment is safe for this patient now.</p>
       </div>`;
   }
 
@@ -1270,7 +1374,7 @@
       ["iv-access", "IV access", "Patient-side patency"],
       ["stopcock", "Three-way stopcock", "Direction and all ports"],
       ["tubing", "Primary infusion tubing", "Kinks, clamps, and connections"],
-      ["pump", "Infusion pump", "Setup and alarm source"],
+      ["pump", "Infusion pump", "Correct setup and programmed delivery"],
     ];
     const checked = runtime.infusionPoints.length;
 
@@ -1297,7 +1401,7 @@
             )
             .join("")}
         </div>
-        <p class="interaction-note">An occlusion can occur anywhere along the route. Select every location before you decide.</p>
+        <p class="interaction-note">A blockage can occur anywhere along the route. Confirm all four checkpoints before starting the infusion.</p>
       </div>`;
   }
 
@@ -1546,7 +1650,7 @@
       </div>`;
   }
 
-  function dentureHandoffInteraction() {
+  function dentureAdmissionInteraction() {
     const storageOptions = [
       ["tissue", "Tissue paper", "Can be mistaken for waste"],
       ["tray", "Meal tray", "Can leave the ward with catering items"],
@@ -1574,7 +1678,7 @@
         </div>
         <div class="route-checklist">
           ${toggle("dentureInventory", "Denture inventory completed", "Confirm and record the item under the patient' s care", runtime.dentureInventory)}
-          ${toggle("dentureDocumented", "Denture information documented", "Maintain accountability through care and handoff", runtime.dentureDocumented)}
+          ${toggle("dentureDocumented", "Denture information documented", "Maintain accountability from admission through ongoing care", runtime.dentureDocumented)}
         </div>
       </div>`;
   }
@@ -1642,7 +1746,7 @@
           ${comics
             .map(
               (comic) => `
-                <figure class="comic-panel">
+                <figure class="comic-panel ${comic.className ? esc(comic.className) : ""}">
                   ${comic.label ? `<figcaption>${esc(comic.label)}</figcaption>` : ""}
                   <button
                     class="comic-reveal"
@@ -1676,12 +1780,33 @@
 
   function debriefPage(item) {
     const missionComplete = runtime.phase === "complete";
+    const riskItems = DEBRIEF[item.id] || [];
+    const riskCards = riskItems
+      .map(
+        (risk) => `
+          <article class="risk-card" data-incident-consequence>
+            ${risk.label ? `<span class="risk-case">${esc(risk.label)}</span>` : ""}
+            <p><strong>Possible serious consequences:</strong> ${esc(risk.consequence)}</p>
+            <p class="risk-safer"><strong>SAFER CHOICE:</strong> ${esc(risk.safer)}</p>
+          </article>`,
+      )
+      .join("");
     const options = item.teach.options
       .map((option, index) => choice("teach", index, option.text, "", runtime.teachChoice === index))
       .join("");
 
     return `
       <section class="debrief-stage">
+        <section class="risk-brief" aria-labelledby="risk-title-${item.id}">
+          <div class="risk-heading">
+            ${ICONS.alert}
+            <div>
+              <span>Risk trade-off</span>
+              <h2 id="risk-title-${item.id}">WHY THIS MATTERS</h2>
+            </div>
+          </div>
+          <div class="risk-grid ${riskItems.length > 1 ? "multiple" : ""}">${riskCards}</div>
+        </section>
         <div class="challenge-kicker">${ICONS.shield}Teach-back</div>
         <h2>${item.teach.question}</h2>
         <p>Choose the action that best protects the safety barrier.</p>
@@ -1829,10 +1954,14 @@
       };
     });
 
-    document.querySelectorAll('input[name="potassium-record"]').forEach((input) => {
-      input.onchange = (event) => {
-        runtime.potassiumRecord = event.target.value;
+    document.querySelectorAll("[data-context-check]").forEach((button) => {
+      button.onclick = () => {
+        const check = button.dataset.contextCheck;
+        runtime.contextChecks = runtime.contextChecks.includes(check)
+          ? runtime.contextChecks.filter((value) => value !== check)
+          : [...runtime.contextChecks, check];
         runtime.feedback = null;
+        render();
       };
     });
 
@@ -1983,7 +2112,12 @@
     if (item.type === "syringe") correct = runtime.volume === 3 && runtime.label && runtime.double;
     if (item.type === "identity") correct = runtime.idChoice === "verify";
     if (item.type === "barcode") correct = runtime.scanMode === "scan" && runtime.medication === "tablet";
-    if (item.type === "lab-match") correct = runtime.potassiumRecord === "patient-b";
+    if (item.type === "clinical-context") {
+      const requiredChecks = ["identity", "current-result", "clinical-context"];
+      correct =
+        runtime.contextChecks.length === requiredChecks.length &&
+        requiredChecks.every((check) => runtime.contextChecks.includes(check));
+    }
     if (item.type === "infusion-route") {
       correct = ["iv-access", "stopcock", "tubing", "pump"].every((point) =>
         runtime.infusionPoints.includes(point),
@@ -2017,7 +2151,7 @@
         ["left", "right"].every((arm) => runtime.tourniquetArms.includes(arm)) &&
         runtime.tourniquetAction === "remove-store";
     }
-    if (item.type === "denture-handoff") {
+    if (item.type === "denture-admission") {
       correct =
         runtime.dentureStorage === "box" &&
         runtime.dentureInventory &&

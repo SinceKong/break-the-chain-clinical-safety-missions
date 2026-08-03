@@ -1705,6 +1705,105 @@ main {
   font-weight: 800;
 }
 
+.context-check {
+  padding: 18px;
+  border: 1px solid rgba(16, 36, 63, 0.11);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f9fcff, #f0f5fa);
+}
+
+.context-alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px 12px;
+  margin-bottom: 14px;
+  padding: 13px 15px;
+  border: 1px solid rgba(192, 71, 44, 0.2);
+  border-radius: 14px;
+  color: #873923;
+  background: #fff7ef;
+}
+
+.context-alert span {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.context-alert strong {
+  font-size: 20px;
+}
+
+.context-alert small {
+  flex-basis: 100%;
+  color: #8d5c4f;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.context-pick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.context-option {
+  min-height: 126px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--ink);
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.context-option i {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 10px;
+  border: 2px solid #9eafbd;
+  border-radius: 7px;
+  place-items: center;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.context-option strong,
+.context-option small {
+  display: block;
+}
+
+.context-option strong {
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.context-option small {
+  margin-top: 5px;
+  color: #687484;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.context-option:hover,
+.context-option.selected {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+  background: #edf5ff;
+  box-shadow: 0 0 0 2px rgba(22, 90, 168, 0.1);
+}
+
+.context-option.selected i {
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
 .infusion-check {
   padding: 18px;
   border: 1px solid rgba(16, 36, 63, 0.11);
@@ -2508,6 +2607,15 @@ main {
   margin: 0;
 }
 
+.comic-panel.learning-points {
+  width: min(100%, 780px);
+  justify-self: center;
+}
+
+.comic-panel.learning-points .comic-reveal {
+  background: #fff;
+}
+
 .comic-panel figcaption {
   margin-bottom: 7px;
   color: var(--blue-deep);
@@ -2578,6 +2686,97 @@ main {
   max-width: 1040px;
   margin: 0 auto;
   padding: clamp(24px, 4vw, 44px);
+}
+
+.risk-brief {
+  margin-bottom: 32px;
+  padding: clamp(18px, 3vw, 26px);
+  border: 1px solid rgba(173, 73, 44, 0.2);
+  border-radius: 22px;
+  background: linear-gradient(145deg, #fff8ef, #fffdf9);
+  box-shadow: 0 14px 34px rgba(91, 49, 26, 0.08);
+}
+
+.risk-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 15px;
+  color: #9b4028;
+}
+
+.risk-heading > .icon {
+  width: 29px;
+  height: 29px;
+}
+
+.risk-heading span {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.risk-heading h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.risk-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.risk-grid.multiple {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.risk-card {
+  padding: 16px;
+  border: 1px solid rgba(173, 73, 44, 0.16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.risk-case {
+  display: inline-block;
+  margin-bottom: 9px;
+  padding: 4px 7px;
+  border-radius: 7px;
+  color: #fff;
+  background: #a94b32;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.risk-card p {
+  margin: 0;
+  color: #3e2d28;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.risk-card p + p {
+  margin-top: 10px;
+}
+
+.risk-card p strong {
+  color: #913c27;
+}
+
+.risk-card .risk-safer {
+  padding-top: 10px;
+  border-top: 1px solid rgba(173, 73, 44, 0.12);
+  color: #334c40;
+}
+
+.risk-card .risk-safer strong {
+  color: #237053;
 }
 
 .debrief-stage > p {
@@ -2853,12 +3052,19 @@ dialog h2 {
 }
 
 #dialogImage {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   user-select: none;
   will-change: transform;
   transform-origin: center;
+}
+
+#dialogImage.white-backdrop {
+  background: #fff;
 }
 
 .viewer-toolbar {
@@ -3148,6 +3354,7 @@ dialog h2 {
   }
 
   .record-match,
+  .context-pick,
   .source-pick,
   .sequence-grid,
   .arm-pick,
@@ -3156,6 +3363,10 @@ dialog h2 {
   }
 
   .comic-gallery.multiple {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-grid.multiple {
     grid-template-columns: 1fr;
   }
 
