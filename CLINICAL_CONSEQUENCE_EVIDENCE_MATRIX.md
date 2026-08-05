@@ -1,0 +1,123 @@
+# Break the Chain: Clinical Consequence Evidence Matrix
+
+**Status:** Installed locally in release v6.7; public deployment status is recorded in `SUMMARY.md`.
+**Prepared:** 3 August 2026; expanded 5 August 2026
+**Scope:** 17 incidents across 15 missions.
+**Clinical source of truth:** [Incident Sharing (Comic).pptx](/Users/since/Downloads/Package/Incident%20Sharing%20(Comic).pptx), Slides 1–16.
+
+The detailed rows below preserve the earlier evidence-review numbering. The
+current v6.7 mission order is the PowerPoint order: Clonazepam; wrong patient
+after distraction; scanner `Patient Not Match`; Dormicum; adrenaline route and
+concentration; barcode bypass; misfiled potassium; IV Dopamine stopcock;
+mouthwash via NG tube; specimen-bottle ingredient; Oxygen Cases 1 and 2;
+malpositioned NG tube; transfer falls; retained tourniquet; and Missing Denture.
+
+New v6.7 consequence sources include Resuscitation Council UK guidance on IV
+adrenaline risk, NHS mouth-care guidance on aspiration risk, and NHS specimen
+instructions identifying urine-container powder as boric-acid preservative that
+must not be ingested. These support the new learner-facing debriefs without
+claiming that every listed consequence occurred in the source incident.
+
+## How to read this matrix
+
+- **Exact incident outcome** reports only what the source deck or a matching Hospital Authority (HA) public record states.
+- **Possible serious consequences** are evidence-supported risks for the same failure mode. They are not claims that every listed consequence happened in the source incident.
+- **Related HA precedent** means a clinically similar public HA case, not necessarily the exact source-deck case.
+- Learner-facing consequence copy must be one short sentence naming only two or three serious consequences.
+- Follow it with one short risk-trade-off sentence explaining why the learner should not take the shortcut.
+- Wording should remain factual, non-blaming, and conditional where patient context is unknown.
+- Confidence refers to the consequence statement, not to proof that it happened in the source incident.
+
+## Evidence matrix
+
+| Incident | Safety barrier to teach | One-sentence consequence copy | Risk-trade-off close | Exact incident outcome / public-match check | Key evidence | Confidence |
+|---|---|---|---|---|---|---|
+| **1. Clonazepam wrong tablet dose** (Mission 1; source Slide 2) | Read the strength, calculate the prescribed dose in mg, then confirm the tablet count under the Five Rights. | **Possible serious consequences:** Treatment failure or, when used for seizures, breakthrough seizures or status epilepticus. | Do not let a familiar medicine turn checking into counting - Recalculate the prescribed dose each time. | Source deck: 0.75 mg was administered instead of 1.5 mg; no clinical outcome or indication is stated. No exact public HA match was located in this review. | [DailyMed clonazepam label](https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2fe0d214-9c4d-4a0c-9024-c2076c092c1a&version=4) warns that dosage reduction can increase seizure frequency and precipitate status epilepticus. | **Moderate:** Serious seizure consequences are indication-dependent; the source deck does not state why clonazepam was prescribed. |
+| **2. Dormicum wrong injection dose** (Mission 2; source Slide 3) | Prepare only the prescribed dose, label the syringe immediately, and independently double-check drug and dose before administration. | **Possible serious consequences:** Profound sedation, respiratory arrest, or death. | Do not use an unlabelled syringe or leftover preparation - Verify the prescribed dose before injection. | Source deck confirms that 15 mg was injected instead of 3 mg and the patient became unarousable. It does not state the later outcome. No exact public HA match was located in this review. | [DailyMed midazolam injection label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f051776f-94c5-4e34-80ed-f45b9c36881e) lists these serious cardiorespiratory reactions and notes that some resulted in death or permanent neurological injury. | **High** for the listed pharmacological risks. |
+| **3. Levofloxacin given to the wrong patient** (Mission 3; source Slide 4) | Treat `Patient Not Match` as a stop signal. Stop, rescan, re-identify the patient, and restart the medication check. | **Possible serious consequences:** Severe allergic reaction, dangerous arrhythmia, or deterioration from delayed treatment. | Never bypass a `Patient Not Match` alert to save time - Stop and re-identify the patient. | Source deck says the wrong-patient infusion was recognised after it started; no later outcome is stated. No exact public HA match was located. | [DailyMed levofloxacin label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1538ec66-f385-401e-8cfb-d794691e7176); [WHO Patient Safety](https://www.who.int/news-room/fact-sheets/detail/patient-safety). | **High** for serious drug-reaction and rhythm risks; **moderate** for the intended patient's deterioration because infection severity is unknown. |
+| **4. Barcode bypass / wrong morphine formulation** (Mission 4; source Slide 5) | Do not bypass barcode gatekeeping. Formulation, concentration, dose, route, and patient are all part of the medication check. | **Possible serious consequences:** Excess sedation, respiratory depression, or uncontrolled pain. | Do not trade barcode speed for safety - Verify the patient, drug, formulation, dose, and route. | Source deck confirms morphine syrup was administered instead of prolonged-release tablets; dose, concentration, and patient outcome are not stated. No exact public HA match was located. | [DailyMed morphine oral solution label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6605ced6-68fe-4d7d-baa6-2526f7c9a64a); [WHO Medication Without Harm](https://www.who.int/initiatives/medication-without-harm). | **High** for opioid toxicity; **moderate** for the direction and magnitude of formulation-related exposure because dose details are absent. |
+| **5. Critical potassium result misfiled to the wrong patient** (Mission 5; source Slide 6) | Before treatment, independently check the patient's identity, current potassium, relevant parameters, clinical context, and indication. Correct filing alone is not the final safety barrier. | **Possible serious consequences:** Worsening hypokalaemia, life-threatening arrhythmia, or cardiac arrest. | Do not treat a result in isolation - Confirm identity, current potassium, and clinical context first. | The 2025 HA annual report publicly describes a critical hyperkalaemia result belonging to a discharged patient being misfiled into an inpatient record and prompting treatment for the wrong patient. Neither the public report nor source deck states a later clinical outcome. | [HA Annual Report on Sentinel Events and Serious Untoward Events 2025](https://www.ha.org.hk/haho/ho/psrm/T_SESUE2025.pdf), p. 26; [NHS Specialist Pharmacy Service: Hypokalaemia](https://sps.nhs.uk/articles/hypokalaemia/); [UK Kidney Association hyperkalaemia guidance](https://guidelines.ukkidney.org/hyperkalaemia/). | **High.** The source patient was already hypokalaemic and the administered regimen was intended to lower potassium. |
+| **6. IV Dopamine / closed three-way stopcock** (Mission 6; source Slide 7) | Prevent the interruption before starting: trace the entire route by sight and touch, including IV access, connections, primary tubing, pump, clamps, and every three-way stopcock. An alarm is a late warning, not the primary check. | **Possible serious consequences:** Severe hypotension, organ hypoperfusion, or cardiac arrest. | Do not wait for an alarm - Trace the full line and confirm patency before starting the infusion. | **Strong public match located, but identity is not treated as proven.** The PWH RCA confirms a less-than-28-week infant, inotrope infusion, a closed three-way stopcock, delayed occlusion alarm, continued deterioration, and death later that day. The source slide says 25 weeks. Because that wording differs, the public case is used as a closely matching HA precedent rather than an asserted exact match. The RCA also describes multiple contributing factors; it does **not** establish that the occlusion alone caused the death. | [PWH RCA report, 11 August 2023](https://www.info.gov.hk/gia/general/202308/11/P2023081100755.htm); [DailyMed dopamine label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0e499952-46c7-4172-8c70-186312e240a3). | **High** for the seriousness of interruption and the public case's outcome; **moderate-to-high** that it is the source-deck case; causal attribution remains limited. |
+| **7. Oxygen Case 1: Cannula not connected** (Mission 7, Round 1; source Slide 8, Case 1) | A cannula on the patient is not oxygen delivery until it is connected to the correct source and the prescribed flow is confirmed at the patient end after transfer. | **Possible serious consequences:** Hypoxaemia, cardiorespiratory deterioration, or cardiac arrest. | Do not assume a fitted cannula is delivering oxygen - Confirm the connection and patient-end flow. | Source deck states the patient arrived on 3 L/min oxygen but the cannula was later found not connected to the cylinder; no outcome is stated. No exact public match was located. A related QEH transfer case involved an unconnected ventilation bag, later cardiac arrest and death; the RCA judged that the patient's critical illness might have led to the same outcome even without the oxygen event. | [QEH investigation report, 14 December 2018](https://www.info.gov.hk/gia/general/201812/14/P2018121400561.htm). | **High** for hypoxaemia risk; outcome severity depends on baseline respiratory reserve and duration. |
+| **8. Oxygen Case 2: Cylinder valve not opened** (Mission 7, Round 2; source Slide 8, Case 2 and Slide 9) | Apply 3-2-1 and a final delivery check: open the cylinder valve, check content, set flow, confirm continuous flow with no leak, and assign one staff member to manage the cylinder. | **Possible serious consequences:** Severe desaturation, emergency intubation, or cardiac arrest. | Do not rush a transfer - Complete 3-2-1 and a final oxygen-flow check first. | Source deck states the valve was later found unopened; no outcome is given. A related 2023 HA event involved an unopened cylinder valve during transfer, falling oxygen saturation, intubation/CPR, and death. The public report records the sequence but should not be used to claim the valve was the sole cause. | [HA Risk Alert: O₂ Cylinder Safety 3-2-1](https://www.ha.org.hk/haho/ho/psrm/E_HARA72nd.pdf); [Caritas Medical Centre RCA report, 30 January 2024](https://www.info.gov.hk/gia/general/202401/30/P2024013000666.htm). | **High** for loss-of-oxygen risk; causal attribution for any death must remain case-specific. |
+| **9. Transfer Fall Case 1: Unlocked bed / transfer gap** (Mission 8, Round 1; source Slide 10, Case 1) | Lock and stabilise both surfaces, align them, remove the gap, and confirm readiness before movement. | **Possible serious consequences:** Head injury, fracture, or permanent disability. | Do not start the move to save time - Lock, align, and remove the gap first. | Source deck confirms the patient fell into the gap after the unlocked electric bed slid away. It does not state the injury outcome. No exact public HA match was located. | [WHO Falls fact sheet](https://www.who.int/news-room/fact-sheets/detail/falls). | **High** for established fall-related injury categories; individual severity varies. |
+| **10. Transfer Fall Case 2: Sling / hoist failure** (Mission 8, Round 2; source Slide 10, Case 2 and Slide 11) | Select the correct sling, fit and position it correctly, fasten every attachment, stabilise the receiving surface, and complete the pre-lift check before raising the patient. | **Possible serious consequences:** Intracranial bleeding, fracture, or permanent disability. | Do not lift until the sling, attachments, and receiving surface pass the final check. | Source deck confirms that the patient slipped from the sling, fell to the floor, and was found to have traumatic subarachnoid haemorrhage. No exact public HA match was located. | [FDA Patient Lifts](https://www.fda.gov/MedicalDevices/ProductsandMedicalProcedures/GeneralHospitalDevicesandSupplies/ucm308622.htm); [UK MHRA hoists and slings alert](https://www.gov.uk/drug-device-alerts/medical-device-alert-patient-hoists-and-slings-ensure-you-follow-manufacturer-s-instructions-for-use-and-that-you-carry-out-risk-assessments). | **High.** The source deck already confirms a serious intracranial injury. |
+| **11. Malpositioned NG tube feeding** (Mission 9; source Slide 12) | A feed order is not placement confirmation. Hold feed and medication until the required evidence has been reviewed and the NG-tube position is explicitly documented as safe. | **Possible serious consequences:** Aspiration pneumonia, acute respiratory failure, or death. | Do not risk an unverified feed to avoid delay - Wait for documented tube-position confirmation. | **Exact public match located. This patient did not die.** The UCH RCA describes intra-operative insertion on 26 May 2025, postoperative X-ray not reviewed, pH test and doctor's order followed, feeding started, later suspected malposition, feeding stopped, and tube removed. The patient's condition improved and the patient was discharged in late June. Other HA malpositioned-NG cases have resulted in cardiac arrest and death, which may explain the recalled fatal outcome. | [UCH RCA report, 25 July 2025](https://www.ha.org.hk/haho/ho/pad/280568enn.pdf); [AHNH fatal NG-tube event, 27 November 2019](https://www.info.gov.hk/gia/general/201911/27/P2019112700635p.htm); [HA 2015 Sentinel Event Annual Report](https://www.ha.org.hk/haho/ho/psrm/ESEREPORT.pdf), p. 64; [NHS England NG-tube safety alert](https://www.england.nhs.uk/publication/patient-safety-alert-nasogastric-tube-misplacement-continuing-risk-of-death-and-severe-harm/). | **High.** Exact-case outcome and severe related consequences are both supported by HA and NHS sources. |
+| **12. Retained tourniquet after blood taking** (Mission 10; source Slide 13) | Account for both attempted arms, remove every tourniquet immediately after the procedure, inspect the limb, and confirm the tourniquet is back in storage before leaving. | **Possible serious consequences:** Nerve injury, limb gangrene, or loss of fingers. | Do not leave after blood taking until both arms are checked and every tourniquet is accounted for. | Source deck states a tourniquet remained on the right upper limb and was reported by the patient's maid; no injury outcome is stated. HA has publicly warned that retained tourniquets after blood taking are not infrequent and can cause gangrene and loss of fingers. | [HA Risk Alert Issue 1](https://www.ha.org.hk/haho/ho/hacp/133708e.pdf), p. 3; [HA Quality Times Issue 33](https://www.ha.org.hk/haho/ho/qs/Quality_Times_Issue33_en.pdf). | **High** for severe limb-ischaemia risk; exact duration and injury in the source case are not stated. |
+| **13. Missing denture** (Mission 11; source Slide 14) | On admission, identify the denture, provide and label a designated box, document it in the property/inventory record, and reconcile it at each care transition. If it becomes unaccounted for, actively search and consider ingestion or aspiration rather than assuming it was discarded. | **Possible serious consequences:** Nutritional decline, airway obstruction, or aspiration pneumonia. | Do not wait for a denture to go missing - Label, store, and document it on admission. | Source deck says the denture was missing after breakfast, the search was unsuccessful, X-ray showed no denture, and no abnormality was detected. No exact public HA match was located. | [UK Health Research Authority: impact of denture loss](https://www.hra.nhs.uk/planning-and-improving-research/application-summaries/research-summaries/digital-denture-scanning-and-3d-printing-for-residents-in-care-homes/); [PubMed case report: aspirated denture](https://pubmed.ncbi.nlm.nih.gov/35633218/); [PubMed case report: impacted denture requiring tracheotomy](https://pubmed.ncbi.nlm.nih.gov/29383318/). | **High** for wellbeing and rare aspiration consequences; the source case had no detected abnormality. |
+
+## Exact-outcome finding for the NG-tube incident
+
+The source-deck scenario is a close factual match to the United Christian Hospital incident announced in 2025:
+
+1. NG tube inserted during surgery on 26 May 2025.
+2. Postoperative X-ray arranged to verify position.
+3. The X-ray was not reviewed by a doctor before feeding.
+4. A pH result and doctor's feed order were followed.
+5. Feeding and medication were given, then malposition was suspected later.
+6. Feeding was stopped and the tube was removed.
+7. **The patient improved and was discharged in late June.**
+
+Therefore, learner-facing copy must not state or imply that this exact patient died. A separate HA case in 2019 and a case in HA's January 2015 annual report covering October 2013 to September 2014 did involve malpositioned NG tubes, respiratory deterioration, and death. These are valid evidence of the potential severity, but they are not the outcome of the 2025 UCH case used in this mission.
+
+## Recommended DEBRIEF pattern
+
+For each incident, use exactly two short learner-facing sentences after the source learning point:
+
+> **WHY THIS MATTERS**
+> **Possible serious consequences:** [Two or three evidence-supported consequences in one sentence.]
+> **SAFER CHOICE:** [One risk-trade-off sentence: do not take shortcut X to avoid inconvenience Y; perform safety action Z.]
+
+Keep each sentence brief enough to scan once. This makes the consequence memorable, asks the learner to weigh the risk, and avoids turning a possible risk into a claim about the source patient's outcome.
+
+## Evidence limitations and clinical review points
+
+1. **Clonazepam:** Confirm the intended clinical indication before using seizure-specific consequences without a conditional phrase.
+2. **Morphine:** The source does not state syrup concentration or the administered dose. Do not call it an overdose unless those details are supplied.
+3. **Oxygen Cases 1 and 2:** Related HA deaths demonstrate severity, but the source deck does not give the outcomes of these two exact cases. Avoid direct causal wording.
+4. **Dopamine:** The exact HA case ended in death, but the RCA describes multiple interacting factors. Do not say the closed stopcock alone caused death.
+5. **Denture:** Keep aspiration language conditional. The source case's X-ray found no denture and no abnormality.
+6. Final copy requires clinical-owner approval before installation because patient context, exact dose, exposure duration, and comorbidities materially affect consequence severity.
+
+## Oxygen 3-2-1 image readiness note
+
+The supplied high-resolution file is `/Users/since/Downloads/Picture1o2321.png`:
+
+- 2696 × 3603 px, RGBA PNG.
+- The upper title area inside the red border is transparent; the body panels are opaque.
+- Before later insertion as the third image in Mission 7 `INCIDENT COMIC`, fill only the transparent title area with solid white while preserving all existing text, photographs, arrows, border, colours, and layout.
+- No image edit or website installation has been performed in this evidence-matrix phase.
+
+## Source ledger
+
+All online sources were accessed on 3 August 2026.
+
+1. Hospital Authority. [United Christian Hospital announces root cause analysis report of previous incident involving insertion of nasogastric tube](https://www.ha.org.hk/haho/ho/pad/280568enn.pdf). 25 July 2025.
+2. Hospital Authority. [Annual Report on Sentinel Events and Serious Untoward Events 2025](https://www.ha.org.hk/haho/ho/psrm/T_SESUE2025.pdf).
+3. Hospital Authority. [Prince of Wales Hospital RCA report on closed three-way stopcock](https://www.info.gov.hk/gia/general/202308/11/P2023081100755.htm). 11 August 2023.
+4. Hospital Authority. [O₂ Cylinder Safety 3-2-1, HA Risk Alert Issue 72](https://www.ha.org.hk/haho/ho/psrm/E_HARA72nd.pdf).
+5. Hospital Authority. [Caritas Medical Centre RCA report on unopened oxygen-cylinder valve](https://www.info.gov.hk/gia/general/202401/30/P2024013000666.htm). 30 January 2024.
+6. Hospital Authority. [Queen Elizabeth Hospital investigation report on oxygen supply during transfer](https://www.info.gov.hk/gia/general/201812/14/P2018121400561.htm). 14 December 2018.
+7. Hospital Authority. [Alice Ho Miu Ling Nethersole Hospital sentinel event involving malpositioned NG tube](https://www.info.gov.hk/gia/general/201911/27/P2019112700635p.htm). 27 November 2019.
+8. Hospital Authority. [Annual Report on Sentinel and Serious Untoward Events, 1 October 2013–30 September 2014](https://www.ha.org.hk/haho/ho/psrm/ESEREPORT.pdf), published January 2015, p. 64.
+9. Hospital Authority. [HA Risk Alert Issue 1: Retained tourniquet can cause loss of fingers](https://www.ha.org.hk/haho/ho/hacp/133708e.pdf).
+10. Hospital Authority. [Quality Times Issue 33: Timer Tourniquets](https://www.ha.org.hk/haho/ho/qs/Quality_Times_Issue33_en.pdf).
+11. World Health Organization. [Patient Safety](https://www.who.int/news-room/fact-sheets/detail/patient-safety).
+12. World Health Organization. [Medication Without Harm](https://www.who.int/initiatives/medication-without-harm).
+13. World Health Organization. [Falls](https://www.who.int/news-room/fact-sheets/detail/falls).
+14. US National Library of Medicine. [DailyMed clonazepam label](https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2fe0d214-9c4d-4a0c-9024-c2076c092c1a&version=4).
+15. US National Library of Medicine. [DailyMed midazolam injection label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f051776f-94c5-4e34-80ed-f45b9c36881e).
+16. US National Library of Medicine. [DailyMed levofloxacin label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1538ec66-f385-401e-8cfb-d794691e7176).
+17. US National Library of Medicine. [DailyMed morphine oral solution label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6605ced6-68fe-4d7d-baa6-2526f7c9a64a).
+18. US National Library of Medicine. [DailyMed dopamine label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0e499952-46c7-4172-8c70-186312e240a3).
+19. NHS Specialist Pharmacy Service. [Treating acute hypokalaemia in adults](https://sps.nhs.uk/articles/hypokalaemia/).
+20. UK Kidney Association. [Hyperkalaemia guideline](https://guidelines.ukkidney.org/hyperkalaemia/).
+21. US Food and Drug Administration. [Patient Lifts](https://www.fda.gov/MedicalDevices/ProductsandMedicalProcedures/GeneralHospitalDevicesandSupplies/ucm308622.htm).
+22. UK Medicines and Healthcare products Regulatory Agency. [Patient hoists and slings safety alert](https://www.gov.uk/drug-device-alerts/medical-device-alert-patient-hoists-and-slings-ensure-you-follow-manufacturer-s-instructions-for-use-and-that-you-carry-out-risk-assessments).
+23. UK Health Research Authority. [Digital denture scanning and 3D printing for residents in care homes](https://www.hra.nhs.uk/planning-and-improving-research/application-summaries/research-summaries/digital-denture-scanning-and-3d-printing-for-residents-in-care-homes/).
+24. Dulal M, et al. [Aspiration of a Row of Artificial Dentures in an Adult: A Case Report](https://pubmed.ncbi.nlm.nih.gov/35633218/). 2022.
+25. Bist SS, et al. [Missing Aspirated Impacted Denture Requiring Tracheotomy for Removal](https://pubmed.ncbi.nlm.nih.gov/29383318/). 2017.
+26. NHS England. [Patient safety alert: Nasogastric tube misplacement - continuing risk of death and severe harm](https://www.england.nhs.uk/publication/patient-safety-alert-nasogastric-tube-misplacement-continuing-risk-of-death-and-severe-harm/). 2016; updated 2022.
+27. Resuscitation Council UK. [Emergency treatment of anaphylaxis](https://www.resus.org.uk/sites/default/files/2021-05/Emergency%20Treatment%20of%20Anaphylaxis%20May%202021_0.pdf). Guidance on IM adrenaline and the serious risks of inappropriate IV adrenaline.
+28. Leeds Teaching Hospitals NHS Trust. [Mouth care advice for inpatients with an unsafe swallow](https://www.leedsth.nhs.uk/patients/resources/mouth-care-advice-for-inpatients-for-children-with-an-unsafe-swallow-2/). Guidance on mouthwash aspiration risk.
+29. East Kent Hospitals University NHS Foundation Trust. [The collection of a random urine sample](https://leaflets.ekhuft.nhs.uk/the-collection-of-a-random-urine-sample/html/). Identifies red-top specimen-container powder as boric acid and advises that it must not be eaten or inhaled.

@@ -4,7 +4,7 @@
   const STORE = "incidentLearningGame.v2";
   const QUIZ_URL = "";
   const MAX_STARS = 3;
-  const INCIDENT_COUNT = 13;
+  const INCIDENT_COUNT = 17;
 
   const ICONS = {
     shield:
@@ -41,9 +41,10 @@
         "Convert the prescribed dose into the correct tablet quantity, then test whether the double-check is truly independent.",
       skills: ["Dose calculation", "Five Rights"],
       thumb: "assets/clonazepam-thumb.webp",
-      briefing: "assets/clonazepam-p1.webp",
-      comic: "assets/clonazepam-comic-2026-08-03.png",
-      thumbView: { src: "assets/clonazepam-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "536 98 542 412" },
+      briefing: "assets/clonazepam-visual-2026-08-05.png",
+      briefingView: { src: "assets/clonazepam-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 543 415" },
+      comic: "assets/clonazepam-comic-2026-08-05.png",
+      thumbView: { src: "assets/clonazepam-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 507 785 434" },
       briefingAlt: "A nurse reviews the Clonazepam prescription.",
       question: "How many tablets should be prepared?",
       prompt:
@@ -54,7 +55,7 @@
         question: "Which action is a genuine independent verification?",
         options: [
           {
-            text: "The second nurse sees the first nurse' s answer and agrees.",
+            text: "The second nurse sees the first nurse's answer and agrees.",
             ok: false,
             why: "Agreement is not an independent check when the second answer is already visible.",
           },
@@ -73,7 +74,7 @@
     },
     {
       id: "dormicum",
-      n: 2,
+      n: 4,
       type: "syringe",
       category: "Injectable medication safety",
       title: "Wrong dosage of injection administered to patient",
@@ -84,9 +85,10 @@
         "Prepare the exact prescribed volume, label the syringe clearly, and confirm the point-of-administration check.",
       skills: ["Exact dose", "Syringe labelling"],
       thumb: "assets/dormicum-thumb.webp",
-      briefing: "assets/dormicum-p1.webp",
-      comic: "assets/dormicum-comic-2026-08-03.png",
-      thumbView: { src: "assets/dormicum-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "555 98 523 415" },
+      briefing: "assets/dormicum-visual-2026-08-05.png",
+      briefingView: { src: "assets/dormicum-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 556 415" },
+      comic: "assets/dormicum-comic-2026-08-05.png",
+      thumbView: { src: "assets/dormicum-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 784 431" },
       briefingAlt: "The intravenous Dormicum prescription is reviewed.",
       question: "What syringe should be handed over?",
       prompt:
@@ -127,9 +129,10 @@
         "Respond safely to a Patient Not Match alert before the medication reaches the patient.",
       skills: ["Identity verification", "Alert response"],
       thumb: "assets/patient-id-thumb.webp",
-      briefing: "assets/patient-id-p2.webp",
-      comic: "assets/patient-id-comic-2026-08-03.png",
-      thumbView: { src: "assets/patient-id-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "555 98 519 392" },
+      briefing: "assets/patient-id-visual-2026-08-05.png",
+      briefingView: { src: "assets/patient-id-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "559 96 526 413" },
+      comic: "assets/patient-id-comic-2026-08-05.png",
+      thumbView: { src: "assets/patient-id-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 505 782 436" },
       briefingAlt: "The handheld scanner shows a Patient Not Match alert.",
       question: "What should happen after the alert?",
       prompt:
@@ -159,7 +162,7 @@
     },
     {
       id: "barcode",
-      n: 4,
+      n: 6,
       type: "barcode",
       category: "Gatekeeping",
       title: "Wrong medication administration",
@@ -170,9 +173,10 @@
         "Preserve barcode gatekeeping and match the supplied formulation to the prescription.",
       skills: ["Barcode scanning", "Formulation check"],
       thumb: "assets/barcode-thumb.webp",
-      briefing: "assets/barcode-p2.webp",
-      comic: "assets/barcode-comic-2026-08-03.png",
-      thumbView: { src: "assets/barcode-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "555 98 513 392" },
+      briefing: "assets/barcode-visual-2026-08-05.png",
+      briefingView: { src: "assets/barcode-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "557 96 557 415" },
+      comic: "assets/barcode-comic-2026-08-05.png",
+      thumbView: { src: "assets/barcode-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 786 431" },
       briefingAlt: "The medication system presents the barcode administration workflow.",
       question: "How will you pass the safety gate?",
       prompt:
@@ -202,26 +206,22 @@
     },
     {
       id: "misfiled-potassium",
-      n: 5,
+      n: 7,
       type: "clinical-context",
       category: "Clinical context safety",
       title: "Wrong medication administration due to misfiled result",
       playTitle: "Check the Patient Before Treatment",
       summary:
-        "Check the patient' s current parameters and clinical context before giving treatment.",
+        "Check the patient's current parameters and clinical context before giving treatment.",
       instruction:
         "You are about to administer treatment to lower potassium. Decide which safety checks must be completed before the medication is given.",
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
-      briefing: "assets/misfiled-potassium-p1.webp",
-      comic: "assets/misfiled-potassium-comic-2026-08-03.png",
-      thumbView: { src: "assets/misfiled-potassium-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 96 552 401" },
+      briefing: "assets/misfiled-potassium-visual-2026-08-05.png",
+      briefingView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 566 418" },
+      comic: "assets/misfiled-potassium-comic-2026-08-05.png",
+      thumbView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 782 431" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
-      decisionCue: {
-        label: "Medication order",
-        title: "Treatment to lower potassium prescribed",
-        text: "Review the patient before administration.",
-      },
       question: "Which checks must be completed before you administer the treatment?",
       prompt:
         "A doctor has prescribed treatment to lower potassium. Select only the checks that must be completed before administration.",
@@ -233,10 +233,10 @@
           {
             text: "Give the treatment because it appears in the open patient record.",
             ok: false,
-            why: "An open record does not prove that the result and treatment match the patient' s current condition.",
+            why: "An open record does not prove that the result and treatment match the patient's current condition.",
           },
           {
-            text: "Confirm identity, review the latest parameters and trend, and verify that the treatment fits the patient' s clinical context.",
+            text: "Confirm identity, review the latest parameters and trend, and verify that the treatment fits the patient's clinical context.",
             ok: true,
             why: "These checks confirm that the medication is intended and clinically appropriate for this patient now.",
           },
@@ -250,7 +250,7 @@
     },
     {
       id: "iv-stopcock",
-      n: 6,
+      n: 8,
       type: "infusion-route",
       category: "Infusion safety",
       title: "Intravenous Infusion Error",
@@ -261,9 +261,10 @@
         "You are preparing IV Dopamine for a newborn. Trace every checkpoint from the patient to the pump and confirm patency before starting.",
       skills: ["Full-route trace", "Pre-infusion patency"],
       thumb: "assets/iv-stopcock-thumb.webp",
-      briefing: "assets/iv-stopcock-p1.webp",
-      comic: "assets/iv-stopcock-comic-2026-08-03.png",
-      thumbView: { src: "assets/iv-stopcock-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 477 844 464" },
+      briefing: "assets/iv-stopcock-visual-2026-08-05.png",
+      briefingView: { src: "assets/iv-stopcock-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 97 571 406" },
+      comic: "assets/iv-stopcock-comic-2026-08-05.png",
+      thumbView: { src: "assets/iv-stopcock-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 507 786 434" },
       briefingAlt: "An IV Dopamine infusion route runs from the patient to the infusion pump.",
       question: "Which parts of the infusion route must you check?",
       prompt:
@@ -293,7 +294,7 @@
     },
     {
       id: "oxygen-safety",
-      n: 7,
+      n: 11,
       type: "oxygen-combined",
       category: "Oxygen safety",
       title: "Oxygen related incidents",
@@ -303,31 +304,29 @@
       instruction:
         "You are taking over oxygen care. Complete both the patient connection and cylinder safety rounds before leaving the bedside.",
       skills: ["Cylinder 3-2-1", "Final delivery check"],
-      thumbs: ["assets/oxygen-case-1-thumb.webp", "assets/oxygen-case-2-thumb.webp"],
-      thumbViews: [
-        { src: "assets/oxygen-case-1-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "920 489 752 452" },
-        { src: "assets/oxygen-case-2-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 489 786 452" },
-      ],
+      thumb: "assets/oxygen-case-2-visual-2026-08-05.png",
+      thumbView: { src: "assets/oxygen-case-2-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 505 786 436" },
       briefings: [
         {
           label: "Round 1 - Patient connection",
-          src: "assets/oxygen-case-1-p1.webp",
+          src: "assets/oxygen-case-1-visual-2026-08-05.png",
+          width: 1672,
+          height: 941,
+          viewBox: "0 96 848 410",
           alt: "A patient arrives with a nasal cannula after transfer from the emergency department.",
         },
         {
           label: "Round 2 - Cylinder check",
-          src: "assets/oxygen-case-2-p1.webp",
+          src: "assets/oxygen-case-2-visual-2026-08-05.png",
+          width: 1672,
+          height: 941,
+          viewBox: "0 95 568 410",
           alt: "A staff member prepares oxygen tubing and a cylinder beside the patient.",
         },
       ],
       comics: [
-        { label: "Case 1", src: "assets/oxygen-case-1-comic-2026-08-03.png" },
-        { label: "Case 2", src: "assets/oxygen-case-2-comic-2026-08-03.png" },
-        {
-          label: "Oxygen Cylinder Safety 3-2-1",
-          src: "assets/oxygen-cylinder-safety-3-2-1.png",
-          className: "learning-points",
-        },
+        { label: "Case 1", src: "assets/oxygen-case-1-comic-2026-08-05.png" },
+        { label: "Case 2", src: "assets/oxygen-case-2-comic-2026-08-05.png" },
       ],
       question: "Can you make both oxygen setups ready for the patient?",
       prompt:
@@ -357,7 +356,7 @@
     },
     {
       id: "transfer-safety",
-      n: 8,
+      n: 13,
       type: "transfer-combined",
       category: "Transfer safety",
       title: "Inpatient fall during patient transfer",
@@ -367,24 +366,27 @@
       instruction:
         "You are leading two transfers. Set up the lateral-transfer surfaces first, then clear every pre-lift sling check.",
       skills: ["Surface alignment", "Pre-lift safety gate"],
-      thumbs: ["assets/transfer-fall-case-1-thumb.webp", "assets/transfer-fall-case-2-thumb.webp"],
-      thumbViews: [
-        { src: "assets/transfer-fall-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "510 109 510 418" },
-        { src: "assets/transfer-fall-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "0 527 510 414" },
-      ],
+      thumb: "assets/transfer-fall-visual-2026-08-05.png",
+      thumbView: { src: "assets/transfer-fall-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "512 514 514 427" },
       briefings: [
         {
           label: "Round 1 - Lateral transfer",
-          src: "assets/transfer-fall-case-1-p1.webp",
+          src: "assets/transfer-fall-visual-2026-08-05.png",
+          width: 1672,
+          height: 941,
+          viewBox: "0 107 516 420",
           alt: "An electric bed and an operating-theatre stretcher are positioned for patient transfer.",
         },
         {
           label: "Round 2 - Hoist transfer",
-          src: "assets/transfer-fall-case-2-p1.webp",
+          src: "assets/transfer-fall-visual-2026-08-05.png",
+          width: 1672,
+          height: 941,
+          viewBox: "0 515 519 426",
           alt: "A patient sits in a sling attached to a mechanical hoist before chair transfer.",
         },
       ],
-      comic: "assets/transfer-fall-comic-2026-08-03.png",
+      comic: "assets/transfer-fall-comic-2026-08-05.png",
       question: "Can you clear both transfer safety gates before movement begins?",
       prompt:
         '<span class="prompt-round"><strong>Round 1:</strong> Prepare an OT stretcher and electric bed for a lateral transfer.</span><span class="prompt-round"><strong>Round 2:</strong> Prepare a mechanical hoist and sling for a bed-to-chair transfer.</span>',
@@ -413,7 +415,7 @@
     },
     {
       id: "ng-tube",
-      n: 9,
+      n: 12,
       type: "evidence-gate",
       category: "Enteral feeding safety",
       title: "Malposition of Nasogastric (NG) Tube feeding",
@@ -424,9 +426,10 @@
         "You are about to start an ordered NG feed. Decide what evidence and documentation you need before opening the feed.",
       skills: ["CXR review", "Independent verification"],
       thumb: "assets/ng-tube-thumb.webp",
-      briefing: "assets/ng-tube-p1.webp",
-      comic: "assets/ng-tube-comic-2026-08-03.png",
-      thumbView: { src: "assets/ng-tube-comic-2026-08-03.png", width: 1671, height: 941, viewBox: "0 531 827 410" },
+      briefing: "assets/ng-tube-visual-2026-08-05.png",
+      briefingView: { src: "assets/ng-tube-visual-2026-08-05.png", width: 1671, height: 941, viewBox: "0 103 562 411" },
+      comic: "assets/ng-tube-comic-2026-08-05.png",
+      thumbView: { src: "assets/ng-tube-visual-2026-08-05.png", width: 1671, height: 941, viewBox: "0 509 794 432" },
       briefingAlt: "A nasogastric tube is inserted during an operation and a chest X-ray is available for review.",
       question: "The feed order is written. What do you do before starting it?",
       prompt:
@@ -456,24 +459,25 @@
     },
     {
       id: "retained-tourniquet",
-      n: 10,
+      n: 14,
       type: "tourniquet-loop",
       category: "Post-procedure safety",
       title: "Retained tourniquet after blood taking",
-      playTitle: "Close the Blood-taking Procedure",
+      playTitle: "Check and Close the Blood-taking Procedure",
       summary:
-        "Inspect both attempted sites, remove the tourniquet, and account for it before leaving.",
+        "Check both attempted sites for a retained tourniquet, remove it, and account for it before leaving.",
       instruction:
-        "You have completed blood taking after attempts on both arms. Inspect both limbs, remove any tourniquet immediately, and return it to storage.",
+        "You have completed blood taking after attempts on both arms. Check both limbs specifically for any retained tourniquet, remove it immediately, and return it to storage.",
       skills: ["Immediate removal", "Equipment close-out"],
       thumb: "assets/retained-tourniquet-thumb.webp",
-      briefing: "assets/retained-tourniquet-p1.webp",
-      comic: "assets/retained-tourniquet-comic.png",
-      thumbView: { src: "assets/retained-tourniquet-comic.png", width: 2000, height: 1125, viewBox: "0 605 975 520" },
-      briefingAlt: "Staff attempt blood taking while a tourniquet remains around a patient' s upper limb.",
-      question: "Which sites and close-out action must be checked before you leave?",
+      briefing: "assets/retained-tourniquet-visual-2026-08-05.png",
+      briefingView: { src: "assets/retained-tourniquet-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 101 1030 410" },
+      comic: "assets/retained-tourniquet-comic-2026-08-05.png",
+      thumbView: { src: "assets/retained-tourniquet-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 511 812 430" },
+      briefingAlt: "Staff attempt blood taking while a tourniquet remains around a patient's upper limb.",
+      question: "Where must you check for a tourniquet, and how must you close out the procedure?",
       prompt:
-        "You attempted blood taking on both upper limbs and obtained the sample from the left arm. Complete your final patient and equipment sweep.",
+        "You attempted blood taking on both upper limbs and obtained the sample from the left arm. Check specifically for a retained tourniquet during the final patient and equipment sweep.",
       wrong:
         "Inspect both upper limbs because blood taking was attempted on both sides. Then remove the tourniquet immediately and return it to storage before leaving the patient.",
       teach: {
@@ -499,20 +503,21 @@
     },
     {
       id: "missing-denture",
-      n: 11,
+      n: 15,
       type: "denture-admission",
       category: "Personal item safety",
       title: "Missing Denture",
-      playTitle: "Protect a Patient' s Denture",
+      playTitle: "Protect a Patient's Denture",
       summary:
         "Identify, store, and document the denture when the patient is admitted.",
       instruction:
         "During admission, you identify that the patient has a denture. Set up safe storage and an accountable record before routine care begins.",
       skills: ["Inventory", "Designated storage"],
       thumb: "assets/missing-denture-thumb.webp",
-      briefing: "assets/missing-denture-p1.webp",
-      comic: "assets/missing-denture-comic-2026-08-03.png",
-      thumbView: { src: "assets/missing-denture-comic-2026-08-03.png", width: 1672, height: 941, viewBox: "836 96 836 414" },
+      briefing: "assets/missing-denture-visual-2026-08-05.png",
+      briefingView: { src: "assets/missing-denture-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 97 840 414" },
+      comic: "assets/missing-denture-comic-2026-08-05.png",
+      thumbView: { src: "assets/missing-denture-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "837 95 835 414" },
       briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
       question: "What should you do when the denture is identified at admission?",
       prompt:
@@ -542,7 +547,253 @@
         ],
       },
     },
+    {
+      id: "wrong-patient-distraction",
+      n: 2,
+      type: "single-choice",
+      category: "Patient identity safety",
+      title: "Medication Error (Wrong Patient due to Distraction)",
+      playTitle: "Restart the Check After an Interruption",
+      summary:
+        "Restart the medication and identity checks after a distraction before administration.",
+      instruction:
+        "You checked Patient A, were interrupted, and have returned with the medication. Decide how to restart safely before administration.",
+      skills: ["Interruption recovery", "Patient identity"],
+      briefing: "assets/wrong-patient-distraction-visual-2026-08-05.png",
+      briefingView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 558 420" },
+      comic: "assets/wrong-patient-distraction-comic-2026-08-05.png",
+      thumbView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 506 778 435" },
+      briefingAlt: "A nurse checks medication and scans Patient A before an interruption.",
+      question: "What should you do when you return after the interruption?",
+      prompt:
+        "You are now at another bedside with the medication that was checked before the interruption.",
+      correctDecision: "restart",
+      decisionOptions: [
+        {
+          value: "resume",
+          title: "Resume from the point where you stopped",
+          detail: "Rely on the checks completed before the interruption.",
+        },
+        {
+          value: "restart",
+          title: "Restart the complete check from the beginning",
+          detail: "Repeat patient identity and all medication checks before administration.",
+        },
+        {
+          value: "confirm-bed",
+          title: "Confirm the bed location and continue",
+          detail: "Use the current bedside as the main identity check.",
+        },
+      ],
+      wrong:
+        "After any distraction or interruption, restart the complete medication and patient-identity check from the beginning.",
+      teach: {
+        question: "Which action safely recovers the medication process after an interruption?",
+        options: [
+          {
+            text: "Continue from memory because the earlier checks were already completed.",
+            ok: false,
+            why: "The interruption breaks the checking sequence and makes the earlier checks unreliable for the current bedside.",
+          },
+          {
+            text: "Restart patient identity and the medication checks from the beginning before administration.",
+            ok: true,
+            why: "Restarting restores the safety barriers before the medication reaches the patient.",
+          },
+          {
+            text: "Ask a colleague whether this is the expected patient and administer if they agree.",
+            ok: false,
+            why: "Colleague familiarity does not replace formal patient identification and medication checks.",
+          },
+        ],
+      },
+    },
+    {
+      id: "adrenaline-route",
+      n: 5,
+      type: "single-choice",
+      category: "Injectable medication safety",
+      title: "Medication Error (Wrong Dose and Wrong Route)",
+      playTitle: "Clarify the Adrenaline Order",
+      summary:
+        "Clarify the indication, route, concentration, and dose before preparing adrenaline.",
+      instruction:
+        "A doctor gives a verbal order for adrenaline injection during an allergic reaction. Resolve every ambiguity before preparation and administration.",
+      skills: ["Order clarification", "Route and concentration"],
+      briefing: "assets/adrenaline-route-visual-2026-08-05.png",
+      briefingView: { src: "assets/adrenaline-route-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "898 110 774 405" },
+      comic: "assets/adrenaline-route-comic-2026-08-05.png",
+      thumbView: { src: "assets/adrenaline-route-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 514 786 427" },
+      briefingAlt: "A doctor gives an urgent verbal order for adrenaline injection.",
+      question: "What must happen before adrenaline is prepared?",
+      prompt:
+        "The verbal order does not specify the route, concentration, or dose.",
+      correctDecision: "clarify",
+      decisionOptions: [
+        {
+          value: "iv",
+          title: "Prepare IV adrenaline 1:10,000",
+          detail: "Assume the IV route because intravenous access is available.",
+        },
+        {
+          value: "clarify",
+          title: "Stop and clarify the complete order",
+          detail: "Confirm the indication, route, concentration, dose, and urgency before proceeding.",
+        },
+        {
+          value: "im",
+          title: "Prepare IM adrenaline 1:1,000 without clarification",
+          detail: "Assume anaphylaxis treatment from the clinical context alone.",
+        },
+      ],
+      wrong:
+        "Never assume an adrenaline route or concentration. Stop and clarify the indication, route, concentration, and dose before preparation or administration.",
+      teach: {
+        question: "What is the safest response to an incomplete verbal adrenaline order?",
+        options: [
+          {
+            text: "Choose the route that seems most urgent and document the assumption later.",
+            ok: false,
+            why: "Assumption can cause a dangerous route or concentration error.",
+          },
+          {
+            text: "Clarify and read back the indication, route, concentration, and dose before proceeding.",
+            ok: true,
+            why: "A complete read-back removes ambiguity before a high-risk medicine is prepared.",
+          },
+          {
+            text: "Use whichever adrenaline ampoule is immediately available.",
+            ok: false,
+            why: "Availability does not establish the correct route, concentration, or dose.",
+          },
+        ],
+      },
+    },
+    {
+      id: "mouthwash-ng",
+      n: 9,
+      type: "single-choice",
+      category: "Enteral medication safety",
+      title: "Mouthwash Administered via Nasogastric (NG) Tube",
+      playTitle: "Separate Mouth Care from NG Medication",
+      summary:
+        "Label and separate mouthwash so it cannot be mistaken for an enteral medication.",
+      instruction:
+        "An unlabelled cup of mouthwash is present beside medicines for NG administration. Decide how to remove the mix-up risk.",
+      skills: ["Clear labelling", "Same-nurse administration"],
+      briefing: "assets/mouthwash-ng-visual-2026-08-05.png",
+      briefingView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "576 96 518 413" },
+      comic: "assets/mouthwash-ng-comic-2026-08-05.png",
+      thumbView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 504 784 437" },
+      briefingAlt: "A cup of mouthwash is beside a syringe and other medicines.",
+      question: "How should you prevent the mouthwash from entering the NG tube?",
+      prompt:
+        "The cup is unlabelled and another nurse may administer the prepared medicines.",
+      correctDecision: "separate-label",
+      decisionOptions: [
+        {
+          value: "verbal",
+          title: "Leave a verbal message for the administering nurse",
+          detail: "Keep the unlabelled cup with the other prepared medicines.",
+        },
+        {
+          value: "separate-label",
+          title: "Label and separate the mouthwash",
+          detail: "Keep mouth care distinct and have the preparing nurse complete administration safely.",
+        },
+        {
+          value: "same-tray",
+          title: "Keep everything together for efficiency",
+          detail: "Rely on the appearance of the pink liquid to identify the mouthwash.",
+        },
+      ],
+      wrong:
+        "Label and separate mouthwash from enteral medicines. Do not rely on appearance or a verbal message, and avoid splitting preparation and administration between nurses.",
+      teach: {
+        question: "Which control best prevents mouthwash from being administered through an NG tube?",
+        options: [
+          {
+            text: "Keep it on the medication tray but explain its purpose verbally.",
+            ok: false,
+            why: "An unlabelled product remains vulnerable to a wrong-route mix-up.",
+          },
+          {
+            text: "Label and physically separate it from enteral medicines, with clear ownership of administration.",
+            ok: true,
+            why: "Clear labelling, separation, and ownership preserve the route-of-administration barrier.",
+          },
+          {
+            text: "Use a different-coloured cup without a written label.",
+            ok: false,
+            why: "Colour alone is not a reliable medication or route identifier.",
+          },
+        ],
+      },
+    },
+    {
+      id: "specimen-bottle",
+      n: 10,
+      type: "single-choice",
+      category: "Specimen safety",
+      title: "Mistaken Ingestion of Specimen Bottle Ingredient",
+      playTitle: "Keep Specimen Preservative Away from the Patient",
+      summary:
+        "Control, explain, and label specimen containers so their contents cannot be mistaken for medication.",
+      instruction:
+        "A specimen container with preservative powder is about to be left at the bedside for later collection. Decide how to keep it controlled.",
+      skills: ["Specimen control", "Patient and carer communication"],
+      briefing: "assets/specimen-bottle-visual-2026-08-05.png",
+      briefingView: { src: "assets/specimen-bottle-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 104 543 408" },
+      comic: "assets/specimen-bottle-comic-2026-08-05.png",
+      thumbView: { src: "assets/specimen-bottle-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 511 784 430" },
+      briefingAlt: "A urine specimen bottle containing white preservative powder is placed beside the patient.",
+      question: "What should you do with the specimen bottle?",
+      prompt:
+        "The patient and relative may mistake the powder for medication if the container is left unattended.",
+      correctDecision: "control",
+      decisionOptions: [
+        {
+          value: "bedside",
+          title: "Leave it at the bedside for later use",
+          detail: "Expect the bottle shape to make its purpose clear.",
+        },
+        {
+          value: "control",
+          title: "Keep it controlled until collection",
+          detail: "Explain its purpose, label it clearly, and do not leave it unattended in the patient area.",
+        },
+        {
+          value: "relative",
+          title: "Ask the relative to keep it safe",
+          detail: "Transfer responsibility without a formal explanation or storage control.",
+        },
+      ],
+      wrong:
+        "Do not leave a specimen container with preservative powder unattended in the patient area. Keep it controlled, label it clearly, and explain its purpose to the patient and relative.",
+      teach: {
+        question: "Which action prevents a specimen preservative from being mistaken for medicine?",
+        options: [
+          {
+            text: "Place the container beside the patient so it is ready when needed.",
+            ok: false,
+            why: "Bedside availability creates an ingestion risk when the contents are misunderstood.",
+          },
+          {
+            text: "Keep the container controlled until collection, label it, and explain its purpose.",
+            ok: true,
+            why: "Control, labelling, and communication remove the opportunity for mistaken ingestion.",
+          },
+          {
+            text: "Empty the preservative powder and leave the clean container at the bedside.",
+            ok: false,
+            why: "The specimen container must be used as intended, and the preservative must not be discarded.",
+          },
+        ],
+      },
+    },
   ];
+
+  CASES.sort((a, b) => a.n - b.n);
 
   const DEBRIEF = {
     clonazepam: [
@@ -550,9 +801,23 @@
         consequences: ["Treatment failure", "Breakthrough seizures", "Status epilepticus"],
       },
     ],
+    "wrong-patient-distraction": [
+      {
+        consequences: [
+          "Severe allergic reaction",
+          "Deterioration from delayed treatment",
+          "Serious harm from the wrong medication",
+        ],
+      },
+    ],
     dormicum: [
       {
         consequences: ["Profound sedation", "Respiratory arrest", "Death"],
+      },
+    ],
+    "adrenaline-route": [
+      {
+        consequences: ["Severe hypertension", "Tachyarrhythmia", "Myocardial infarction"],
       },
     ],
     "patient-id": [
@@ -581,6 +846,16 @@
     "iv-stopcock": [
       {
         consequences: ["Severe hypotension", "Organ hypoperfusion", "Cardiac arrest"],
+      },
+    ],
+    "mouthwash-ng": [
+      {
+        consequences: ["Chemical irritation", "Aspiration pneumonitis", "Respiratory deterioration"],
+      },
+    ],
+    "specimen-bottle": [
+      {
+        consequences: ["Mucosal irritation", "Chemical poisoning", "Acute clinical deterioration"],
       },
     ],
     "oxygen-safety": [
@@ -802,6 +1077,15 @@
     );
   }
 
+  function normalizeVisiblePunctuation(root) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      node.nodeValue = node.nodeValue.replace(/,(?=\S)/g, ", ").replace(/-(?=\S)/g, "- ");
+    }
+  }
+
   function caseById(id) {
     return CASES.find((item) => item.id === id);
   }
@@ -830,6 +1114,7 @@
       volume: 0,
       label: false,
       double: false,
+      simpleChoice: null,
       idChoice: null,
       scanMode: null,
       medication: null,
@@ -864,6 +1149,7 @@
     runtime.attempts = completion.attempts || 1;
 
     if (item.type === "dose") runtime.tablets = 3;
+    if (item.type === "single-choice") runtime.simpleChoice = item.correctDecision;
     if (item.type === "syringe") {
       runtime.volume = 3;
       runtime.label = true;
@@ -939,7 +1225,9 @@
     else if (route() === "complete") content = completionPage();
     else content = homePage();
 
-    document.getElementById("app").innerHTML = `${header()}<main>${content}</main>`;
+    const app = document.getElementById("app");
+    app.innerHTML = `${header()}<main>${content}</main>`;
+    normalizeVisiblePunctuation(app);
     bindGlobal();
     if (caseMatch) bindCase(caseById(caseMatch[1]));
     else bindHome();
@@ -1007,7 +1295,7 @@
               <div>
                 <span class="side-label">Mission Stars</span>
                 <h2>${summary.stars} ★</h2>
-                <span class="score-basis">Let' s make right clinical decisions to secure patient safety!</span>
+                <span class="score-basis">Let's make right clinical decisions to secure patient safety!</span>
               </div>
             </div>
             <div class="ring-wrap">
@@ -1193,7 +1481,14 @@
   function decisionPage(item) {
     const decisionComplete = runtime.phase !== "decision";
     const briefings = item.briefings || [
-      { label: "Decision scene", src: item.briefing, alt: item.briefingAlt },
+      {
+        label: "Decision scene",
+        src: item.briefingView?.src || item.briefing,
+        width: item.briefingView?.width,
+        height: item.briefingView?.height,
+        viewBox: item.briefingView?.viewBox,
+        alt: item.briefingAlt,
+      },
     ];
     return `
       <div class="case-grid">
@@ -1211,7 +1506,13 @@
                     (briefing) => `
                       <figure class="briefing-frame">
                         ${briefing.label ? `<figcaption>${esc(briefing.label)}</figcaption>` : ""}
-                        <img src="${briefing.src}" alt="${esc(briefing.alt)}">
+                        ${
+                          briefing.viewBox
+                            ? `<svg class="briefing-crop" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
+                                <image href="${briefing.src}" width="${briefing.width}" height="${briefing.height}"></image>
+                              </svg>`
+                            : `<img src="${briefing.src}" alt="${esc(briefing.alt)}">`
+                        }
                       </figure>`,
                   )
                   .join("")
@@ -1241,6 +1542,7 @@
 
   function interaction(item) {
     if (item.type === "dose") return doseInteraction();
+    if (item.type === "single-choice") return singleChoiceInteraction(item);
     if (item.type === "syringe") return syringeInteraction();
     if (item.type === "identity") return identityInteraction();
     if (item.type === "barcode") return barcodeInteraction();
@@ -1251,6 +1553,20 @@
     if (item.type === "evidence-gate") return ngEvidenceInteraction();
     if (item.type === "tourniquet-loop") return tourniquetLoopInteraction();
     return dentureAdmissionInteraction();
+  }
+
+  function singleChoiceInteraction(item) {
+    return `<div class="choices">${item.decisionOptions
+      .map((option) =>
+        choice(
+          "single-choice",
+          option.value,
+          option.title,
+          option.detail,
+          runtime.simpleChoice === option.value,
+        ),
+      )
+      .join("")}</div>`;
   }
 
   function doseInteraction() {
@@ -1334,7 +1650,7 @@
   function clinicalContextInteraction() {
     const checks = [
       ["five-rights", "Right patient, right medication, right time, right dosage, right routes", "Complete all five medication rights before administration"],
-      ["allergy", "Check allergy", "Confirm the patient' s documented allergy status"],
+      ["allergy", "Check allergy", "Confirm the patient's documented allergy status"],
       ["clinical-context", "Clinical context and indication", "Review the current K+ level and trend"],
       ["open-record", "The open record is enough", "Assume the result belongs to this patient because it appears here"],
     ];
@@ -1610,7 +1926,7 @@
 
     return `
       <div class="tourniquet-check">
-        <span class="form-label">Select both attempted sites for inspection (${runtime.tourniquetArms.length} / 2 selected)</span>
+        <span class="form-label">Select both attempted sites to check for a retained tourniquet (${runtime.tourniquetArms.length} / 2 selected)</span>
         <div class="arm-pick">
           ${arms
             .map(
@@ -1675,7 +1991,7 @@
             .join("")}
         </div>
         <div class="route-checklist">
-          ${toggle("dentureInventory", "Denture inventory completed", "Confirm and record the item under the patient' s care", runtime.dentureInventory)}
+          ${toggle("dentureInventory", "Denture inventory completed", "Confirm and record the item under the patient's care", runtime.dentureInventory)}
           ${toggle("dentureDocumented", "Denture information documented", "Maintain accountability from admission through ongoing care", runtime.dentureDocumented)}
         </div>
       </div>`;
@@ -1866,6 +2182,7 @@
       document.getElementById("aboutTitle").textContent = "About the course";
       document.getElementById("aboutBody").innerHTML =
         `<p><strong>Break the Chain:</strong> Turns ${INCIDENT_COUNT} clinical incidents into short interactive missions. Each mission asks the learner to make a safety decision, review the incident comic, and complete a teach-back reflection.</p><p><strong>Mission Stars:</strong> Stars obtained are based only on the Part 1 of each mission: 3 ★ for a correct answer on the 1st attempt; 2 ★ on the 2nd attempt; and 1 ★ on the 3rd or later attempt.</p><p><strong>Remarks:</strong> The Mission Stars are for fun only, training completion is confirmed by the Final Quiz.</p>`;
+      normalizeVisiblePunctuation(document.getElementById("aboutBody"));
       document.getElementById("aboutDialog").showModal();
     });
 
@@ -1947,6 +2264,13 @@
     document.querySelectorAll('input[name="identity"]').forEach((input) => {
       input.onchange = (event) => {
         runtime.idChoice = event.target.value;
+        runtime.feedback = null;
+      };
+    });
+
+    document.querySelectorAll('input[name="single-choice"]').forEach((input) => {
+      input.onchange = (event) => {
+        runtime.simpleChoice = event.target.value;
         runtime.feedback = null;
       };
     });
@@ -2106,6 +2430,7 @@
   function submitDecision(item) {
     let correct = false;
     if (item.type === "dose") correct = Math.abs(runtime.tablets - 3) < 0.001;
+    if (item.type === "single-choice") correct = runtime.simpleChoice === item.correctDecision;
     if (item.type === "syringe") correct = runtime.volume === 3 && runtime.label && runtime.double;
     if (item.type === "identity") correct = runtime.idChoice === "verify";
     if (item.type === "barcode") correct = runtime.scanMode === "scan" && runtime.medication === "tablet";
