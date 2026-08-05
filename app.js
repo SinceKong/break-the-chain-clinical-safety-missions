@@ -7,6 +7,8 @@
   const INCIDENT_COUNT = 17;
 
   const ICONS = {
+    rewind:
+      '<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8v5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.4 12.6A7.5 7.5 0 1 0 7.2 7.7L4 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4l2.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     shield:
       '<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.8 2.8 8.1 7 10 4.2-1.9 7-5.2 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     arrow:
@@ -174,7 +176,7 @@
       skills: ["Barcode scanning", "Formulation check"],
       thumb: "assets/barcode-thumb.webp",
       briefing: "assets/barcode-visual-2026-08-05.png",
-      briefingView: { src: "assets/barcode-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "557 96 557 415" },
+      briefingView: { src: "assets/barcode-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 557 415" },
       comic: "assets/barcode-comic-2026-08-05.png",
       thumbView: { src: "assets/barcode-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 786 431" },
       briefingAlt: "The medication system presents the barcode administration workflow.",
@@ -218,7 +220,7 @@
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-visual-2026-08-05.png",
-      briefingView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 566 418" },
+      briefingView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "559 96 522 415" },
       comic: "assets/misfiled-potassium-comic-2026-08-05.png",
       thumbView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 782 431" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
@@ -300,7 +302,7 @@
       title: "Oxygen related incidents",
       playTitle: "Complete the Oxygen Safety Check",
       summary:
-        "Connect the patient to oxygen, complete the cylinder 3-2-1 sequence, and perform the final delivery check.",
+        "Complete two real-case rounds: first connect oxygen to the patient, then complete the cylinder 3-2-1 safety sequence.",
       instruction:
         "You are taking over oxygen care. Complete both the patient connection and cylinder safety rounds before leaving the bedside.",
       skills: ["Cylinder 3-2-1", "Final delivery check"],
@@ -327,6 +329,70 @@
       comics: [
         { label: "Case 1", src: "assets/oxygen-case-1-comic-2026-08-05.png" },
         { label: "Case 2", src: "assets/oxygen-case-2-comic-2026-08-05.png" },
+      ],
+      rounds: [
+        {
+          label: "Round 1 - Patient connection",
+          playTitle: "Connect Oxygen to the Patient",
+          instruction:
+            "You are receiving a patient from A&E with oxygen prescribed at 3 L/min. Confirm that the delivery route is connected and oxygen is reaching the patient.",
+          prompt:
+            "The nasal cannula is on the patient, but the source connection and actual flow still need to be verified.",
+          question: "What must you confirm before leaving the bedside?",
+          briefingIndex: 0,
+          comicIndex: 0,
+          teach: {
+            question: "Which handover confirms that oxygen is actually reaching the patient?",
+            options: [
+              {
+                text: "The cannula is in place, so no further check is needed.",
+                ok: false,
+                why: "A cannula on the patient does not confirm a connected source or actual oxygen flow.",
+              },
+              {
+                text: "Connect the cannula to the correct source, set 3 L/min, and verify delivery at the patient.",
+                ok: true,
+                why: "This confirms the complete path from source to patient and the prescribed flow.",
+              },
+              {
+                text: "Rely on the previous team to have completed the oxygen connection.",
+                ok: false,
+                why: "Handover does not replace a direct bedside delivery check.",
+              },
+            ],
+          },
+        },
+        {
+          label: "Round 2 - Cylinder check",
+          playTitle: "Complete the Cylinder 3-2-1 Check",
+          instruction:
+            "You are preparing a portable oxygen cylinder. Complete the 3-2-1 sequence and confirm oxygen delivery before use.",
+          prompt:
+            "The cylinder and tubing are beside the patient, but the valve, content level, and prescribed flow have not yet been confirmed.",
+          question: "How should you make the cylinder ready for safe use?",
+          briefingIndex: 1,
+          comicIndex: 1,
+          teach: {
+            question: "Which final check confirms that the portable cylinder is ready?",
+            options: [
+              {
+                text: "Connect the tubing and leave the main valve closed until the patient needs oxygen.",
+                ok: false,
+                why: "A closed main valve prevents oxygen from reaching the patient.",
+              },
+              {
+                text: "Open the valve, check the content level, set the prescribed flow, and verify delivery.",
+                ok: true,
+                why: "This completes the 3-2-1 sequence and confirms actual oxygen delivery.",
+              },
+              {
+                text: "Check the gauge only; the flow setting can be adjusted after transfer.",
+                ok: false,
+                why: "The complete cylinder sequence and final delivery check must be finished before use.",
+              },
+            ],
+          },
+        },
       ],
       question: "Can you make both oxygen setups ready for the patient?",
       prompt:
@@ -527,22 +593,22 @@
       sourceWarning:
         "The exact source comic depicts Missing Denture but carries an incorrect visible NG-tube title.",
       teach: {
-        question: "A colleague comes to tell you that the designated denture box cannot be located. What should you do next?",
+        question: "Which admission-time practice best prevents a patient's denture from going missing?",
         options: [
           {
-            text: "Assume the patient has kept it and close the concern without checking.",
+            text: "Wrap the denture in tissue and leave it on the meal tray for easy access.",
             ok: false,
-            why: "An unlocated denture is an unresolved discrepancy and cannot be closed by assumption.",
+            why: "Tissue and meal trays are easily discarded and do not provide accountable storage.",
           },
           {
-            text: "Reconcile the inventory with the patient and ward, document the discrepancy, and escalate the search.",
+            text: "Assess for dentures on admission, record them in the inventory, and use a labelled designated denture box.",
             ok: true,
-            why: "This keeps the missing item traceable and ensures that the unresolved discrepancy is actively followed up.",
+            why: "Assessment, documentation, and designated storage create an accountable handling pathway before loss occurs.",
           },
           {
-            text: "Leave a verbal message only and continue care without documenting the discrepancy.",
+            text: "Ask the patient to keep the denture somewhere safe without recording its location.",
             ok: false,
-            why: "A verbal message alone does not create an accountable record or an active search plan.",
+            why: "Unrecorded storage leaves the denture untraceable during care, transfer, or cleaning.",
           },
         ],
       },
@@ -557,16 +623,16 @@
       summary:
         "Restart the medication and identity checks after a distraction before administration.",
       instruction:
-        "You checked Patient A, were interrupted, and have returned with the medication. Decide how to restart safely before administration.",
+        "You have just checked the medication against the patient wristband when a patient care assistant interrupts you and asks for help. Decide how to restart safely before administration.",
       skills: ["Interruption recovery", "Patient identity"],
       briefing: "assets/wrong-patient-distraction-visual-2026-08-05.png",
-      briefingView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 96 558 420" },
+      briefingView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "1084 96 588 393" },
       comic: "assets/wrong-patient-distraction-comic-2026-08-05.png",
       thumbView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 506 778 435" },
-      briefingAlt: "A nurse checks medication and scans Patient A before an interruption.",
+      briefingAlt: "A patient care assistant interrupts a nurse during medication administration.",
       question: "What should you do when you return after the interruption?",
       prompt:
-        "You are now at another bedside with the medication that was checked before the interruption.",
+        "The medication and wristband check was completed immediately before the interruption.",
       correctDecision: "restart",
       decisionOptions: [
         {
@@ -581,8 +647,8 @@
         },
         {
           value: "confirm-bed",
-          title: "Confirm the bed location and continue",
-          detail: "Use the current bedside as the main identity check.",
+          title: "Continue from the last completed check",
+          detail: "Use the completed wristband check and finish the remaining medication steps.",
         },
       ],
       wrong:
@@ -675,57 +741,57 @@
       type: "single-choice",
       category: "Enteral medication safety",
       title: "Mouthwash Administered via Nasogastric (NG) Tube",
-      playTitle: "Separate Mouth Care from NG Medication",
+      playTitle: "Clarify Before NG Administration",
       summary:
-        "Label and separate mouthwash so it cannot be mistaken for an enteral medication.",
+        "Never assume what an unlabelled cup contains - pause and clarify before NG administration.",
       instruction:
-        "An unlabelled cup of mouthwash is present beside medicines for NG administration. Decide how to remove the mix-up risk.",
-      skills: ["Clear labelling", "Same-nurse administration"],
+        "You are about to administer prepared medicines through an NG tube. An unlabelled cup is on the tray. Decide what to do before anything is given.",
+      skills: ["Situational awareness", "Clarification"],
       briefing: "assets/mouthwash-ng-visual-2026-08-05.png",
       briefingView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "576 96 518 413" },
       comic: "assets/mouthwash-ng-comic-2026-08-05.png",
       thumbView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 504 784 437" },
       briefingAlt: "A cup of mouthwash is beside a syringe and other medicines.",
-      question: "How should you prevent the mouthwash from entering the NG tube?",
+      question: "You find an unlabelled cup during NG medication administration. What should you do?",
       prompt:
-        "The cup is unlabelled and another nurse may administer the prepared medicines.",
-      correctDecision: "separate-label",
+        "The liquid's identity, purpose, and intended route have not been confirmed.",
+      correctDecision: "clarify-cup",
       decisionOptions: [
         {
-          value: "verbal",
-          title: "Leave a verbal message for the administering nurse",
-          detail: "Keep the unlabelled cup with the other prepared medicines.",
+          value: "appearance",
+          title: "Continue after checking its appearance",
+          detail: "Use the colour and position on the tray to decide what the cup contains.",
         },
         {
-          value: "separate-label",
-          title: "Label and separate the mouthwash",
-          detail: "Keep mouth care distinct and have the preparing nurse complete administration safely.",
+          value: "clarify-cup",
+          title: "Pause and clarify before proceeding",
+          detail: "Confirm the contents, purpose, and intended route before anything is administered.",
         },
         {
-          value: "same-tray",
-          title: "Keep everything together for efficiency",
-          detail: "Rely on the appearance of the pink liquid to identify the mouthwash.",
+          value: "set-aside",
+          title: "Set the cup aside and continue the round",
+          detail: "Give the other prepared medicines first and leave the unlabelled cup for later.",
         },
       ],
       wrong:
-        "Label and separate mouthwash from enteral medicines. Do not rely on appearance or a verbal message, and avoid splitting preparation and administration between nurses.",
+        "Do not assume what an unlabelled cup contains. Pause the administration and clarify its identity, purpose, and intended route before proceeding.",
       teach: {
-        question: "Which control best prevents mouthwash from being administered through an NG tube?",
+        question: "As the nurse administering the medicines, what is the safest response to an unlabelled cup?",
         options: [
           {
-            text: "Keep it on the medication tray but explain its purpose verbally.",
+            text: "Use the liquid's appearance and tray position to identify it.",
             ok: false,
-            why: "An unlabelled product remains vulnerable to a wrong-route mix-up.",
+            why: "Appearance and placement do not confirm a product's identity or intended route.",
           },
           {
-            text: "Label and physically separate it from enteral medicines, with clear ownership of administration.",
+            text: "Stop and clarify the cup's contents, purpose, and route before administering anything.",
             ok: true,
-            why: "Clear labelling, separation, and ownership preserve the route-of-administration barrier.",
+            why: "Clarification prevents an unknown product from entering the medication process by assumption.",
           },
           {
-            text: "Use a different-coloured cup without a written label.",
+            text: "Leave the cup for the next nurse and complete the rest of the medicines.",
             ok: false,
-            why: "Colour alone is not a reliable medication or route identifier.",
+            why: "Passing on an unresolved unlabelled item leaves the same wrong-route risk in place.",
           },
         ],
       },
@@ -850,7 +916,7 @@
     ],
     "mouthwash-ng": [
       {
-        consequences: ["Chemical irritation", "Aspiration pneumonitis", "Respiratory deterioration"],
+        consequences: ["Chemical irritation", "Chemical poisoning"],
       },
     ],
     "specimen-bottle": [
@@ -860,21 +926,11 @@
     ],
     "oxygen-safety": [
       {
-        label: "Case 1 - Cannula not connected",
-        consequences: ["Hypoxaemia", "Cardiorespiratory deterioration", "Cardiac arrest"],
-      },
-      {
-        label: "Case 2 - Cylinder valve not opened",
         consequences: ["Severe desaturation", "Emergency intubation", "Cardiac arrest"],
       },
     ],
     "transfer-safety": [
       {
-        label: "Case 1 - Transfer surfaces",
-        consequences: ["Head injury", "Fracture", "Permanent disability"],
-      },
-      {
-        label: "Case 2 - Sling and hoist",
         consequences: ["Intracranial bleeding", "Fracture", "Permanent disability"],
       },
     ],
@@ -885,12 +941,16 @@
     ],
     "retained-tourniquet": [
       {
-        consequences: ["Nerve injury", "Limb gangrene", "Loss of fingers"],
+        consequences: ["Impaired circulation", "Nerve injury", "Limb ischaemia or gangrene"],
       },
     ],
     "missing-denture": [
       {
-        consequences: ["Nutritional decline", "Airway obstruction", "Aspiration pneumonia"],
+        consequences: [
+          "Distress from loss of personal property",
+          "Time and financial burden of replacement",
+          "Difficulty eating and nutritional decline",
+        ],
       },
     ],
   };
@@ -898,6 +958,7 @@
   let state = load();
   let runtime = null;
   let toastTimer;
+  let comicCountdownTimer;
   let viewerScale = 1;
   let viewerX = 0;
   let viewerY = 0;
@@ -1082,8 +1143,28 @@
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
-      node.nodeValue = node.nodeValue.replace(/,(?=\S)/g, ", ").replace(/-(?=\S)/g, "- ");
+      node.nodeValue = node.nodeValue
+        .replace(/,(?=\S)/g, (comma, offset, text) =>
+          /\d/.test(text[offset - 1] || "") && /\d/.test(text[offset + 1] || "")
+            ? comma
+            : `${comma} `,
+        )
+        .replace(/-(?=\S)/g, "- ")
+        .replace(/(['’])(?=\S)/g, "$1 ");
     }
+  }
+
+  function buildTeachOrder(teach) {
+    const order = teach.options.map((_, index) => index);
+    for (let index = order.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [order[index], order[swapIndex]] = [order[swapIndex], order[index]];
+    }
+    const correctIndex = teach.options.findIndex((option) => option.ok);
+    if (order.indexOf(correctIndex) === 1 && order.length > 2) {
+      [order[1], order[2]] = [order[2], order[1]];
+    }
+    return order;
   }
 
   function caseById(id) {
@@ -1141,9 +1222,25 @@
       teachChoice: null,
       teachCorrect: false,
       teachFeedback: null,
+      teachOrder: item ? buildTeachOrder(item.teach) : [],
+      oxygenTeachOrders: item?.rounds?.map((round) => buildTeachOrder(round.teach)) || [],
+      oxygenRoundStates:
+        item?.rounds?.map(() => ({
+          decisionDone: false,
+          comicDone: false,
+          teachChoice: null,
+          teachCorrect: false,
+          teachFeedback: null,
+          feedback: null,
+        })) || [],
+      oxygenRound: 0,
+      resultStars: completion?.lastStars || completionStars(completion),
+      comicReadyAt: 0,
     };
 
-    if (!item || !completion) return;
+    if (!item) return;
+    if (item.type === "oxygen-combined" && !completion) runtime.phase = "oxygen-1-decision";
+    if (!completion) return;
 
     runtime.phase = "complete";
     runtime.attempts = completion.attempts || 1;
@@ -1170,6 +1267,14 @@
       runtime.oxygenSource = "cylinder";
       runtime.oxygenFlow = 3;
       runtime.cylinderSequence = ["valve", "content", "flow"];
+      runtime.oxygenRoundStates.forEach((roundState, index) => {
+        const teach = item.rounds[index].teach;
+        roundState.decisionDone = true;
+        roundState.comicDone = true;
+        roundState.teachChoice = teach.options.findIndex((option) => option.ok);
+        roundState.teachCorrect = true;
+        roundState.teachFeedback = teach.options[roundState.teachChoice]?.why || null;
+      });
     }
     if (item.type === "transfer-combined") {
       runtime.stretcherLocked = true;
@@ -1203,10 +1308,10 @@
       <header class="topbar">
         <div class="shell topbar-in">
           <button class="brand" data-home>
-            <span class="brand-mark">${ICONS.shield}</span>
+            <span class="brand-mark">${ICONS.rewind}</span>
             <span class="brand-copy">
-              <strong>Break the Chain</strong>
-              <span>Clinical Safety Missions</span>
+              <strong>Second Chance</strong>
+              <span>Real Clinical Incident Missions</span>
             </span>
           </button>
           <div class="top-actions">
@@ -1218,6 +1323,7 @@
   }
 
   function render() {
+    clearInterval(comicCountdownTimer);
     const caseMatch = route().match(/^case\/(.+)$/);
     let content;
 
@@ -1231,7 +1337,7 @@
     bindGlobal();
     if (caseMatch) bindCase(caseById(caseMatch[1]));
     else bindHome();
-    document.title = "Break the Chain - Clinical Safety Missions";
+    document.title = "Second Chance - Real Clinical Incident Missions";
   }
 
   function starsForAttempts(attempts = 1) {
@@ -1278,11 +1384,11 @@
       <div class="shell">
         <section class="hero">
           <div class="hero-main">
-            <span class="eyebrow program-label">Standardized Orientation Program for Fresh Graduate Nurses in Hospital Authority.</span>
-            <h1>Break the Chain<span>Clinical Safety Missions</span></h1>
-            <p class="hero-copy">Return to the moment before harm: Identify the cue, preserve the safety barrier, and intervene before the error reaches the patient.</p>
+            <span class="eyebrow program-label"><span>Standardized Orientation Program</span><span>For Fresh Graduate Nurses in Hospital Authority</span></span>
+            <h1>Second Chance<span>Real Clinical Incident Missions</span></h1>
+            <p class="hero-copy">Step back into real nursing incidents from the moment before harm. Notice the cue, make the safer choice, and carry the lesson into your next shift.</p>
             <div class="hero-actions">
-              <button class="primary" data-start="${next.id}">${ICONS.shield}Start next mission${ICONS.arrow}</button>
+              <button class="primary" data-start="${next.id}">${ICONS.rewind}Start next mission${ICONS.arrow}</button>
               ${
                 firstCompleted
                   ? `<button class="secondary" data-start="${firstCompleted}">${ICONS.reset}Review a completed mission</button>`
@@ -1373,6 +1479,7 @@
 
     initRuntime(id);
     const completion = state.completed[id];
+    const missionHeading = item.playTitle || item.title;
 
     return `
       <div class="shell case-shell">
@@ -1380,22 +1487,18 @@
         <div class="case-top">
           <div class="case-copy">
             <span class="category">Mission ${item.n} · ${item.category}</span>
-            <h1>${item.playTitle || item.title}</h1>
-            <p class="case-instruction">${item.instruction}</p>
-          </div>
-          <div class="best">
-            <span>MISSION STARS</span>
-            <strong>${completion ? starDisplay(completionStars(completion)) : "☆☆☆"}</strong>
+            <h1 class="${missionHeading.length > 38 ? "long-title" : ""}">${missionHeading}</h1>
           </div>
         </div>
-        ${progressSteps()}
+        ${progressSteps(item)}
         ${missionFlow(item)}
       </div>`;
   }
 
-  function progressSteps() {
+  function progressSteps(item) {
+    if (item?.type === "oxygen-combined") return oxygenProgressSteps();
     const phases = ["decision", "comic", "debrief"];
-    const labels = ["DECISION", "INCIDENT COMIC", "DEBRIEF"];
+    const labels = ["YOUR DECISION", "REAL CASE", "TAKEAWAY"];
     const activeIndex = phases.indexOf(runtime.phase);
     const missionComplete = runtime.phase === "complete";
 
@@ -1405,6 +1508,33 @@
           .map((label, index) => {
             const done = missionComplete || index < activeIndex;
             const status = done ? "done" : index === activeIndex ? "active" : "";
+            return `<div class="step ${status}"><i>${done ? "✓" : index + 1}</i><span>${label}</span></div>`;
+          })
+          .join("")}
+      </div>`;
+  }
+
+  function oxygenStageIndex() {
+    const phases = [
+      "oxygen-1-decision",
+      "oxygen-1-comic",
+      "oxygen-1-debrief",
+      "oxygen-2-decision",
+      "oxygen-2-comic",
+      "oxygen-2-debrief",
+    ];
+    return runtime.phase === "complete" ? phases.length : phases.indexOf(runtime.phase);
+  }
+
+  function oxygenProgressSteps() {
+    const labels = ["R1 DECISION", "R1 REAL CASE", "R1 TAKEAWAY", "R2 DECISION", "R2 REAL CASE", "R2 TAKEAWAY"];
+    const activeIndex = oxygenStageIndex();
+    return `
+      <div class="steps oxygen-steps">
+        ${labels
+          .map((label, index) => {
+            const done = activeIndex > index;
+            const status = done ? "done" : activeIndex === index ? "active" : "";
             return `<div class="step ${status}"><i>${done ? "✓" : index + 1}</i><span>${label}</span></div>`;
           })
           .join("")}
@@ -1432,6 +1562,7 @@
   }
 
   function missionFlow(item) {
+    if (item.type === "oxygen-combined") return oxygenMissionFlow(item);
     const missionComplete = runtime.phase === "complete";
     const incidentUnlocked = ["comic", "debrief", "complete"].includes(runtime.phase);
     const incidentComplete = ["debrief", "complete"].includes(runtime.phase);
@@ -1439,7 +1570,7 @@
 
     return `
       <section class="mission-section decision-section ${incidentUnlocked ? "completed" : "current"}">
-        ${flowHeading(1, "DECISION", "Make the safety decision", incidentUnlocked ? "Complete" : "Current")}
+        ${flowHeading(1, "YOUR DECISION", "What would you do at that moment?", incidentUnlocked ? "Complete" : "Current")}
         ${decisionPage(item)}
       </section>
 
@@ -1456,7 +1587,7 @@
       }
 
       <section id="incident-section" class="mission-section incident-section ${incidentUnlocked ? "unlocked" : "locked"}">
-        ${flowHeading(2, "INCIDENT COMIC", "Walk through the incident", incidentComplete ? "Complete" : incidentUnlocked ? "Open" : "Locked")}
+        ${flowHeading(2, "REAL INCIDENT", "Walk through the real case", incidentComplete ? "Complete" : incidentUnlocked ? "Open" : "Locked")}
         ${
           incidentUnlocked
             ? comicPage(item)
@@ -1465,7 +1596,7 @@
       </section>
 
       <section id="debrief-section" class="mission-section debrief-section ${debriefUnlocked ? "unlocked" : "locked"}">
-        ${flowHeading(3, "DEBRIEF", "Confirm the safety barrier", missionComplete ? "Complete" : debriefUnlocked ? "Open" : "Locked")}
+        ${flowHeading(3, "TAKEAWAY", "Carry the lesson forward", missionComplete ? "Complete" : debriefUnlocked ? "Open" : "Locked")}
         ${
           debriefUnlocked
             ? debriefPage(item)
@@ -1475,6 +1606,160 @@
                   : "Complete the decision and review the incident before debriefing.",
               )
         }
+      </section>
+      ${missionComplete ? missionResult(item) : ""}`;
+  }
+
+  function oxygenMissionFlow(item) {
+    const stage = oxygenStageIndex();
+    const missionComplete = runtime.phase === "complete";
+
+    const rounds = item.rounds
+      .map((round, roundIndex) => {
+        const base = roundIndex * 3;
+        const decisionUnlocked = stage >= base;
+        const decisionComplete = stage > base;
+        const comicUnlocked = stage >= base + 1;
+        const comicReviewed = stage > base + 1;
+        const debriefUnlocked = stage >= base + 2;
+        const debriefComplete = stage > base + 2;
+        const briefing = item.briefings[round.briefingIndex];
+        const comic = item.comics[round.comicIndex];
+
+        return `
+          <div class="oxygen-round-banner">
+            <span>${round.label}</span>
+            <strong>${round.playTitle}</strong>
+          </div>
+          <section class="mission-section decision-section ${decisionComplete ? "completed" : decisionUnlocked ? "current" : "locked"}">
+            ${flowHeading(base + 1, "YOUR DECISION", "What would you do at that moment?", decisionComplete ? "Complete" : decisionUnlocked ? "Current" : "Locked")}
+            ${
+              decisionUnlocked
+                ? oxygenDecisionPage(item, round, briefing, roundIndex, decisionComplete)
+                : lockedPanel("Complete the first real-case round before starting this decision.")
+            }
+          </section>
+          <section id="oxygen-incident-${roundIndex + 1}" class="mission-section incident-section ${comicUnlocked ? "unlocked" : "locked"}">
+            ${flowHeading(base + 2, "REAL INCIDENT", "Walk through the real case", comicReviewed ? "Complete" : comicUnlocked ? "Open" : "Locked")}
+            ${
+              comicUnlocked
+                ? comicPage(
+                    { ...item, title: round.playTitle, comics: [comic] },
+                    {
+                      reviewed: comicReviewed,
+                      nextAttribute: `data-next-oxygen-debrief="${roundIndex}"`,
+                    },
+                  )
+                : lockedPanel("Complete this round's decision to unlock the real incident.")
+            }
+          </section>
+          <section id="oxygen-debrief-${roundIndex + 1}" class="mission-section debrief-section ${debriefUnlocked ? "unlocked" : "locked"}">
+            ${flowHeading(base + 3, "TAKEAWAY", "Carry the lesson forward", debriefComplete ? "Complete" : debriefUnlocked ? "Open" : "Locked")}
+            ${
+              debriefUnlocked
+                ? oxygenDebriefPage(item, round, roundIndex, debriefComplete)
+                : lockedPanel("Review this round's real incident before completing the takeaway.")
+            }
+          </section>`;
+      })
+      .join("");
+
+    return `${rounds}${missionComplete ? missionResult(item) : ""}`;
+  }
+
+  function oxygenDecisionPage(item, round, briefing, roundIndex, decisionComplete) {
+    const roundState = runtime.oxygenRoundStates[roundIndex];
+    const feedback = decisionComplete
+      ? `<div class="feedback correct">${ICONS.check}<div><strong>Correct decision</strong><span>The real incident for this round is open below.</span></div></div>`
+      : roundState.feedback
+        ? `<div class="feedback wrong">${ICONS.alert}<div><strong>Not quite - Try again</strong><span>${
+            roundIndex === 0
+              ? "Connect the cannula to the oxygen-cylinder outlet, set 3 L/min, and verify delivery."
+              : "Open the cylinder valve, check the content level, set the flow, and confirm delivery in that order."
+          }</span></div></div>`
+        : "";
+
+    return `
+      <div class="case-grid">
+        <section class="briefing-card">
+          <figure class="briefing-frame">
+            <svg class="briefing-crop" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
+              <image href="${briefing.src}" width="${briefing.width}" height="${briefing.height}"></image>
+            </svg>
+          </figure>
+        </section>
+        <aside class="challenge combined-challenge">
+          <div class="challenge-kicker">${ICONS.alert}Decision point</div>
+          <div class="key-information">
+            <span>Background information</span>
+            <p>${round.instruction}</p>
+          </div>
+          <div class="key-information instruction-information">
+            <span>Instruction</span>
+            <p>${round.prompt}</p>
+          </div>
+          <h2>${round.question}</h2>
+          <div class="decision-controls" ${decisionComplete ? 'inert aria-disabled="true"' : ""}>
+            ${roundIndex === 0 ? oxygenConnectionInteraction() : oxygenSequenceInteraction()}
+          </div>
+          ${feedback}
+          <div class="action-row">
+            ${
+              decisionComplete
+                ? `<button class="secondary decision-confirmed" disabled>${ICONS.check}Decision confirmed</button>`
+                : `<button class="primary" data-oxygen-submit="${roundIndex}">Lock in answer${ICONS.arrow}</button>`
+            }
+          </div>
+        </aside>
+      </div>`;
+  }
+
+  function oxygenDebriefPage(item, round, roundIndex, roundComplete) {
+    const roundState = runtime.oxygenRoundStates[roundIndex];
+    const riskItems = DEBRIEF[item.id] || [];
+    const order = runtime.oxygenTeachOrders[roundIndex] || round.teach.options.map((_, index) => index);
+    const options = order
+      .map((index) => {
+        const option = round.teach.options[index];
+        return choice(`oxygen-teach-${roundIndex}`, index, option.text, "", roundState.teachChoice === index);
+      })
+      .join("");
+
+    return `
+      <section class="debrief-stage">
+        <section class="risk-brief" aria-labelledby="oxygen-risk-title-${roundIndex}">
+          <div class="risk-heading"><h2 id="oxygen-risk-title-${roundIndex}">POSSIBLE SERIOUS CONSEQUENCES</h2></div>
+          <div class="risk-grid">
+            ${riskItems
+              .map(
+                (risk) => `<article class="risk-card"><span class="risk-skull" aria-hidden="true">☠️</span><div class="risk-card-body"><ul class="risk-list">${risk.consequences
+                  .map((consequence) => `<li>${esc(consequence)}</li>`)
+                  .join("")}</ul></div></article>`,
+              )
+              .join("")}
+          </div>
+        </section>
+        <div class="challenge-kicker">${ICONS.rewind}Takeaway check</div>
+        <h2>${round.teach.question}</h2>
+        <div class="choices teach-choices" ${roundComplete ? 'inert aria-disabled="true"' : ""}>${options}</div>
+        ${
+          roundState.teachFeedback
+            ? `<div class="feedback ${roundState.teachCorrect ? "correct" : "wrong"}">${
+                roundState.teachCorrect ? ICONS.check : ICONS.alert
+              }<div><strong>${roundState.teachCorrect ? "Correct - Round complete" : "Reconsider this choice"}</strong><span>${roundState.teachFeedback}</span></div></div>`
+            : ""
+        }
+        <div class="action-row">
+          ${
+            roundComplete
+              ? `<button class="secondary decision-confirmed" disabled>${ICONS.check}Round completed</button>`
+              : roundState.teachCorrect
+                ? roundIndex === 0
+                  ? `<button class="primary" data-next-oxygen-round>Continue to round 2${ICONS.arrow}</button>`
+                  : `<button class="primary" data-finish>Complete mission${ICONS.arrow}</button>`
+                : `<button class="secondary" data-confirm-oxygen="${roundIndex}">Confirm reflection</button>`
+          }
+        </div>
       </section>`;
   }
 
@@ -1521,7 +1806,11 @@
         <aside class="challenge ${["oxygen-combined", "transfer-combined"].includes(item.type) ? "combined-challenge" : ""}">
           <div class="challenge-kicker">${ICONS.alert}Decision point</div>
           <div class="key-information">
-            <span>Prescription / key information</span>
+            <span>Background information</span>
+            <p>${item.instruction}</p>
+          </div>
+          <div class="key-information instruction-information">
+            <span>Instruction</span>
             <p>${item.prompt}</p>
           </div>
           <h2>${item.question}</h2>
@@ -2051,24 +2340,20 @@
       </div>`;
   }
 
-  function comicPage(item) {
+  function comicPage(item, config = {}) {
     const comics = item.comics || [{ label: "Incident comic", src: item.comic }];
+    const reviewed = config.reviewed ?? ["debrief", "complete"].includes(runtime.phase);
+    const nextAttribute = config.nextAttribute || "data-next-debrief";
+    const waiting = !reviewed && Date.now() < runtime.comicReadyAt;
+    const seconds = waiting ? Math.max(1, Math.ceil((runtime.comicReadyAt - Date.now()) / 1000)) : 0;
     return `
       <section class="comic-stage">
-        <div class="incident-title-reveal"><span>Incident revealed</span><strong>${item.title}</strong></div>
         <div class="comic-gallery ${comics.length > 1 ? "multiple" : ""}">
           ${comics
             .map(
               (comic) => `
                 <figure class="comic-panel ${comic.className ? esc(comic.className) : ""}">
-                  ${comic.label ? `<figcaption>${esc(comic.label)}</figcaption>` : ""}
-                  <button
-                    class="comic-reveal"
-                    data-zoom
-                    data-comic-src="${comic.src}"
-                    data-comic-title="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}"
-                    aria-label="Enlarge ${esc(comic.label || "incident comic")}"
-                  >
+                  <div class="comic-reveal" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
                     ${
                       comic.viewBox
                         ? `<svg class="comic-crop" viewBox="${comic.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
@@ -2076,17 +2361,18 @@
                           </svg>`
                         : `<img src="${comic.src}" alt="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">`
                     }
-                    <span class="zoom-hint">${ICONS.zoom}Open zoom viewer</span>
-                  </button>
+                  </div>
                 </figure>`,
             )
             .join("")}
         </div>
         <div class="comic-next">
           ${
-            runtime.phase === "debrief" || runtime.phase === "complete"
+            reviewed
               ? `<span class="reviewed-state">${ICONS.check}Incident reviewed</span>`
-              : `<button class="primary" data-next-debrief>I have reviewed the incident${ICONS.arrow}</button>`
+              : `<button class="primary comic-review-button" ${nextAttribute} ${waiting ? "disabled" : ""}>${
+                  waiting ? `Continue in ${seconds}s` : `I have reviewed the incident${ICONS.arrow}`
+                }</button>`
           }
         </div>
       </section>`;
@@ -2109,8 +2395,14 @@
           </article>`,
       )
       .join("");
-    const options = item.teach.options
-      .map((option, index) => choice("teach", index, option.text, "", runtime.teachChoice === index))
+    const teachOrder = runtime.teachOrder?.length
+      ? runtime.teachOrder
+      : item.teach.options.map((_, index) => index);
+    const options = teachOrder
+      .map((index) => {
+        const option = item.teach.options[index];
+        return choice("teach", index, option.text, "", runtime.teachChoice === index);
+      })
       .join("");
 
     return `
@@ -2147,6 +2439,22 @@
       </section>`;
   }
 
+  function missionResult(item) {
+    const stars = runtime.resultStars || starsForAttempts(runtime.attempts);
+    const allComplete = Object.keys(state.completed).filter(caseById).length === CASES.length;
+    return `
+      <section class="mission-result" aria-live="polite">
+        <span class="mission-result-kicker">Mission Stars</span>
+        <strong class="mission-result-stars">${starDisplay(stars)}</strong>
+        <h2>Mission ${item.n} complete</h2>
+        <p>You completed ${item.type === "oxygen-combined" ? "both real-case rounds" : "all three steps"}. Your Mission Stars are based on your decision attempts.</p>
+        <div class="mission-result-actions">
+          <button class="primary" data-home>Back to mission map${ICONS.arrow}</button>
+          ${allComplete ? `<button class="secondary" data-course-complete>View course completion</button>` : ""}
+        </div>
+      </section>`;
+  }
+
   function completionPage() {
     const summary = stats();
     return `
@@ -2165,7 +2473,6 @@
             <button class="primary quiz-button" data-quiz>Continue to quiz${ICONS.arrow}</button>
             <button class="secondary" data-home>Review missions</button>
           </div>
-          <div class="quiz-note" data-quiz-note>The quiz is completed in the connected learning system.</div>
         </section>
       </div>`;
   }
@@ -2181,7 +2488,7 @@
     document.querySelector("[data-about]")?.addEventListener("click", () => {
       document.getElementById("aboutTitle").textContent = "About the course";
       document.getElementById("aboutBody").innerHTML =
-        `<p><strong>Break the Chain:</strong> Turns ${INCIDENT_COUNT} clinical incidents into short interactive missions. Each mission asks the learner to make a safety decision, review the incident comic, and complete a teach-back reflection.</p><p><strong>Mission Stars:</strong> Stars obtained are based only on the Part 1 of each mission: 3 ★ for a correct answer on the 1st attempt; 2 ★ on the 2nd attempt; and 1 ★ on the 3rd or later attempt.</p><p><strong>Remarks:</strong> The Mission Stars are for fun only, training completion is confirmed by the Final Quiz.</p>`;
+        `<p><strong>Second Chance:</strong> Revisits ${INCIDENT_COUNT} real clinical incidents through short interactive missions. Each mission asks the learner to decide what they would do at that moment, walk through the real case, and carry the lesson forward.</p><p><strong>Mission Stars:</strong> Stars obtained are based only on Part 1 of each mission: 3 ★ for a correct answer on the 1st attempt; 2 ★ on the 2nd attempt; and 1 ★ on the 3rd or later attempt.</p><p><strong>Remarks:</strong> The Mission Stars are for fun only, training completion is confirmed by the Final Quiz.</p>`;
       normalizeVisiblePunctuation(document.getElementById("aboutBody"));
       document.getElementById("aboutDialog").showModal();
     });
@@ -2203,6 +2510,8 @@
         if (dialog.id === "imageDialog") resetViewer();
       };
     });
+
+    document.querySelector("[data-course-complete]")?.addEventListener("click", () => go("complete"));
   }
 
   function bindHome() {
@@ -2390,7 +2699,12 @@
 
     document.querySelector("[data-submit]")?.addEventListener("click", () => submitDecision(item));
 
+    document.querySelectorAll("[data-oxygen-submit]").forEach((button) => {
+      button.addEventListener("click", () => submitOxygenDecision(item, Number(button.dataset.oxygenSubmit)));
+    });
+
     document.querySelector("[data-next-debrief]")?.addEventListener("click", () => {
+      if (Date.now() < runtime.comicReadyAt) return;
       runtime.phase = "debrief";
       render();
       requestAnimationFrame(() =>
@@ -2398,11 +2712,34 @@
       );
     });
 
+    document.querySelectorAll("[data-next-oxygen-debrief]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (Date.now() < runtime.comicReadyAt) return;
+        const roundIndex = Number(button.dataset.nextOxygenDebrief);
+        runtime.oxygenRoundStates[roundIndex].comicDone = true;
+        runtime.phase = `oxygen-${roundIndex + 1}-debrief`;
+        render();
+        requestAnimationFrame(() =>
+          document.getElementById(`oxygen-debrief-${roundIndex + 1}`)?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        );
+      });
+    });
+
     document.querySelectorAll('input[name="teach"]').forEach((input) => {
       input.onchange = (event) => {
         runtime.teachChoice = Number(event.target.value);
         runtime.teachCorrect = false;
         runtime.teachFeedback = null;
+      };
+    });
+
+    document.querySelectorAll('input[name^="oxygen-teach-"]').forEach((input) => {
+      input.onchange = (event) => {
+        const roundIndex = Number(event.target.name.split("-").at(-1));
+        const roundState = runtime.oxygenRoundStates[roundIndex];
+        roundState.teachChoice = Number(event.target.value);
+        roundState.teachCorrect = false;
+        roundState.teachFeedback = null;
       };
     });
 
@@ -2418,13 +2755,82 @@
       render();
     });
 
-    document.querySelector("[data-finish]")?.addEventListener("click", () => finishMission(item));
-
-    document.querySelectorAll("[data-zoom]").forEach((button) => {
+    document.querySelectorAll("[data-confirm-oxygen]").forEach((button) => {
       button.addEventListener("click", () => {
-        openImageViewer(button.dataset.comicSrc, button.dataset.comicTitle || item.title);
+        const roundIndex = Number(button.dataset.confirmOxygen);
+        const roundState = runtime.oxygenRoundStates[roundIndex];
+        if (roundState.teachChoice == null) {
+          roundState.teachCorrect = false;
+          roundState.teachFeedback = "Choose one response before confirming.";
+        } else {
+          const answer = item.rounds[roundIndex].teach.options[roundState.teachChoice];
+          roundState.teachCorrect = answer.ok;
+          roundState.teachFeedback = answer.why;
+        }
+        render();
       });
     });
+
+    document.querySelector("[data-next-oxygen-round]")?.addEventListener("click", () => {
+      runtime.phase = "oxygen-2-decision";
+      runtime.oxygenRound = 1;
+      runtime.comicReadyAt = 0;
+      render();
+      requestAnimationFrame(() =>
+        document.querySelectorAll(".oxygen-round-banner")[1]?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      );
+    });
+
+    document.querySelector("[data-finish]")?.addEventListener("click", () => finishMission(item));
+    bindComicCountdown();
+  }
+
+  function bindComicCountdown() {
+    const button = document.querySelector("[data-next-debrief], [data-next-oxygen-debrief]:not([disabled])") ||
+      document.querySelector("[data-next-oxygen-debrief]");
+    if (!button || !runtime.comicReadyAt) return;
+
+    const update = () => {
+      const remaining = Math.max(0, Math.ceil((runtime.comicReadyAt - Date.now()) / 1000));
+      if (remaining > 0) {
+        button.disabled = true;
+        button.textContent = `Continue in ${remaining}s`;
+        return;
+      }
+      button.disabled = false;
+      button.innerHTML = `I have reviewed the incident${ICONS.arrow}`;
+      clearInterval(comicCountdownTimer);
+    };
+
+    update();
+    comicCountdownTimer = setInterval(update, 250);
+  }
+
+  function submitOxygenDecision(item, roundIndex) {
+    const roundState = runtime.oxygenRoundStates[roundIndex];
+    const correctCylinderSequence = ["valve", "content", "flow"];
+    const correct =
+      roundIndex === 0
+        ? runtime.oxygenSource === "cylinder" && runtime.oxygenFlow === 3
+        : runtime.cylinderSequence.length === correctCylinderSequence.length &&
+          runtime.cylinderSequence.every((value, index) => value === correctCylinderSequence[index]);
+
+    runtime.attempts += 1;
+    if (!correct) {
+      roundState.feedback = "wrong";
+      render();
+      document.querySelector(".feedback.wrong")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      return;
+    }
+
+    roundState.feedback = null;
+    roundState.decisionDone = true;
+    runtime.phase = `oxygen-${roundIndex + 1}-comic`;
+    runtime.comicReadyAt = Date.now() + 15000;
+    render();
+    requestAnimationFrame(() =>
+      document.getElementById(`oxygen-incident-${roundIndex + 1}`)?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    );
   }
 
   function submitDecision(item) {
@@ -2485,6 +2891,7 @@
     if (correct) {
       runtime.feedback = null;
       runtime.phase = "comic";
+      runtime.comicReadyAt = Date.now() + 15000;
       render();
       requestAnimationFrame(() =>
         document.getElementById("incident-section")?.scrollIntoView({ behavior: "smooth", block: "start" }),
@@ -2499,7 +2906,11 @@
 
   function finishMission(item) {
     const attempts = runtime.attempts;
-    const stars = starsForAttempts(attempts);
+    const scoringAttempts =
+      item.type === "oxygen-combined"
+        ? Math.max(1, attempts - Math.max(0, item.rounds.length - 1))
+        : attempts;
+    const stars = starsForAttempts(scoringAttempts);
     const previous = state.completed[item.id];
 
     state.completed[item.id] = {
@@ -2509,15 +2920,12 @@
       completedAt: new Date().toISOString(),
     };
     save();
-    runtime = null;
-
-    if (Object.keys(state.completed).filter(caseById).length === CASES.length) {
-      go("complete");
-      return;
-    }
-
-    go("");
-    setTimeout(() => toast("Mission complete", `${item.title} · ${starDisplay(stars)}`), 80);
+    runtime.phase = "complete";
+    runtime.resultStars = stars;
+    render();
+    requestAnimationFrame(() =>
+      document.querySelector(".mission-result")?.scrollIntoView({ behavior: "smooth", block: "center" }),
+    );
   }
 
   function toast(title, message) {

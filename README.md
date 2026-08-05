@@ -1,9 +1,9 @@
-# Break the Chain - Clinical Safety Missions
+# Second Chance - Real Clinical Incident Missions
 
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v6.7
+## Release v6.8
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -15,10 +15,10 @@ of a specimen-container ingredient.
 The 15-mission build has passed desktop and 390×844 mobile browser QA. The external quiz
 URL remains intentionally unset until the owner supplies it.
 
-Completed missions reopen as a read-only review: `DECISION`, `INCIDENT COMIC`,
-and `DEBRIEF` remain expanded, all three stages show `Complete`, and the saved
-Mission Stars remain unchanged. After the incident-review acknowledgement, the
-`INCIDENT COMIC` stage changes from `Open` to `Complete`.
+Completed missions reopen as a read-only review: `YOUR DECISION`, `REAL CASE`,
+and `TAKEAWAY` remain expanded and the saved Mission Stars remain unchanged.
+Mission 11 runs those three stages twice in one mission, once for each Oxygen
+incident.
 
 Mission Stars are based only on Part 1 of each mission: the first correct
 attempt earns three stars, the second earns two, and the third or any later
@@ -33,18 +33,27 @@ where the cylinder main switch was not turned on, and Transfer uses the panel
 where the patient has fallen to the floor. The blood-taking mission explicitly
 asks the learner to check for a retained tourniquet before leaving.
 
-Decision screens use neutral, pre-incident mission names and place the learner
-in the role of the staff member making the safety judgement. The official
-incident title is revealed with the comic only after the decision is correct.
+Decision screens now place the original mission instruction under `Background
+information` and the case prompt under `Instruction`. Mission 2 uses the
+interruption panel, Mission 6 uses the first medicine-check panel, and Mission
+7 uses the doctor-prescribing panel.
 
-The enlarged comic viewer supports mouse-wheel and trackpad zoom, toolbar zoom,
-drag-to-pan, and two-finger pinch gestures on touch devices.
+The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
+displayed full-width without an overlay obscuring its Learning Points. After a
+decision is correct, the review button stays disabled for 15 seconds before the
+learner can continue.
 
-Mission pages use a centred `MISSION STARS` box. Completed dashboard cards use
-`Mission Stars`, unfinished cards use `3- 5 mins`, and `any order` stays
-together. On mobile, `Break the Chain` and `Clinical Safety Missions` each stay
-on one complete line. The Hospital Authority fresh-graduate-nurse programme
-label appears as one small line above the title.
+Mission Stars appear only at the bottom after all mission steps are complete.
+Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
+mins`, and `any order` stays together. The dashboard theme is `Second Chance`
+with the subtitle `Real Clinical Incident Missions`. The Hospital Authority
+programme label is larger and displayed on two lines without a full stop.
+
+Visible punctuation is normalised across the dashboard and mission flow:
+apostrophes, commas, and hyphens are followed by a space. Numeric adrenaline
+ratios retain their required thousands separators: `1:10,000` and `1:1,000`.
+Teach-back choices are shuffled so the correct answer is not repeatedly in the
+second position.
 
 The site is publicly hosted on GitHub Pages and does not depend on ChatGPT
 access. No visitor login is required:
@@ -56,15 +65,14 @@ https://sincekong.github.io/break-the-chain-clinical-safety-missions/
 2. Complete the decision in the first section.
 3. A correct answer unlocks the exact PowerPoint-rendered incident comic in the
    second section on the same page.
-4. Review the incident, unlock the third section, and complete the teach-back
-   reflection.
+4. Review the incident for at least 15 seconds, unlock the third section, and
+   complete the teach-back reflection.
 5. After all available missions, the completion screen hands off to the external quiz.
 
 ## Quiz connection
 
 Set `QUIZ_URL` near the top of `app.js` when the external quiz URL is available.
-Until then, the completion screen explains that the quiz opens in the connected
-learning system.
+Until then, the quiz button remains a non-navigating placeholder.
 
 ## Progress connection
 
