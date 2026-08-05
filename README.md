@@ -1,9 +1,9 @@
-# Second Chance - Real Clinical Incident Missions
+# Break the Chain - Real Clinical Incident Missions
 
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v6.8
+## Release v6.9
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -33,21 +33,28 @@ where the cylinder main switch was not turned on, and Transfer uses the panel
 where the patient has fallen to the floor. The blood-taking mission explicitly
 asks the learner to check for a retained tourniquet before leaving.
 
-Decision screens now place the original mission instruction under `Background
-information` and the case prompt under `Instruction`. Mission 2 uses the
-interruption panel, Mission 6 uses the first medicine-check panel, and Mission
-7 uses the doctor-prescribing panel.
+Decision screens now place one concise combined context block under
+`Background information`; the separate visible `Instruction` block has been
+removed. Mission 2 uses the interruption panel, Mission 6 uses the first
+medicine-check panel, and Mission 7 uses the doctor-prescribing panel.
 
 The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
 displayed full-width without an overlay obscuring its Learning Points. After a
-decision is correct, the review button stays disabled for 15 seconds before the
+decision is correct, the review button stays disabled for 20 seconds before the
 learner can continue.
 
 Mission Stars appear only at the bottom after all mission steps are complete.
 Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
-mins`, and `any order` stays together. The dashboard theme is `Second Chance`
+mins`, and `any order` stays together. The dashboard theme is `Break the Chain`
 with the subtitle `Real Clinical Incident Missions`. The Hospital Authority
 programme label is larger and displayed on two lines without a full stop.
+
+Mission 11's second Oxygen real-case stage displays the preserved
+`oxygen-case-2-comic-2026-08-05.png` followed by the existing Oxygen Cylinder
+Safety 3-2-1 poster. The final Takeaway requires the receiving nurse to check
+the valve, tubing, cylinder content, prescribed flow, and actual delivery.
+After Mission 15, the primary result action opens course completion; the
+completed dashboard keeps an explicit completed-mission review route.
 
 Visible punctuation is normalised across the dashboard and mission flow:
 apostrophes, commas, and hyphens are followed by a space. Numeric adrenaline
@@ -65,9 +72,9 @@ https://sincekong.github.io/break-the-chain-clinical-safety-missions/
 2. Complete the decision in the first section.
 3. A correct answer unlocks the exact PowerPoint-rendered incident comic in the
    second section on the same page.
-4. Review the incident for at least 15 seconds, unlock the third section, and
+4. Review the incident for at least 20 seconds, unlock the third section, and
    complete the teach-back reflection.
-5. After all available missions, the completion screen hands off to the external quiz.
+5. After all 15 missions, the completion screen hands off to the external quiz.
 
 ## Quiz connection
 

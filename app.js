@@ -4,7 +4,9 @@
   const STORE = "incidentLearningGame.v2";
   const QUIZ_URL = "";
   const MAX_STARS = 3;
+  const COMIC_REVIEW_SECONDS = 20;
   const INCIDENT_COUNT = 17;
+  const OXYGEN_SAFETY_POSTER = "assets/oxygen-cylinder-safety-3-2-1.png";
 
   const ICONS = {
     rewind:
@@ -373,22 +375,22 @@
           briefingIndex: 1,
           comicIndex: 1,
           teach: {
-            question: "Which final check confirms that the portable cylinder is ready?",
+            question: "A colleague says the oxygen is already connected. What final bedside check must you complete before accepting the patient?",
             options: [
               {
-                text: "Connect the tubing and leave the main valve closed until the patient needs oxygen.",
+                text: "Accept the colleague's confirmation and leave the current connection and flow unchanged.",
                 ok: false,
-                why: "A closed main valve prevents oxygen from reaching the patient.",
+                why: "A colleague's confirmation does not replace the receiving nurse's direct final bedside check.",
               },
               {
-                text: "Open the valve, check the content level, set the prescribed flow, and verify delivery.",
+                text: "Check the gauge and flow setting only; the connected tubing can be assumed to deliver oxygen.",
+                ok: false,
+                why: "The complete check must include the main valve, tubing connection, content level, prescribed flow, and actual delivery.",
+              },
+              {
+                text: "Personally check that the main valve is open, the tubing is connected, the cylinder has adequate content, the prescribed flow is set, and oxygen is actually reaching the patient.",
                 ok: true,
-                why: "This completes the 3-2-1 sequence and confirms actual oxygen delivery.",
-              },
-              {
-                text: "Check the gauge only; the flow setting can be adjusted after transfer.",
-                ok: false,
-                why: "The complete cylinder sequence and final delivery check must be finished before use.",
+                why: "This final direct check confirms the complete path, cylinder readiness, prescribed flow, and actual oxygen delivery.",
               },
             ],
           },
@@ -1308,9 +1310,9 @@
       <header class="topbar">
         <div class="shell topbar-in">
           <button class="brand" data-home>
-            <span class="brand-mark">${ICONS.rewind}</span>
+            <span class="brand-mark">${ICONS.shield}</span>
             <span class="brand-copy">
-              <strong>Second Chance</strong>
+              <strong>Break the Chain</strong>
               <span>Real Clinical Incident Missions</span>
             </span>
           </button>
@@ -1337,7 +1339,7 @@
     bindGlobal();
     if (caseMatch) bindCase(caseById(caseMatch[1]));
     else bindHome();
-    document.title = "Second Chance - Real Clinical Incident Missions";
+    document.title = "Break the Chain - Real Clinical Incident Missions";
   }
 
   function starsForAttempts(attempts = 1) {
@@ -1377,7 +1379,8 @@
   function homePage() {
     const summary = stats();
     const percent = Math.round((summary.count / CASES.length) * 100);
-    const next = CASES.find((item) => !state.completed[item.id]) || CASES[0];
+    const allComplete = summary.count === CASES.length;
+    const next = CASES.find((item) => !state.completed[item.id]);
     const firstCompleted = CASES.find((item) => state.completed[item.id])?.id;
 
     return `
@@ -1385,10 +1388,14 @@
         <section class="hero">
           <div class="hero-main">
             <span class="eyebrow program-label"><span>Standardized Orientation Program</span><span>For Fresh Graduate Nurses in Hospital Authority</span></span>
-            <h1>Second Chance<span>Real Clinical Incident Missions</span></h1>
+            <h1>Break the Chain<span>Real Clinical Incident Missions</span></h1>
             <p class="hero-copy">Step back into real nursing incidents from the moment before harm. Notice the cue, make the safer choice, and carry the lesson into your next shift.</p>
             <div class="hero-actions">
-              <button class="primary" data-start="${next.id}">${ICONS.rewind}Start next mission${ICONS.arrow}</button>
+              ${
+                allComplete
+                  ? `<button class="primary" data-course-complete>${ICONS.shield}View course completion${ICONS.arrow}</button>`
+                  : `<button class="primary" data-start="${next.id}">${ICONS.shield}Start next mission${ICONS.arrow}</button>`
+              }
               ${
                 firstCompleted
                   ? `<button class="secondary" data-start="${firstCompleted}">${ICONS.reset}Review a completed mission</button>`
@@ -1411,12 +1418,12 @@
               <div class="ring-summary"><strong>${summary.stars} / ${summary.maxStars} ★</strong><span>Mission Stars earned</span></div>
             </div>
             <div class="star-rules" aria-label="How mission stars are earned">
-              <span class="star-rule-intro">Stars obtained are based only on the Part 1 of each mission:</span>
+              <span class="star-rule-intro">Stars obtained are based only on Part 1 of each mission:</span>
               <span><strong>3 ★:</strong> Correct on the 1st attempt</span>
               <span><strong>2 ★:</strong> Correct on the 2nd attempt</span>
               <span><strong>1 ★:</strong> Correct on the 3rd or later attempt</span>
             </div>
-            <p class="training-remark"><strong>Remarks:</strong> The Mission Stars are for fun only, training completion is confirmed by the Final Quiz.</p>
+            <p class="training-remark"><strong>Remarks:</strong> The Mission Stars are for fun only. Training completion is confirmed by the Final Quiz.</p>
           </aside>
         </section>
 
@@ -1625,6 +1632,16 @@
         const debriefComplete = stage > base + 2;
         const briefing = item.briefings[round.briefingIndex];
         const comic = item.comics[round.comicIndex];
+        const roundComics = roundIndex === 1
+          ? [
+              comic,
+              {
+                label: "Oxygen Cylinder Safety 3-2-1 poster",
+                src: OXYGEN_SAFETY_POSTER,
+                className: "oxygen-safety-poster",
+              },
+            ]
+          : [comic];
 
         return `
           <div class="oxygen-round-banner">
@@ -1644,7 +1661,7 @@
             ${
               comicUnlocked
                 ? comicPage(
-                    { ...item, title: round.playTitle, comics: [comic] },
+                    { ...item, title: round.playTitle, comics: roundComics },
                     {
                       reviewed: comicReviewed,
                       nextAttribute: `data-next-oxygen-debrief="${roundIndex}"`,
@@ -1692,11 +1709,7 @@
           <div class="challenge-kicker">${ICONS.alert}Decision point</div>
           <div class="key-information">
             <span>Background information</span>
-            <p>${round.instruction}</p>
-          </div>
-          <div class="key-information instruction-information">
-            <span>Instruction</span>
-            <p>${round.prompt}</p>
+            <p>${round.instruction} ${round.prompt}</p>
           </div>
           <h2>${round.question}</h2>
           <div class="decision-controls" ${decisionComplete ? 'inert aria-disabled="true"' : ""}>
@@ -1807,11 +1820,7 @@
           <div class="challenge-kicker">${ICONS.alert}Decision point</div>
           <div class="key-information">
             <span>Background information</span>
-            <p>${item.instruction}</p>
-          </div>
-          <div class="key-information instruction-information">
-            <span>Instruction</span>
-            <p>${item.prompt}</p>
+            <p>${item.instruction} ${item.prompt}</p>
           </div>
           <h2>${item.question}</h2>
           <div class="decision-controls" ${decisionComplete ? 'inert aria-disabled="true"' : ""}>
@@ -2447,10 +2456,21 @@
         <span class="mission-result-kicker">Mission Stars</span>
         <strong class="mission-result-stars">${starDisplay(stars)}</strong>
         <h2>Mission ${item.n} complete</h2>
-        <p>You completed ${item.type === "oxygen-combined" ? "both real-case rounds" : "all three steps"}. Your Mission Stars are based on your decision attempts.</p>
+        <p class="mission-result-summary">You completed ${item.type === "oxygen-combined" ? "both real-case rounds" : "all three steps"}. Your Mission Stars are based on your decision attempts.</p>
+        <div class="mission-result-reassurance" aria-label="How Mission Stars are earned">
+          <span>Stars obtained are based only on Part 1 of each mission:</span>
+          <span><strong>3 ★:</strong> Correct on the 1st attempt</span>
+          <span><strong>2 ★:</strong> Correct on the 2nd attempt</span>
+          <span><strong>1 ★:</strong> Correct on the 3rd or later attempt</span>
+        </div>
+        <p class="mission-result-remark"><strong>Remarks:</strong> The Mission Stars are for fun only. Training completion is confirmed by the Final Quiz.</p>
         <div class="mission-result-actions">
-          <button class="primary" data-home>Back to mission map${ICONS.arrow}</button>
-          ${allComplete ? `<button class="secondary" data-course-complete>View course completion</button>` : ""}
+          ${
+            allComplete
+              ? `<button class="primary" data-course-complete>${ICONS.shield}View course completion${ICONS.arrow}</button>
+                 <button class="secondary" data-home>Review mission map</button>`
+              : `<button class="primary" data-home>Back to mission map${ICONS.arrow}</button>`
+          }
         </div>
       </section>`;
   }
@@ -2488,7 +2508,7 @@
     document.querySelector("[data-about]")?.addEventListener("click", () => {
       document.getElementById("aboutTitle").textContent = "About the course";
       document.getElementById("aboutBody").innerHTML =
-        `<p><strong>Second Chance:</strong> Revisits ${INCIDENT_COUNT} real clinical incidents through short interactive missions. Each mission asks the learner to decide what they would do at that moment, walk through the real case, and carry the lesson forward.</p><p><strong>Mission Stars:</strong> Stars obtained are based only on Part 1 of each mission: 3 ★ for a correct answer on the 1st attempt; 2 ★ on the 2nd attempt; and 1 ★ on the 3rd or later attempt.</p><p><strong>Remarks:</strong> The Mission Stars are for fun only, training completion is confirmed by the Final Quiz.</p>`;
+        `<p><strong>Break the Chain:</strong> Revisits ${INCIDENT_COUNT} real clinical incidents through short interactive missions. Each mission asks the learner to decide what they would do at that moment, walk through the real case, and carry the lesson forward.</p><p><strong>Mission Stars:</strong> Stars obtained are based only on Part 1 of each mission: 3 ★ for a correct answer on the 1st attempt; 2 ★ on the 2nd attempt; and 1 ★ on the 3rd or later attempt.</p><p><strong>Remarks:</strong> The Mission Stars are for fun only. Training completion is confirmed by the Final Quiz.</p>`;
       normalizeVisiblePunctuation(document.getElementById("aboutBody"));
       document.getElementById("aboutDialog").showModal();
     });
@@ -2826,7 +2846,7 @@
     roundState.feedback = null;
     roundState.decisionDone = true;
     runtime.phase = `oxygen-${roundIndex + 1}-comic`;
-    runtime.comicReadyAt = Date.now() + 15000;
+    runtime.comicReadyAt = Date.now() + COMIC_REVIEW_SECONDS * 1000;
     render();
     requestAnimationFrame(() =>
       document.getElementById(`oxygen-incident-${roundIndex + 1}`)?.scrollIntoView({ behavior: "smooth", block: "start" }),
@@ -2891,7 +2911,7 @@
     if (correct) {
       runtime.feedback = null;
       runtime.phase = "comic";
-      runtime.comicReadyAt = Date.now() + 15000;
+      runtime.comicReadyAt = Date.now() + COMIC_REVIEW_SECONDS * 1000;
       render();
       requestAnimationFrame(() =>
         document.getElementById("incident-section")?.scrollIntoView({ behavior: "smooth", block: "start" }),
