@@ -4290,6 +4290,21 @@ dialog h2 {
   display: block;
 }
 
+.control-icon.checkpoint-icon {
+  display: grid;
+  place-items: center;
+  color: #234b6e;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.control-icon.checkpoint-icon::before,
+.control-icon.checkpoint-icon::after {
+  content: none;
+  display: none;
+}
+
 .control-icon.patient::before,
 .control-icon.wristband::before {
   inset: 10px 7px;
@@ -4956,6 +4971,10 @@ dialog h2 {
     width: 34px;
     height: 34px;
     border-radius: 10px;
+  }
+
+  .control-icon.checkpoint-icon {
+    font-size: 20px;
   }
 
   .control-card strong,

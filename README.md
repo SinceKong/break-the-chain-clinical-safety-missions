@@ -3,15 +3,12 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.5.0
+## Release v7.6.0
 
-This owner refinement preserves the v7.4.0 visual decision boards while
-updating the requested decision wording, Mission 15's denture flow, and the
-internal Final Quiz completion state. The public
-v7.3.0 state is preserved by the
-`v7.3.0-before-punctuation-quiz-refinement` tag in the clean repository; the
-earlier v7.2.0, v7.1.0, and v7.0.0 states remain preserved by their existing
-tags.
+This owner refinement preserves the v7.5.0 visual decision boards while
+updating the Mission 2 checkpoint icon treatment. The public v7.5.0 state is
+preserved by the `v7.5.0-before-checkpoint-emoji-polish` tag in the clean
+repository; earlier releases remain preserved by their existing tags.
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -59,6 +56,11 @@ Seek clarification. Mission 14 asks which attempted sites to select without
 revealing both sites. Mission 15 keeps the assessment control visible after
 selection, then unlocks storage location, then unlocks documentation regarding
 the patient's denture.
+
+Mission 2 checkpoint controls use explicit emoji—ID card, capsule, clock,
+syringe, and road—to keep the five-rights choices visible and legible on both
+desktop and mobile layouts. The text labels remain the accessible source of
+meaning.
 
 The Final Quiz now opens with only its `Final Quiz` title and passing
 requirement. It samples five of the nine Question Bank items, shuffles each

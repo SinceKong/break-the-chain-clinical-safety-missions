@@ -2096,11 +2096,11 @@
 
   function interruptionInteraction() {
     const checkpoints = [
-      ["patient", "Right patient", "Patient"],
-      ["drug", "Right drug", "Drug"],
-      ["time", "Right time", "Time"],
-      ["dosage", "Right dosage", "Dosage"],
-      ["route", "Right route", "Route"],
+      ["patient", "Right patient", "Patient", "🪪"],
+      ["drug", "Right drug", "Drug", "💊"],
+      ["time", "Right time", "Time", "⏰"],
+      ["dosage", "Right dosage", "Dosage", "💉"],
+      ["route", "Right route", "Route", "🛣️"],
     ];
     const actions = [
       ["resume", "Resume medication administration", "Continue from where you stopped"],
@@ -2128,9 +2128,9 @@
         <div class="control-grid control-grid-5">
           ${checkpoints
             .map(
-              ([value, label, short]) => `
+              ([value, label, short, icon]) => `
                 <button class="control-card ${runtime.interruptionChecks.includes(value) ? "selected" : ""}" data-interruption-check="${value}" type="button" aria-pressed="${runtime.interruptionChecks.includes(value)}">
-                  <span class="control-icon ${value}"><i></i></span>
+                  <span class="control-icon checkpoint-icon ${value}" aria-hidden="true">${icon}</span>
                   <strong>${label}</strong>
                   <small>${short}</small>
                 </button>`,
