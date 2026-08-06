@@ -2965,9 +2965,8 @@ main {
   display: grid;
   width: min(100%, 620px);
   gap: 4px;
-  margin: -4px 0 10px;
-  padding: 12px 0 0;
-  border-top: 1px solid rgba(193, 122, 33, 0.18);
+  margin: 8px 0 10px;
+  padding: 0;
   color: var(--ink-2);
   text-align: left;
 }

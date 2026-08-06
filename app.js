@@ -932,6 +932,7 @@
   let viewerPinchDistance = 0;
   let viewerPinchCenter = null;
   let viewerDrag = null;
+  let lazyMediaObserver;
   const viewerPointers = new Map();
 
   function load() {
@@ -1291,6 +1292,8 @@
 
   function render() {
     clearInterval(comicCountdownTimer);
+    lazyMediaObserver?.disconnect();
+    lazyMediaObserver = null;
     const caseMatch = route().match(/^case\/(.+)$/);
     let content;
 
@@ -1304,7 +1307,40 @@
     bindGlobal();
     if (caseMatch) bindCase(caseById(caseMatch[1]));
     else bindHome();
+    bindLazyMedia();
     document.title = "Break the Chain - Real Clinical Incident Missions";
+  }
+
+  function bindLazyMedia() {
+    const elements = Array.from(document.querySelectorAll("[data-lazy-src]"));
+    if (!elements.length) return;
+
+    const load = (element) => {
+      const src = element.getAttribute("data-lazy-src");
+      if (!src) return;
+      const tagName = element.tagName.toLowerCase();
+      if (tagName === "svg") element.querySelector("image")?.setAttribute("href", src);
+      else if (tagName === "image") element.setAttribute("href", src);
+      else element.setAttribute("src", src);
+      element.removeAttribute("data-lazy-src");
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach(load);
+      return;
+    }
+
+    lazyMediaObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          load(entry.target);
+          lazyMediaObserver?.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "320px 0px" },
+    );
+    elements.forEach((element) => lazyMediaObserver.observe(element));
   }
 
   function starsForAttempts(attempts = 1) {
@@ -1435,10 +1471,10 @@
   }
 
   function missionThumbnail(thumb) {
-    if (typeof thumb === "string") return `<img src="${thumb}" alt="">`;
+    if (typeof thumb === "string") return `<img src="${thumb}" loading="lazy" decoding="async" alt="">`;
     return `
-      <svg class="mission-thumb" viewBox="${thumb.viewBox}" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-        <image href="${thumb.src}" width="${thumb.width}" height="${thumb.height}"></image>
+      <svg class="mission-thumb" data-lazy-src="${esc(thumb.src)}" viewBox="${thumb.viewBox}" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+        <image width="${thumb.width}" height="${thumb.height}"></image>
       </svg>`;
   }
 
@@ -1665,8 +1701,8 @@
       <div class="case-grid">
         <section class="briefing-card">
           <figure class="briefing-frame">
-            <svg class="briefing-crop" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
-              <image href="${briefing.src}" width="${briefing.width}" height="${briefing.height}"></image>
+            <svg class="briefing-crop" data-lazy-src="${esc(briefing.src)}" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
+              <image width="${briefing.width}" height="${briefing.height}"></image>
             </svg>
           </figure>
         </section>
@@ -1771,10 +1807,10 @@
                         ${briefing.label ? `<figcaption>${esc(briefing.label)}</figcaption>` : ""}
                         ${
                           briefing.viewBox
-                            ? `<svg class="briefing-crop" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
-                                <image href="${briefing.src}" width="${briefing.width}" height="${briefing.height}"></image>
+                            ? `<svg class="briefing-crop" data-lazy-src="${esc(briefing.src)}" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
+                                <image width="${briefing.width}" height="${briefing.height}"></image>
                               </svg>`
-                            : `<img src="${briefing.src}" alt="${esc(briefing.alt)}">`
+                            : `<img src="${briefing.src}" loading="lazy" decoding="async" alt="${esc(briefing.alt)}">`
                         }
                       </figure>`,
                   )
@@ -2329,11 +2365,11 @@
                 <figure class="comic-panel ${comic.className ? esc(comic.className) : ""}">
                   <div class="comic-reveal" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
                     ${
-                      comic.viewBox
-                        ? `<svg class="comic-crop" viewBox="${comic.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
-                            <image href="${comic.src}" width="${comic.width}" height="${comic.height}"></image>
-                          </svg>`
-                        : `<img src="${comic.src}" alt="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">`
+                        comic.viewBox
+                          ? `<svg class="comic-crop" data-lazy-src="${esc(comic.src)}" viewBox="${comic.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
+                            <image width="${comic.width}" height="${comic.height}"></image>
+                            </svg>`
+                        : `<img src="${comic.src}" loading="lazy" decoding="async" alt="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">`
                     }
                   </div>
                 </figure>`,

@@ -3,7 +3,7 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v6.9.1
+## Release v6.9.2
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -46,7 +46,13 @@ learner can continue.
 
 Mission Stars appear only at the bottom after all mission steps are complete;
 the result card goes directly from the stars and completion heading to the
-compact star rules, with the Final Quiz remark left-aligned as a normal note.
+compact star rules, with no divider line and the Final Quiz remark left-aligned
+as a normal note.
+
+Mission map thumbnails preserve their accepted high-resolution crops but load
+only when visible or close to the viewport. Incident visuals and comics use
+deferred loading and asynchronous decoding where the browser supports it, so
+the first desktop screen does not request every multi-megabyte image at once.
 Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
 mins`, and `any order` stays together. The dashboard theme is `Break the Chain`
 with the subtitle `Real Clinical Incident Missions`. The Hospital Authority
