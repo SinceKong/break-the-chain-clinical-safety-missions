@@ -253,7 +253,7 @@
       summary:
         "Check the patient's current parameters and clinical context before giving treatment.",
       background:
-        "Treatment to lower potassium has been prescribed. The patient record and latest potassium result must be matched before administration.",
+        "Treatment to lower potassium has been prescribed.",
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-visual-2026-08-05.png",
@@ -514,7 +514,7 @@
       summary:
         "Decide whether a written feed order can proceed when the CXR review is not documented.",
       background:
-        "A doctor has written an order to start an NG feed. The record does not show that the chest X-ray was reviewed or that tube position was confirmed.",
+        "A doctor has written an order to start an NG feed.",
       skills: ["CXR review", "Independent verification"],
       thumb: "assets/ng-tube-thumb.webp",
       briefing: "assets/ng-tube-visual-2026-08-05.png",
@@ -599,7 +599,7 @@
         "Identify, store, and document the denture when the patient is admitted.",
       background:
         "A patient with a denture is being admitted. The denture needs an accountable storage and recording process before routine care continues.",
-      skills: ["Inventory", "Designated storage"],
+      skills: ["Personal item documentation", "Designated storage"],
       thumb: "assets/missing-denture-thumb.webp",
       briefing: "assets/missing-denture-visual-2026-08-05.png",
       briefingView: { src: "assets/missing-denture-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 97 840 414" },
@@ -608,7 +608,7 @@
       briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
       question: "What should you do when the denture is identified at admission?",
       wrong:
-        "Use the designated denture box, complete the denture inventory, and document the denture information. Tissue paper and meal trays are not safe storage.",
+        "Use the designated denture box and document the denture as the patient's personal item. Tissue paper and meal trays are not safe storage.",
       sourceWarning:
         "The exact source comic depicts Missing Denture but carries an incorrect visible NG-tube title.",
       teach: {
@@ -620,9 +620,9 @@
             why: "Tissue and meal trays are easily discarded and do not provide accountable storage.",
           },
           {
-            text: "Assess for dentures on admission, record them in the inventory, and use a labelled designated denture box.",
+            text: "Place the denture in a labelled designated denture box and document it as the patient's personal item.",
             ok: true,
-            why: "Assessment, documentation, and designated storage create an accountable handling pathway before loss occurs.",
+            why: "Documentation and designated storage create an accountable handling pathway before loss occurs.",
           },
           {
             text: "Ask the patient to keep the denture somewhere safe without recording its location.",
@@ -649,7 +649,7 @@
       comic: "assets/wrong-patient-distraction-comic-2026-08-05.png",
       thumbView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 506 778 435" },
       briefingAlt: "A patient care assistant interrupts a nurse during medication administration.",
-      question: "What should you do when you return after the interruption?",
+      question: "Would you resume medication administration or start over the medication administration check?",
       correctDecision: "restart",
       decisionOptions: [
         {
@@ -701,7 +701,7 @@
       summary:
         "Clarify the indication, route, concentration, and dose before preparing adrenaline.",
       background:
-        "During an allergic reaction, a doctor gives a verbal adrenaline order. The route, concentration, and dose are not specified.",
+        "During an allergic reaction, a doctor gives a verbal adrenaline order.",
       skills: ["Order clarification", "Route and concentration"],
       briefing: "assets/adrenaline-route-visual-2026-08-05.png",
       briefingView: { src: "assets/adrenaline-route-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "898 110 774 405" },
@@ -760,7 +760,7 @@
       summary:
         "Never assume what an unlabelled cup contains - pause and clarify before NG administration.",
       background:
-        "During NG medication administration, an unlabelled cup is on the tray. It has no label, and its contents and medication order have not been confirmed.",
+        "During NG medication administration, an unlabelled cup is on the tray.",
       skills: ["Situational awareness", "Clarification"],
       briefing: "assets/mouthwash-ng-visual-2026-08-05.png",
       briefingView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "576 96 518 413" },
@@ -819,7 +819,7 @@
       summary:
         "Control, explain, and label specimen containers so their contents cannot be mistaken for medication.",
       background:
-        "A specimen container with preservative powder is ready for later collection. The patient and relative are nearby, and its purpose has not been explained.",
+        "A specimen container with preservative powder is ready for later collection.",
       skills: ["Specimen control", "Patient and carer communication"],
       briefing: "assets/specimen-bottle-visual-2026-08-05.png",
       briefingView: { src: "assets/specimen-bottle-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 104 543 408" },
@@ -1165,7 +1165,11 @@
             ? hyphen
             : `${hyphen} `,
         )
-        .replace(/(['’])(?=\S)/g, "$1 ");
+        .replace(/(?:['’])(?=\S)/g, (apostrophe, offset, text) =>
+          /[A-Za-z0-9]/.test(text[offset - 1] || "") && /[A-Za-z0-9]/.test(text[offset + 1] || "")
+            ? apostrophe
+            : `${apostrophe} `,
+        );
     }
   }
 
@@ -1350,8 +1354,6 @@
     }
     if (item.type === "denture-admission") {
       runtime.dentureStorage = "box";
-      runtime.dentureInventory = true;
-      runtime.dentureTagged = true;
       runtime.dentureDocumented = true;
     }
 
@@ -1872,6 +1874,9 @@
 
   function decisionPage(item) {
     const decisionComplete = runtime.phase !== "decision";
+    const decisionSubmitVisible =
+      item.id !== "wrong-patient-distraction" ||
+      (runtime.interruptionAction === "new-pass" && runtime.interruptionChecks.length > 0);
     const briefings = item.briefings || [
       {
         label: "Decision scene",
@@ -1919,7 +1924,9 @@
             ${
               decisionComplete
                 ? `<button class="secondary decision-confirmed" disabled>${ICONS.check}Decision confirmed</button>`
-                : `<button class="primary" data-submit>Lock in answer${ICONS.arrow}</button>`
+                : decisionSubmitVisible
+                  ? `<button class="primary" data-submit>Lock in answer${ICONS.arrow}</button>`
+                  : ""
             }
           </div>
         </aside>
@@ -1969,17 +1976,27 @@
       ["route", "Right route", "Route"],
     ];
     const actions = [
-      ["resume", "Resume", "Continue the pass"],
-      ["new-pass", "Start again", "Begin a new pass"],
+      ["resume", "Resume medication administration", "Continue from where you stopped"],
+      ["new-pass", "Start over", "Restart the medication administration check"],
     ];
+    const showCheckpoints = runtime.interruptionAction === "new-pass";
 
     return `
       <div class="interactive-board interruption-board">
-        <div class="board-console">
-          <div class="board-console-head"><span>Medication pass</span><strong>Interrupted</strong></div>
-          <div class="board-console-track"><i></i><b></b><i></i><b></b><i></i></div>
-          <div class="board-console-foot"><span>Bedside</span><span>Check</span><span>Ready</span></div>
+        <div class="board-section-label"><span>Action</span></div>
+        <div class="action-pick action-pick-2">
+          ${actions
+            .map(
+              ([value, label, detail]) => `
+                <button class="action-button ${runtime.interruptionAction === value ? "selected" : ""}" data-interruption-action="${value}" type="button" aria-pressed="${runtime.interruptionAction === value}">
+                  <strong>${label}</strong><small>${detail}</small>
+                </button>`,
+            )
+            .join("")}
         </div>
+        ${
+          showCheckpoints
+            ? `
         <div class="board-section-label"><span>Checkpoints</span><strong>${runtime.interruptionChecks.length} / ${checkpoints.length}</strong></div>
         <div class="control-grid control-grid-5">
           ${checkpoints
@@ -1992,18 +2009,9 @@
                 </button>`,
             )
             .join("")}
-        </div>
-        <div class="board-section-label action-label"><span>Action</span></div>
-        <div class="action-pick action-pick-2">
-          ${actions
-            .map(
-              ([value, label, detail]) => `
-                <button class="action-button ${runtime.interruptionAction === value ? "selected" : ""}" data-interruption-action="${value}" type="button" aria-pressed="${runtime.interruptionAction === value}">
-                  <strong>${label}</strong><small>${detail}</small>
-                </button>`,
-            )
-            .join("")}
-        </div>
+        </div>`
+            : ""
+        }
       </div>`;
   }
 
@@ -2478,7 +2486,7 @@
     const evidence = [
       ["feed-order", "Feed order", "Order"],
       ["cxr-available", "Chest X-ray available", "CXR"],
-      ["position-confirmed", "NG tube position confirmation", "Position note"],
+      ["position-confirmed", "Doctor's notes on NG tube position confirmation", "Position note"],
     ];
     const actions = [
       ["proceed", "Proceed feeding", "Start the feed"],
@@ -2527,7 +2535,7 @@
 
     return `
       <div class="tourniquet-check">
-        <span class="form-label">Select both attempted sites to check for a retained tourniquet (${runtime.tourniquetArms.length} / 2 selected)</span>
+        <span class="form-label">Which sites would you select to check for a retained tourniquet? (${runtime.tourniquetArms.length} / 2 selected)</span>
         <div class="arm-pick">
           ${arms
             .map(
@@ -2597,9 +2605,7 @@
             .join("")}
         </div>
         <div class="property-toggles">
-          ${toggle("dentureInventory", "Inventory logged", "Admission list", runtime.dentureInventory)}
-          ${toggle("dentureTagged", "Property tag attached", "Denture box", runtime.dentureTagged)}
-          ${toggle("dentureDocumented", "Admission note added", "Patient record", runtime.dentureDocumented)}
+          ${toggle("dentureDocumented", "Documentation on patient's personal item", "Denture", runtime.dentureDocumented)}
         </div>
       </div>`;
   }
@@ -2911,7 +2917,12 @@
     document.querySelectorAll("[data-interruption-action]").forEach((button) => {
       button.onclick = () => {
         runtime.interruptionAction = button.dataset.interruptionAction;
-        runtime.feedback = null;
+        if (runtime.interruptionAction === "resume") {
+          runtime.interruptionChecks = [];
+          runtime.feedback = "wrong";
+        } else {
+          runtime.feedback = null;
+        }
         render();
       };
     });
@@ -3320,8 +3331,6 @@
     if (item.type === "denture-admission") {
       correct =
         runtime.dentureStorage === "box" &&
-        runtime.dentureInventory &&
-        runtime.dentureTagged &&
         runtime.dentureDocumented;
     }
 

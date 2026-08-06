@@ -3,13 +3,14 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.2.0
+## Release v7.3.0
 
-This owner refinement preserves the v7.1.0 visual decision boards while
-refining six checkpoint interactions. The deployed v7.1.0 state remains
-preserved by the `v7.1.0-before-checkpoint-refinement` tag in the clean
-repository, and the earlier v7.0.0 decision-layout experiment remains
-preserved by the `v7.0.0-before-decision-redesign` tag.
+This owner refinement preserves the v7.2.0 visual decision boards while
+refining Mission 2's action-first recovery flow, the Mission Stars result
+alignment, and the owner-specified decision copy. The deployed v7.2.0 state is
+preserved by the `v7.2.0-before-mission2-and-copy-refinement` tag in the clean
+repository; the earlier v7.1.0 and v7.0.0 states remain preserved by their
+existing tags.
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -41,16 +42,20 @@ asks the learner to check for a retained tourniquet before leaving.
 
 Decision screens now place one concise, mission-specific context block under
 `Background information`; the old `Instruction` and prompt copy are no longer
-concatenated at render time. Mission 2 now checks all five rights—right
-patient, right medication, right time, right dosage, and right route. Mission 3
-uses an action-only Patient／Medication order verification choice. Mission 5
-shows the route, concentration, and dose currently specified in the
-prescription before the learner chooses Proceed or Clarify. Mission 7 checks
-the medication order, allergy history and status, and laboratory result.
-Mission 9 inspects label presence, contents, and medication order before
-Proceed or Seek clarification. Mission 12 checks the feed order, chest X-ray
-availability, and NG tube position confirmation before Proceed feeding or Seek
-clarification.
+concatenated at render time. Mission 2 first asks whether to resume or start
+over; only the start-over path reveals all five rights—right patient, right
+medication, right time, right dosage, and right route—and resuming immediately
+returns an incorrect-decision prompt. Mission 3 uses an action-only
+Patient／Medication order verification choice. Mission 5 shows the route,
+concentration, and dose currently specified in the prescription before the
+learner chooses Proceed or Clarify. Mission 7 checks the medication order,
+allergy history and status, and laboratory result. Mission 9 inspects label
+presence, contents, and medication order before Proceed or Seek clarification.
+Mission 12 checks the feed order, chest X-ray availability, and
+`Doctor's notes on NG tube position confirmation` before Proceed feeding or
+Seek clarification. Mission 14 asks which attempted sites to select without
+revealing both sites. Mission 15 pairs designated denture-box storage with one
+documentation check for the patient's personal item.
 
 The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
 displayed full-width without an overlay obscuring its Learning Points. After a
@@ -90,7 +95,8 @@ After Mission 15, the primary result action opens course completion; the
 completed dashboard keeps an explicit completed-mission review route.
 
 Visible punctuation is normalised across the dashboard and mission flow:
-apostrophes and commas are spaced consistently, while word compounds such as
+possessive apostrophes and contractions are preserved, while commas are spaced
+consistently and word compounds such as
 `X-ray` and `NG-tube` retain their hyphens. Numeric adrenaline ratios retain
 their required thousands separators: `1:10,000` and `1:1,000`.
 Teach-back choices are shuffled so the correct answer is not repeatedly in the
