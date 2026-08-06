@@ -3,14 +3,15 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.3.0
+## Release v7.4.0
 
-This owner refinement preserves the v7.2.0 visual decision boards while
-refining Mission 2's action-first recovery flow, the Mission Stars result
-alignment, and the owner-specified decision copy. The deployed v7.2.0 state is
-preserved by the `v7.2.0-before-mission2-and-copy-refinement` tag in the clean
-repository; the earlier v7.1.0 and v7.0.0 states remain preserved by their
-existing tags.
+This owner refinement preserves the v7.3.0 visual decision boards while
+refining punctuation, Mission 2 checkpoint geometry, Mission Stars spacing,
+Mission 15's ordered property checks, and the internal Final Quiz. The public
+v7.3.0 state is preserved by the
+`v7.3.0-before-punctuation-quiz-refinement` tag in the clean repository; the
+earlier v7.2.0, v7.1.0, and v7.0.0 states remain preserved by their existing
+tags.
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -19,8 +20,9 @@ missions cover wrong-patient administration after distraction, an ambiguous
 adrenaline order, mouthwash administered via an NG tube, and mistaken ingestion
 of a specimen-container ingredient.
 
-The 15-mission build has passed desktop and 390×844 mobile browser QA. The external quiz
-URL remains intentionally unset until the owner supplies it.
+The 15-mission build and internal Final Quiz have passed desktop and 390×844
+mobile browser QA. The external Hospital Authority e-learning URL remains
+intentionally unset until the owner supplies it.
 
 Completed missions reopen as a read-only review: `YOUR DECISION`, `REAL CASE`,
 and `TAKEAWAY` remain expanded and the saved Mission Stars remain unchanged.
@@ -54,8 +56,9 @@ presence, contents, and medication order before Proceed or Seek clarification.
 Mission 12 checks the feed order, chest X-ray availability, and
 `Doctor's notes on NG tube position confirmation` before Proceed feeding or
 Seek clarification. Mission 14 asks which attempted sites to select without
-revealing both sites. Mission 15 pairs designated denture-box storage with one
-documentation check for the patient's personal item.
+revealing both sites. Mission 15 first requires an assessment of the denture,
+then unlocks storage location, then unlocks documentation regarding the
+patient's denture.
 
 The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
 displayed full-width without an overlay obscuring its Learning Points. After a
@@ -95,10 +98,10 @@ After Mission 15, the primary result action opens course completion; the
 completed dashboard keeps an explicit completed-mission review route.
 
 Visible punctuation is normalised across the dashboard and mission flow:
-possessive apostrophes and contractions are preserved, while commas are spaced
-consistently and word compounds such as
-`X-ray` and `NG-tube` retain their hyphens. Numeric adrenaline ratios retain
-their required thousands separators: `1:10,000` and `1:1,000`.
+hyphens have no preceding space and one following space; colons and
+apostrophes have one following space; and the word after a hyphen or colon is
+capitalised. Numeric adrenaline ratios retain their required thousands
+separators without a following space: `1:10,000` and `1:1,000`.
 Teach-back choices are shuffled so the correct answer is not repeatedly in the
 second position.
 
@@ -114,12 +117,16 @@ https://sincekong.github.io/break-the-chain-clinical-safety-missions/
    second section on the same page.
 4. Review the incident for at least 20 seconds, unlock the third section, and
    complete the teach-back reflection.
-5. After all 15 missions, the completion screen hands off to the external quiz.
+5. After all 15 missions, the completion screen opens the internal Final Quiz.
+6. The Final Quiz randomly selects five of the nine Question Bank questions,
+   shuffles each answer list on every attempt, and passes only when all five
+   answers are correct. Unlimited attempts are allowed.
 
 ## Quiz connection
 
-Set `QUIZ_URL` near the top of `app.js` when the external quiz URL is available.
-Until then, the quiz button remains a non-navigating placeholder.
+Set `QUIZ_URL` near the top of `app.js` when the Hospital Authority e-learning
+URL is available. Until then, the internal five-of-nine Final Quiz remains
+fully usable and the passed state shows a clear handoff-pending note.
 
 ## Progress connection
 

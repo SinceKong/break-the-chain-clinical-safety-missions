@@ -125,9 +125,9 @@
       title: "Wrong dosage of injection administered to patient",
       playTitle: "Prepare the Injection",
       summary:
-        "Prepare the exact prescribed volume, label the syringe, and confirm the administration check.",
+        "Help the doctor prepare the exact prescribed volume and label the Dormicum syringe before administration.",
       background:
-        "The prescription is IV Dormicum 3 mg before the procedure. The prepared concentration is 15 mg in 15 mL.",
+        "You are helping a doctor prepare a Dormicum injection. The doctor will administer it. The prescription is IV Dormicum 3 mg before the procedure. The prepared concentration is 15 mg in 15 mL.",
       skills: ["Exact dose", "Syringe labelling"],
       thumb: "assets/dormicum-thumb.webp",
       briefing: "assets/dormicum-visual-2026-08-05.png",
@@ -135,7 +135,7 @@
       comic: "assets/dormicum-comic-2026-08-05.png",
       thumbView: { src: "assets/dormicum-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 784 431" },
       briefingAlt: "The intravenous Dormicum prescription is reviewed.",
-      question: "What syringe should be handed over?",
+      question: "What syringe should be prepared for the doctor to administer?",
       wrong:
         "All three safeguards are required: 3 mL, a clear medication label, and a drug-and-dose recheck immediately before administration.",
       teach: {
@@ -147,7 +147,7 @@
             why: "A verbal explanation cannot make an unlabelled syringe safe.",
           },
           {
-            text: "Hand over a clearly labelled 3 mL syringe and have the administrator recheck the drug and dose.",
+            text: "Hand over a clearly labelled 3 mL syringe and have the doctor recheck the drug and dose.",
             ok: true,
             why: "This preserves the exact dose, syringe identification, and point-of-administration check.",
           },
@@ -261,7 +261,7 @@
       comic: "assets/misfiled-potassium-comic-2026-08-05.png",
       thumbView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 782 431" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
-      question: "Which checks must be completed before you administer the treatment?",
+      question: "Which checks must be completed before you administer the medication?",
       wrong:
         "Before treatment, check the medication order, the allergy history and status, and the current laboratory result.",
       teach: {
@@ -514,7 +514,7 @@
       summary:
         "Decide whether a written feed order can proceed when the CXR review is not documented.",
       background:
-        "A doctor has written an order to start an NG feed.",
+        "A doctor has written an order to start an NG tube feeding.",
       skills: ["CXR review", "Independent verification"],
       thumb: "assets/ng-tube-thumb.webp",
       briefing: "assets/ng-tube-visual-2026-08-05.png",
@@ -596,7 +596,7 @@
       title: "Missing Denture",
       playTitle: "Protect a Patient's Denture",
       summary:
-        "Identify, store, and document the denture when the patient is admitted.",
+        "Assess the denture, choose its storage location, and complete documentation regarding the patient's denture.",
       background:
         "A patient with a denture is being admitted. The denture needs an accountable storage and recording process before routine care continues.",
       skills: ["Personal item documentation", "Designated storage"],
@@ -606,9 +606,9 @@
       comic: "assets/missing-denture-comic-2026-08-05.png",
       thumbView: { src: "assets/missing-denture-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "837 95 835 414" },
       briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
-      question: "What should you do when the denture is identified at admission?",
+      question: "What is the storage location for the patient's denture?",
       wrong:
-        "Use the designated denture box and document the denture as the patient's personal item. Tissue paper and meal trays are not safe storage.",
+        "Assess the denture first, then use the designated denture box and complete documentation regarding the patient's denture. Tissue paper and meal trays are not safe storage.",
       sourceWarning:
         "The exact source comic depicts Missing Denture but carries an incorrect visible NG-tube title.",
       teach: {
@@ -620,7 +620,7 @@
             why: "Tissue and meal trays are easily discarded and do not provide accountable storage.",
           },
           {
-            text: "Place the denture in a labelled designated denture box and document it as the patient's personal item.",
+            text: "Place the denture in a labelled designated denture box and complete documentation regarding the patient's denture.",
             ok: true,
             why: "Documentation and designated storage create an accountable handling pathway before loss occurs.",
           },
@@ -931,7 +931,7 @@
     ],
     "specimen-bottle": [
       {
-        consequences: ["Mucosal irritation", "Chemical poisoning", "Acute clinical deterioration"],
+        consequences: ["Mucosal irritation", "Chemical poisoning"],
       },
     ],
     "oxygen-safety": [
@@ -965,8 +965,130 @@
     ],
   };
 
+  const FINAL_QUIZ_QUESTIONS = [
+    {
+      id: "digoxin-dose",
+      stem: [
+        "You are administering Digoxin 125 mcg orally to an elderly patient. The ward stocks Digoxin 62.5 mcg tablets. Your colleague, who is also a registered nurse, verbally tells you: \"Just give two tablets. I' ve already checked the dose.\"",
+      ],
+      question: "What is the most appropriate action?",
+      options: [
+        { text: "Administer two tablets since your colleague has already performed the dose calculation and is a registered nurse", correct: false },
+        { text: "Administer two tablets but document that your colleague verified the dose on your behalf", correct: false },
+        { text: "Independently calculate the dose yourself, verify it against the prescription chart, and then have your colleague co- sign as the second checker", correct: true },
+        { text: "Ask a third nurse to calculate the dose to resolve any potential disagreement", correct: false },
+      ],
+    },
+    {
+      id: "patient-match-alert",
+      stem: [
+        "You scan a patient' s wristband before administering an IV antibiotic. The scanner displays \"Patient Not Match\". The patient is alert, oriented, and confirms: \"Yes, that' s mine. I' ve been getting it every day.\" The patient' s name on the wristband visually appears to match the prescription label.",
+      ],
+      question: "What is the most appropriate next step?",
+      options: [
+        { text: "Proceed with administration since the patient has verbally confirmed his identity and the name on the wristband visually matches the prescription", correct: false },
+        { text: "Re- scan the wristband in case of a scanning error, and if the alert persists, withhold the medication and investigate the discrepancy", correct: true },
+        { text: "Assume the scanner is malfunctioning, verify the patient' s name verbally, and proceed with administration", correct: false },
+        { text: "Override the system alert so the scheduled dose is not delayed", correct: false },
+      ],
+    },
+    {
+      id: "telephone-order",
+      stem: [
+        "During a busy night shift, you receive a telephone order from a doctor who says: \"Give the patient in Bed 8 Losec 20 mg IV stat.\" At the same time, you find both Losec (Omeprazole) 40 mg vials and Lasix (Furosemide) 20 mg ampoules side by side in the drug trolly.",
+      ],
+      question: "What is the most appropriate action?",
+      options: [
+        { text: "Select the Lasix 20 mg ampoule since the prescribed dose of 20 mg matches the available ampoule strength exactly", correct: false },
+        { text: "Select the Losec 40 mg vial, reconstitute it, and administer half the vial to deliver 20 mg as ordered", correct: false },
+        { text: "Read back the full order to the doctor, clarify the drug by both brand and generic name, and confirm the indication before preparing the medication", correct: true },
+        { text: "Ask the pharmacist on- call to determine which drug the doctor most likely intended based on the patient' s diagnosis", correct: false },
+      ],
+    },
+    {
+      id: "ng-feed-ph",
+      stem: [
+        "You are caring for a patient with a newly inserted NG tube. You perform a gastric aspirate test and obtain aspirate with a pH of 6. The patient is not taking any proton pump inhibitors or antacids. The doctor has prescribed NG feeding to start.",
+      ],
+      question: "What is the most appropriate action?",
+      options: [
+        { text: "Commence feeding since you successfully obtained aspirate, which confirms the tube is in the gastrointestinal tract", correct: false },
+        { text: "Flush the tube with 20 ml of air, reposition the patient onto their left side, and re- aspirate after 30 minutes. If aspirate is still obtained, commence feeding", correct: false },
+        { text: "Withhold feeding, as a pH of 6 does not confirm gastric placement, and escalate for further confirmation such as a chest X- ray", correct: true },
+        { text: "Commence feeding at a reduced rate and closely monitor for coughing, desaturation, or respiratory distress", correct: false },
+      ],
+    },
+    {
+      id: "hoist-sling",
+      stem: [
+        "You are transferring a hemiplegic patient from the ward bed to a wheelchair using a mechanical hoist. You select a sling, position it under the patient, and attach it to the hoist. As you begin to lift, a colleague says, \"The sling looks a bit loose around the thighs, but it should be fine. Let' s just go quickly before the patient gets anxious.\"",
+      ],
+      question: "What is the most appropriate response?",
+      options: [
+        { text: "Proceed carefully but hold onto the patient during the lift for added security", correct: false },
+        { text: "Proceed with the transfer but lower the patient into the wheelchair as quickly as possible to minimize time in the air", correct: false },
+        { text: "Stop the lift, lower the patient back to the bed, and reposition or resize the sling to ensure a secure fit before reattempting", correct: true },
+        { text: "Continue the lift slowly while your colleague manually supports the loose section of the sling around the thighs", correct: false },
+      ],
+    },
+    {
+      id: "portable-oxygen",
+      stem: [
+        "You are transferring a patient on supplemental oxygen from the ward to the radiology department. A healthcare assistant has prepared the transport trolley and tells you: \"The portable oxygen cylinder is all set up and ready to go\". You see the nasal cannula connected to the cylinder' s flowmeter, which is set to 3 L/min as prescribed. You disconnect the patient from the wall oxygen outlet and begin the transfer.",
+        "Partway through the corridor, the patient becomes cyanotic and the SpO₂ alarm on the portable monitor reads 75%. The nasal cannula is correctly positioned in the patient' s nostrils and the flowmeter dial still reads 3 L/min.",
+      ],
+      question: "What error has most likely occurred?",
+      options: [
+        { text: "The patient likely desaturated due to the exertion of being moved", correct: false },
+        { text: "The nasal cannula tubing was likely too long, causing oxygen to dissipate before reaching the patient", correct: false },
+        { text: "The main valve of the oxygen cylinder was likely never opened. Regardless of who set up the equipment, you should have personally verified that the main valve was open and confirmed gas flow at the nasal prongs before leaving the ward", correct: true },
+        { text: "A non- rebreather mask should be used to deliver a higher FiO₂ during the transfer", correct: false },
+      ],
+    },
+    {
+      id: "retained-tourniquet",
+      stem: [
+        "You attempt blood- taking on a patient' s right arm but are unsuccessful. You apply a cotton ball and ask the patient to press on it. At the same time, you are urgently summoned to attend a cardiac arrest case.",
+      ],
+      question: "What is the most appropriate action before leaving the bedside?",
+      options: [
+        { text: "Attend the cardiac arrest immediately", correct: false },
+        { text: "Before leaving, quickly confirm the tourniquet has been removed from the right arm", correct: true },
+        { text: "Shout to the healthcare assistant nearby to tidy up the bedside equipment while you respond to the emergency", correct: false },
+        { text: "Inform the patient to remove the tourniquet himself and press on both puncture sites until a nurse returns", correct: false },
+      ],
+    },
+    {
+      id: "missing-denture",
+      stem: [
+        "You are admitting an elderly patient to the ward. During the admission assessment, you ask the patient if he has any dentures. The patient, who is mildly confused, replies \"No\". His family is not present at the time of admission.",
+      ],
+      question: "What is the most appropriate action?",
+      options: [
+        { text: "Document \"No dentures\" in the admission checklist based on the patient' s verbal response and move on to the next assessment item", correct: false },
+        { text: "Perform a visual inspection of the patient' s oral cavity to check for the presence of dentures, and document your findings in both the admission checklist and the patient' s property record", correct: true },
+        { text: "Write \"Patient reports no dentures, unable to verify due to confusion\"", correct: false },
+        { text: "Skip the documentation on denture", correct: false },
+      ],
+    },
+    {
+      id: "dd-formulation",
+      stem: [
+        "You are administering medications from the Dangerous Drugs (DD) cupboard with a second nurse. The prescription reads \"Morphine Sulphate prolonged- release tablet 30 mg oral BD.\" In the cupboard, you see both Morphine Sulphate prolonged- release tablets 30 mg and Morphine Sulphate syrup 10 mg/5 ml.",
+      ],
+      question: "Which of the following BEST ensures safe administration?",
+      options: [
+        { text: "Select the prolonged- release tablet, confirm the drug name and formulation with the second nurse verbally, and administer it", correct: false },
+        { text: "Select the prolonged- release tablet, have the second nurse independently verify the drug name, formulation, strength, and expiry against the prescription chart, and scan the 2D barcode before administration", correct: true },
+        { text: "Either formulation can be used as long as the total Morphine Sulphate dose administered equals 30 mg", correct: false },
+        { text: "Select the prolonged- release tablet based on your own knowledge of the prescription, and have the second nurse countersign the DDA register after administration", correct: false },
+      ],
+    },
+  ];
+
   let state = load();
   let runtime = null;
+  let quizRuntime = null;
   let toastTimer;
   let comicCountdownTimer;
   let viewerScale = 1;
@@ -987,9 +1109,9 @@
         "transfer-fall-case-1",
         "transfer-fall-case-2",
       ]);
-      return { completed };
+      return { completed, quizPassed: Boolean(saved.quizPassed), quizPassedAt: saved.quizPassedAt || null };
     } catch {
-      return { completed: {} };
+      return { completed: {}, quizPassed: false, quizPassedAt: null };
     }
   }
 
@@ -1155,22 +1277,24 @@
     let node;
     while ((node = walker.nextNode())) {
       node.nodeValue = node.nodeValue
-        .replace(/,(?=\S)/g, (comma, offset, text) =>
-          /\d/.test(text[offset - 1] || "") && /\d/.test(text[offset + 1] || "")
-            ? comma
-            : `${comma} `,
-        )
-        .replace(/-(?=\S)/g, (hyphen, offset, text) =>
-          /[A-Za-z0-9]/.test(text[offset - 1] || "") && /[A-Za-z0-9]/.test(text[offset + 1] || "")
-            ? hyphen
-            : `${hyphen} `,
-        )
-        .replace(/(?:['’])(?=\S)/g, (apostrophe, offset, text) =>
-          /[A-Za-z0-9]/.test(text[offset - 1] || "") && /[A-Za-z0-9]/.test(text[offset + 1] || "")
-            ? apostrophe
-            : `${apostrophe} `,
-        );
+        .replace(/[\u200B\u2060]/g, "")
+        .replace(/\u00a0/g, " ")
+        .replace(/\s*,\s*/g, ", ")
+        .replace(/\b(1|10), 000\b/g, "$1,000")
+        .replace(/\s*-\s*(?=\S)/g, "- ")
+        .replace(/\s*:\s*(?=\S)/g, ": ")
+        .replace(/\s*(['’])\s*(?=\S)/g, "$1 ")
+        .replace(/([-:])\s+([a-z])/g, (_, punctuation, letter) => `${punctuation} ${letter.toUpperCase()}`);
     }
+  }
+
+  function shuffleItems(items) {
+    const shuffled = [...items];
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+    }
+    return shuffled;
   }
 
   function buildTeachOrder(teach) {
@@ -1237,6 +1361,7 @@
       ngAction: null,
       tourniquetArms: [],
       tourniquetAction: null,
+      dentureAssessed: false,
       dentureStorage: null,
       dentureInventory: false,
       dentureTagged: false,
@@ -1353,6 +1478,7 @@
       runtime.tourniquetAction = "remove-store";
     }
     if (item.type === "denture-admission") {
+      runtime.dentureAssessed = true;
       runtime.dentureStorage = "box";
       runtime.dentureDocumented = true;
     }
@@ -1390,6 +1516,7 @@
 
     if (caseMatch) content = casePage(caseMatch[1]);
     else if (route() === "complete") content = completionPage();
+    else if (route() === "quiz") content = quizPage();
     else content = homePage();
 
     const app = document.getElementById("app");
@@ -2194,7 +2321,7 @@
     const volume = runtime.volume;
     return `
       <div class="answer-panel syringe-answer">
-        <span class="answer-label">Volume to hand over</span>
+        <span class="answer-label">Volume to prepare</span>
         <div class="volume-stepper">
           <button data-volume="-1" aria-label="Remove one millilitre">−</button>
           <strong>${volume}<small>mL</small></strong>
@@ -2209,7 +2336,7 @@
           <div class="tip"></div>
         </div>
         ${toggle("label", "Medication label attached", "Drug, dose/concentration and preparation details", runtime.label)}
-        ${toggle("double", "Administrator rechecks drug and dose", "Point-of-administration verification", runtime.double)}
+        ${toggle("double", "Doctor administers after rechecking", "Final drug and dose check by the administering doctor", runtime.double)}
       </div>`;
   }
 
@@ -2232,7 +2359,7 @@
 
   function identityInteraction() {
     const actions = [
-      ["continue", "Continue", "Release medication"],
+      ["continue", "Continue", "Administer medication"],
       ["verify", "Verify", "Patient and medication order"],
     ];
 
@@ -2579,6 +2706,8 @@
       ["tray", "Meal tray", "Tray"],
       ["box", "Denture box", "Storage"],
     ];
+    const storageUnlocked = runtime.dentureAssessed;
+    const documentationUnlocked = storageUnlocked && Boolean(runtime.dentureStorage);
 
     return `
       <div class="interactive-board property-board">
@@ -2586,15 +2715,24 @@
           <div class="denture-visual"><span></span><i></i></div>
           <div class="property-readout"><span>Personal item</span><strong>Denture</strong></div>
         </div>
-        <div class="board-section-label"><span>Location</span><strong>${runtime.dentureStorage || "—"}</strong></div>
+        <div class="property-sequence">
+          ${
+            runtime.dentureAssessed
+              ? `<div class="property-step complete"><span>1</span><div><strong>Denture assessed</strong><small>Ready to choose a storage location</small></div></div>`
+              : toggle("dentureAssessed", "Assess the patient's denture", "Inspect the denture before choosing storage", false)
+          }
+        </div>
+        <div class="board-section-label"><span>Storage location</span><strong>${runtime.dentureStorage || "—"}</strong></div>
         <div class="storage-control-grid">
           ${storageOptions
             .map(
               ([value, label, detail]) => `
                 <button
-                  class="storage-control property-storage ${runtime.dentureStorage === value ? "selected" : ""}"
+                  class="storage-control property-storage ${runtime.dentureStorage === value ? "selected" : ""} ${storageUnlocked ? "" : "locked"}"
                   data-denture-storage="${value}"
                   type="button"
+                  ${storageUnlocked ? "" : "disabled"}
+                  aria-disabled="${!storageUnlocked}"
                   aria-pressed="${runtime.dentureStorage === value}"
                 >
                   <span class="storage-control-icon ${value}"></span>
@@ -2604,9 +2742,11 @@
             )
             .join("")}
         </div>
-        <div class="property-toggles">
-          ${toggle("dentureDocumented", "Documentation on patient's personal item", "Denture", runtime.dentureDocumented)}
-        </div>
+        ${
+          documentationUnlocked
+            ? `<div class="property-toggles">${toggle("dentureDocumented", "Documentation regarding patient's denture", "Complete the record after selecting storage", runtime.dentureDocumented)}</div>`
+            : `<p class="property-next-step">Assess the denture first, then choose a storage location to unlock documentation.</p>`
+        }
       </div>`;
   }
 
@@ -2802,10 +2942,127 @@
           <div class="mission-badges">
             ${CASES.map((item) => `<span><b>${item.n}</b><small>${item.category}</small></span>`).join("")}
           </div>
+          ${state.quizPassed ? `<p class="quiz-completion-status">Final Quiz passed</p>` : ""}
           <div class="completion-actions">
             <button class="primary quiz-button" data-quiz>Continue to quiz${ICONS.arrow}</button>
             <button class="secondary" data-home>Review missions</button>
           </div>
+        </section>
+      </div>`;
+  }
+
+  function startQuizAttempt() {
+    const attempt = (quizRuntime?.attempt || 0) + 1;
+    const questions = shuffleItems(FINAL_QUIZ_QUESTIONS)
+      .slice(0, 5)
+      .map((question) => {
+        const options = shuffleItems(
+          question.options.map((option, sourceIndex) => ({ ...option, sourceIndex })),
+        );
+        if (options.length > 1 && options.every((option, index) => option.sourceIndex === index)) {
+          [options[0], options[1]] = [options[1], options[0]];
+        }
+        return { ...question, options };
+      });
+
+    quizRuntime = {
+      attempt,
+      questions,
+      answers: {},
+      submitted: false,
+      score: 0,
+      passed: false,
+    };
+  }
+
+  function submitQuiz() {
+    if (!quizRuntime || quizRuntime.submitted) return;
+    const answers = {};
+    document.querySelectorAll("input[data-quiz-answer]:checked").forEach((input) => {
+      answers[input.dataset.quizQuestion] = Number(input.value);
+    });
+    const score = quizRuntime.questions.reduce((total, question, index) => {
+      const selected = answers[index];
+      const answer = question.options.find((option) => option.sourceIndex === selected);
+      return total + (answer?.correct ? 1 : 0);
+    }, 0);
+
+    quizRuntime.answers = answers;
+    quizRuntime.score = score;
+    quizRuntime.submitted = true;
+    quizRuntime.passed = score === quizRuntime.questions.length && Object.keys(answers).length === quizRuntime.questions.length;
+    if (quizRuntime.passed) {
+      state.quizPassed = true;
+      state.quizPassedAt = new Date().toISOString();
+      save();
+    }
+    render();
+    requestAnimationFrame(() => document.querySelector("[data-quiz-result]")?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
+  function quizPage() {
+    if (!quizRuntime) startQuizAttempt();
+    const questionCount = quizRuntime.questions.length;
+    const result = quizRuntime.submitted
+      ? `<div class="quiz-result ${quizRuntime.passed ? "correct" : "wrong"}" data-quiz-result>
+          <strong>${quizRuntime.passed ? `Passed - ${quizRuntime.score} / ${questionCount} correct` : `Not yet - ${quizRuntime.score} / ${questionCount} correct`}</strong>
+          <span>${quizRuntime.passed ? "All five answers are correct. You may continue to the Hospital Authority e-learning handoff when its link is connected." : "You may retry as many times as needed. A quiz attempt passes only when all five answers are correct."}</span>
+        </div>`
+      : "";
+    const handoff = quizRuntime.passed
+      ? QUIZ_URL
+        ? `<a class="primary" data-ha-handoff href="${esc(QUIZ_URL)}">Continue to Hospital Authority e-learning${ICONS.arrow}</a>`
+        : `<p class="quiz-handoff-pending">Hospital Authority e-learning link pending: the internal quiz is ready, and the external handoff URL can be connected in <code>QUIZ_URL</code>.</p>`
+      : "";
+
+    return `
+      <div class="shell quiz-shell">
+        <section class="quiz-card" aria-labelledby="final-quiz-title">
+          <div class="quiz-kicker">Final Quiz</div>
+          <h1 id="final-quiz-title">Check your safety decisions</h1>
+          <p class="quiz-intro">Five questions are selected at random from the nine-question bank. Answer choices are shuffled on every attempt.</p>
+          <div class="quiz-rule"><strong>Pass requirement</strong><span>Answer all 5 questions correctly. Unlimited attempts are allowed.</span></div>
+          <div class="quiz-attempt">Attempt ${quizRuntime.attempt} · ${questionCount} questions selected</div>
+          <div class="quiz-questions">
+            ${quizRuntime.questions
+              .map(
+                (question, questionIndex) => `
+                  <section class="quiz-question" aria-labelledby="quiz-question-${questionIndex}">
+                    <div class="quiz-question-head"><span>Question ${questionIndex + 1}</span><strong id="quiz-question-${questionIndex}">${esc(question.question)}</strong></div>
+                    <div class="quiz-stem">${question.stem.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}</div>
+                    <div class="quiz-options">
+                      ${question.options
+                        .map(
+                          (option, optionIndex) => `
+                            <label class="quiz-option">
+                              <input
+                                type="radio"
+                                name="quiz-question-${questionIndex}"
+                                value="${option.sourceIndex}"
+                                data-quiz-answer
+                                data-quiz-question="${questionIndex}"
+                                ${quizRuntime.answers[questionIndex] === option.sourceIndex ? "checked" : ""}
+                              >
+                              <span class="quiz-option-letter">${String.fromCharCode(65 + optionIndex)}</span>
+                              <span class="quiz-option-copy">${esc(option.text)}</span>
+                            </label>`,
+                        )
+                        .join("")}
+                    </div>
+                  </section>`,
+              )
+              .join("")}
+          </div>
+          ${result}
+          <div class="quiz-actions">
+            ${
+              quizRuntime.submitted
+                ? `<button class="primary" data-quiz-retry type="button">${quizRuntime.passed ? "Start another attempt" : "Retry the quiz"}${ICONS.arrow}</button>`
+                : `<button class="primary" data-quiz-submit type="button">Submit final quiz${ICONS.arrow}</button>`
+            }
+            <button class="secondary" data-back-complete type="button">Back to completion</button>
+          </div>
+          ${handoff}
         </section>
       </div>`;
   }
@@ -2829,7 +3086,10 @@
     document.querySelector("[data-reset]")?.addEventListener("click", () => {
       if (confirm("Clear all mission completion records?")) {
         state.completed = {};
+        state.quizPassed = false;
+        state.quizPassedAt = null;
         runtime = null;
+        quizRuntime = null;
         save();
         go("");
         render();
@@ -2871,9 +3131,19 @@
         location.href = QUIZ_URL;
         return;
       }
-      const note = document.querySelector("[data-quiz-note]");
-      note?.classList.add("visible");
+      quizRuntime = null;
+      go("quiz");
     });
+
+    document.querySelector("[data-quiz-submit]")?.addEventListener("click", submitQuiz);
+
+    document.querySelector("[data-quiz-retry]")?.addEventListener("click", () => {
+      startQuizAttempt();
+      render();
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+
+    document.querySelector("[data-back-complete]")?.addEventListener("click", () => go("complete"));
   }
 
   function bindCase(item) {
@@ -3330,6 +3600,7 @@
     }
     if (item.type === "denture-admission") {
       correct =
+        runtime.dentureAssessed &&
         runtime.dentureStorage === "box" &&
         runtime.dentureDocumented;
     }
