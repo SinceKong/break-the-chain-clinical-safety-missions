@@ -3975,8 +3975,13 @@ dialog h2 {
 }
 
 .control-grid-3,
+.control-grid-5,
 .storage-control-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.control-grid-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .action-pick-2 {
@@ -4080,7 +4085,8 @@ dialog h2 {
   box-shadow: 0 6px 0 #4b88ad;
 }
 
-.control-icon.medicine::before {
+.control-icon.medicine::before,
+.control-icon.medication::before {
   top: 13px;
   left: 8px;
   width: 25px;
@@ -4091,14 +4097,18 @@ dialog h2 {
   transform: rotate(-28deg);
 }
 
-.control-icon.order::before {
+.control-icon.order::before,
+.control-icon.medication-order::before,
+.control-icon.feed-order::before {
   inset: 9px 11px;
   border: 2px solid #6585a2;
   border-radius: 4px;
   box-shadow: 0 4px 0 -2px #edf5fa, 0 8px 0 -2px #edf5fa;
 }
 
-.control-icon.order::after {
+.control-icon.order::after,
+.control-icon.medication-order::after,
+.control-icon.feed-order::after {
   top: 16px;
   left: 16px;
   width: 12px;
@@ -4180,14 +4190,92 @@ dialog h2 {
   border-bottom: 2px solid #6585a2;
 }
 
-.control-icon.cxr::before {
+.control-icon.time::before {
+  inset: 9px;
+  border: 2px solid #6585a2;
+  border-radius: 50%;
+}
+
+.control-icon.time::after {
+  top: 14px;
+  left: 20px;
+  width: 2px;
+  height: 10px;
+  border-radius: 99px;
+  background: #6585a2;
+  box-shadow: -4px 5px 0 -0.5px #6585a2;
+  transform-origin: 1px 6px;
+  transform: rotate(-35deg);
+}
+
+.control-icon.dosage::before {
+  top: 10px;
+  left: 9px;
+  width: 24px;
+  height: 20px;
+  border: 2px solid #6585a2;
+  border-radius: 4px;
+  background: linear-gradient(180deg, transparent 0 32%, #d4e6f2 33% 42%, transparent 43% 62%, #d4e6f2 63% 72%, transparent 73%);
+}
+
+.control-icon.dosage::after {
+  top: 15px;
+  left: 14px;
+  width: 14px;
+  height: 2px;
+  border-radius: 99px;
+  background: #6585a2;
+}
+
+.control-icon.allergy-history::before {
+  top: 9px;
+  left: 10px;
+  width: 21px;
+  height: 23px;
+  border: 2px solid #c57978;
+  border-radius: 4px;
+  background: #fff3f0;
+}
+
+.control-icon.allergy-history::after {
+  top: 15px;
+  left: 15px;
+  width: 11px;
+  height: 7px;
+  border-bottom: 2px solid #c57978;
+  transform: rotate(-45deg);
+}
+
+.control-icon.laboratory-result::before {
+  top: 10px;
+  left: 14px;
+  width: 13px;
+  height: 22px;
+  border: 2px solid #5b9b88;
+  border-top: 0;
+  border-radius: 0 0 7px 7px;
+  background: linear-gradient(180deg, transparent 0 42%, #c9e9df 43% 100%);
+}
+
+.control-icon.laboratory-result::after {
+  top: 8px;
+  left: 12px;
+  width: 17px;
+  height: 5px;
+  border: 2px solid #5b9b88;
+  border-radius: 3px;
+}
+
+.control-icon.cxr::before,
+.control-icon.cxr-available::before {
   inset: 9px 8px;
   border: 2px solid #6585a2;
   border-radius: 4px;
   background: linear-gradient(90deg, transparent 47%, #7fa6c0 48% 52%, transparent 53%), linear-gradient(0deg, transparent 47%, #7fa6c0 48% 52%, transparent 53%);
 }
 
-.control-icon.position::before {
+.control-icon.position::before,
+.control-icon.position-confirmed::before {
   top: 11px;
   left: 9px;
   width: 24px;
@@ -4197,7 +4285,8 @@ dialog h2 {
   transform: rotate(-7deg);
 }
 
-.control-icon.position::after {
+.control-icon.position::after,
+.control-icon.position-confirmed::after {
   top: 17px;
   left: 15px;
   width: 12px;
@@ -4623,9 +4712,14 @@ dialog h2 {
   }
 
   .control-grid-3,
+  .control-grid-5,
   .storage-control-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 7px;
+  }
+
+  .control-grid-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .control-card {

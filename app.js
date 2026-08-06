@@ -263,12 +263,12 @@
       briefingAlt: "Two de-identified patient records show different potassium results.",
       question: "Which checks must be completed before you administer the treatment?",
       wrong:
-        "Do not act on the open record alone. Complete the five medication rights, check allergy, and confirm the clinical context and indication, including the current K+ and trend.",
+        "Before treatment, check the medication order, the allergy history and status, and the current laboratory result.",
       teach: {
         question: "What is the final safety barrier before giving treatment for a critical result?",
         options: [
           {
-            text: "Give the treatment because it appears in the open patient record.",
+            text: "Give the treatment because it appears in the patient record.",
             ok: false,
             why: "An open record does not prove that the result and treatment match the patient's current condition.",
           },
@@ -522,7 +522,7 @@
       comic: "assets/ng-tube-comic-2026-08-05.png",
       thumbView: { src: "assets/ng-tube-visual-2026-08-05.png", width: 1671, height: 941, viewBox: "0 509 794 432" },
       briefingAlt: "A nasogastric tube is inserted during an operation and a chest X-ray is available for review.",
-      question: "The feed order is written. What do you do before starting it?",
+      question: "What do you check before starting the feed?",
       wrong:
         "A written feed order alone does not document tube placement. Hold feeding until the doctor reviews the chest X-ray and records that the NG-tube position is confirmed.",
       teach: {
@@ -708,7 +708,7 @@
       comic: "assets/adrenaline-route-comic-2026-08-05.png",
       thumbView: { src: "assets/adrenaline-route-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 514 786 427" },
       briefingAlt: "A doctor gives an urgent verbal order for adrenaline injection.",
-      question: "What must happen before adrenaline is prepared?",
+      question: "What information is currently specified in this prescription?",
       correctDecision: "clarify",
       decisionOptions: [
         {
@@ -760,14 +760,14 @@
       summary:
         "Never assume what an unlabelled cup contains - pause and clarify before NG administration.",
       background:
-        "During NG medication administration, an unlabelled cup is on the tray. Its contents, purpose, and intended route have not been confirmed.",
+        "During NG medication administration, an unlabelled cup is on the tray. It has no label, and its contents and medication order have not been confirmed.",
       skills: ["Situational awareness", "Clarification"],
       briefing: "assets/mouthwash-ng-visual-2026-08-05.png",
       briefingView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "576 96 518 413" },
       comic: "assets/mouthwash-ng-comic-2026-08-05.png",
       thumbView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 504 784 437" },
       briefingAlt: "A cup of mouthwash is beside a syringe and other medicines.",
-      question: "You find an unlabelled cup during NG medication administration. What should you do?",
+      question: "What should you inspect before deciding whether to proceed with medication administration?",
       correctDecision: "clarify-cup",
       decisionOptions: [
         {
@@ -787,9 +787,9 @@
         },
       ],
       wrong:
-        "Do not assume what an unlabelled cup contains. Pause the administration and clarify its identity, purpose, and intended route before proceeding.",
+        "Do not administer from an unlabelled cup. Confirm that a label is present, inspect the contents, and check them against the medication order before proceeding.",
       teach: {
-        question: "As the nurse administering the medicines, what is the safest response to an unlabelled cup?",
+        question: "What is the safest response before administering from an unlabelled cup?",
         options: [
           {
             text: "Use the liquid's appearance and tray position to identify it.",
@@ -1160,7 +1160,11 @@
             ? comma
             : `${comma} `,
         )
-        .replace(/-(?=\S)/g, "- ")
+        .replace(/-(?=\S)/g, (hyphen, offset, text) =>
+          /[A-Za-z0-9]/.test(text[offset - 1] || "") && /[A-Za-z0-9]/.test(text[offset + 1] || "")
+            ? hyphen
+            : `${hyphen} `,
+        )
         .replace(/(['’])(?=\S)/g, "$1 ");
     }
   }
@@ -1208,12 +1212,10 @@
       double: false,
       simpleChoice: null,
       idChoice: null,
-      identityChecks: [],
       identityAction: null,
       scanMode: null,
       medication: null,
       contextChecks: [],
-      contextRecord: null,
       infusionPoints: [],
       oxygenSource: null,
       oxygenFlow: 0,
@@ -1227,7 +1229,6 @@
       slingFastened: false,
       testLift: false,
       staffHold: false,
-      ngEvidence: null,
       ngEvidenceSteps: [],
       ngAction: null,
       tourniquetArms: [],
@@ -1277,7 +1278,7 @@
     if (item.type === "single-choice") {
       runtime.simpleChoice = item.correctDecision;
       if (item.id === "wrong-patient-distraction") {
-        runtime.interruptionChecks = ["patient", "medicine", "order"];
+        runtime.interruptionChecks = ["patient", "medication", "time", "dosage", "route"];
         runtime.interruptionAction = "new-pass";
       }
       if (item.id === "adrenaline-route") {
@@ -1287,8 +1288,8 @@
         runtime.orderAction = "clarify";
       }
       if (item.id === "mouthwash-ng") {
-        runtime.cupChecks = ["label", "contents", "route"];
-        runtime.cupAction = "hold";
+        runtime.cupChecks = ["label", "contents", "medication-order"];
+        runtime.cupAction = "clarify";
       }
       if (item.id === "specimen-bottle") {
         runtime.specimenStorage = "control";
@@ -1303,7 +1304,6 @@
     }
     if (item.type === "identity") {
       runtime.idChoice = "verify";
-      runtime.identityChecks = ["wristband", "order", "double"];
       runtime.identityAction = "verify";
     }
     if (item.type === "barcode") {
@@ -1311,8 +1311,7 @@
       runtime.medication = "tablet";
     }
     if (item.type === "clinical-context") {
-      runtime.contextChecks = ["five-rights", "allergy", "clinical-context"];
-      runtime.contextRecord = "current";
+      runtime.contextChecks = ["medication-order", "allergy-history", "laboratory-result"];
     }
     if (item.type === "infusion-route") {
       runtime.infusionPoints = ["iv-access", "stopcock", "tubing", "pump"];
@@ -1342,9 +1341,8 @@
       runtime.staffHold = false;
     }
     if (item.type === "evidence-gate") {
-      runtime.ngEvidence = "confirmed";
-      runtime.ngEvidenceSteps = ["order", "cxr", "position"];
-      runtime.ngAction = "hold";
+      runtime.ngEvidenceSteps = ["feed-order", "cxr-available", "position-confirmed"];
+      runtime.ngAction = "clarify";
     }
     if (item.type === "tourniquet-loop") {
       runtime.tourniquetArms = ["left", "right"];
@@ -1964,9 +1962,11 @@
 
   function interruptionInteraction() {
     const checkpoints = [
-      ["patient", "Wristband", "Patient"],
-      ["medicine", "Medication", "Medicine"],
-      ["order", "Order", "Order"],
+      ["patient", "Right patient", "Patient"],
+      ["medication", "Right medication", "Medication"],
+      ["time", "Right time", "Time"],
+      ["dosage", "Right dosage", "Dosage"],
+      ["route", "Right route", "Route"],
     ];
     const actions = [
       ["resume", "Resume", "Continue the pass"],
@@ -1981,7 +1981,7 @@
           <div class="board-console-foot"><span>Bedside</span><span>Check</span><span>Ready</span></div>
         </div>
         <div class="board-section-label"><span>Checkpoints</span><strong>${runtime.interruptionChecks.length} / ${checkpoints.length}</strong></div>
-        <div class="control-grid control-grid-3">
+        <div class="control-grid control-grid-5">
           ${checkpoints
             .map(
               ([value, label, short]) => `
@@ -2038,8 +2038,8 @@
       ],
     ];
     const actions = [
-      ["prepare", "Prepare", "Make up the injection"],
-      ["clarify", "Clarify", "Complete the order"],
+      ["proceed", "Proceed", "Proceed with the injection"],
+      ["clarify", "Clarify", "Clarify the prescription"],
     ];
 
     return `
@@ -2082,13 +2082,13 @@
 
   function cupInspectionInteraction() {
     const checks = [
-      ["label", "Label", "Cup"],
+      ["label", "Label present", "Cup"],
       ["contents", "Contents", "Liquid"],
-      ["route", "Route", "NG"],
+      ["medication-order", "Medication order", "Order"],
     ];
     const actions = [
-      ["continue", "Continue", "Proceed with the round"],
-      ["hold", "Hold", "Leave the cup closed"],
+      ["proceed", "Proceed", "Proceed with medication administration"],
+      ["clarify", "Seek clarification", "Clarify before proceeding"],
     ];
 
     return `
@@ -2223,14 +2223,9 @@
   }
 
   function identityInteraction() {
-    const checkpoints = [
-      ["wristband", "Wristband", "Patient"],
-      ["order", "eMAR order", "Order"],
-      ["double", "Second check", "Check"],
-    ];
     const actions = [
       ["continue", "Continue", "Release medication"],
-      ["verify", "Verify", "Run identity check"],
+      ["verify", "Verify", "Patient and medication order"],
     ];
 
     return `
@@ -2238,20 +2233,7 @@
         <div class="scanner-console">
           <div class="scanner-console-head"><span>Patient identity</span><strong>Alert</strong></div>
           <div class="scanner-window"><span class="scanner-corner top-left"></span><span class="scanner-corner top-right"></span><span class="scanner-corner bottom-left"></span><span class="scanner-corner bottom-right"></span><i></i><b>NOT MATCHED</b></div>
-          <div class="scanner-console-foot"><span>Patient</span><b>≠</b><span>Order</span></div>
-        </div>
-        <div class="board-section-label"><span>Checkpoints</span><strong>${runtime.identityChecks.length} / ${checkpoints.length}</strong></div>
-        <div class="control-grid control-grid-3">
-          ${checkpoints
-            .map(
-              ([value, label, short]) => `
-                <button class="control-card ${runtime.identityChecks.includes(value) ? "selected" : ""}" data-identity-check="${value}" type="button" aria-pressed="${runtime.identityChecks.includes(value)}">
-                  <span class="control-icon ${value}"><i></i></span>
-                  <strong>${label}</strong>
-                  <small>${short}</small>
-                </button>`,
-            )
-            .join("")}
+          <div class="scanner-console-foot"><span>Patient</span><b>≠</b><span>Medication order</span></div>
         </div>
         <div class="board-section-label action-label"><span>Action</span></div>
         <div class="action-pick action-pick-2">
@@ -2268,42 +2250,21 @@
   }
 
   function clinicalContextInteraction() {
-    const records = [
-      ["current", "Treatment chart", "Current"],
-      ["comparison", "Previous result", "History"],
-    ];
     const checks = [
-      ["five-rights", "Medication card", "Dose"],
-      ["allergy", "Allergy status", "Record"],
-      ["clinical-context", "K+ result", "Trend"],
-      ["open-record", "Open record", "Tab"],
+      ["medication-order", "Medication order", "Order"],
+      ["allergy-history", "Allergy history and status", "History + status"],
+      ["laboratory-result", "Laboratory result", "Current result"],
     ];
 
     return `
       <div class="interactive-board chart-board">
-        <div class="chart-console">
-          <div class="chart-console-head"><span>Medication chart</span><strong>${runtime.contextRecord === "current" ? "Record A" : runtime.contextRecord === "comparison" ? "Record B" : "Select record"}</strong></div>
-          <div class="chart-console-grid"><span>K+</span><i></i><b>treatment</b><i></i><span>patient</span></div>
-          <small>Chart view</small>
-        </div>
-        <div class="board-section-label"><span>Record</span><strong>${runtime.contextRecord ? (runtime.contextRecord === "current" ? "A" : "B") : "—"}</strong></div>
-        <div class="record-picker">
-          ${records
-            .map(
-              ([value, label, short]) => `
-                <button class="record-card ${runtime.contextRecord === value ? "selected" : ""}" data-context-record="${value}" type="button" aria-pressed="${runtime.contextRecord === value}">
-                  <span class="record-card-icon"><i></i></span><strong>${label}</strong><small>${short}</small>
-                </button>`,
-            )
-            .join("")}
-        </div>
-        <div class="board-section-label action-label"><span>Checks</span><strong>${runtime.contextChecks.filter((check) => check !== "open-record").length} / 3</strong></div>
-        <div class="control-grid context-control-grid">
+        <div class="board-section-label"><span>Checks before administration</span><strong>${runtime.contextChecks.length} / ${checks.length}</strong></div>
+        <div class="control-grid control-grid-3">
           ${checks
             .map(
               ([value, label, detail]) => `
                 <button
-                  class="control-card context-control ${runtime.contextChecks.includes(value) ? "selected" : ""}"
+                  class="control-card ${runtime.contextChecks.includes(value) ? "selected" : ""}"
                   data-context-check="${value}"
                   type="button"
                   aria-pressed="${runtime.contextChecks.includes(value)}"
@@ -2515,23 +2476,18 @@
 
   function ngEvidenceInteraction() {
     const evidence = [
-      ["order", "Feed order", "Order"],
-      ["cxr", "CXR", "Image"],
-      ["position", "Position note", "Record"],
+      ["feed-order", "Feed order", "Order"],
+      ["cxr-available", "Chest X-ray available", "CXR"],
+      ["position-confirmed", "NG tube position confirmation", "Position note"],
     ];
     const actions = [
-      ["start", "Start feed", "Begin administration"],
-      ["hold", "Hold", "Keep the feed closed"],
+      ["proceed", "Proceed feeding", "Start the feed"],
+      ["clarify", "Seek clarification", "Confirm before feeding"],
     ];
 
     return `
       <div class="interactive-board evidence-packet">
-        <div class="packet-console">
-          <div class="packet-console-head"><span>NG feed</span><strong>${runtime.ngEvidenceSteps.length} / ${evidence.length}</strong></div>
-          <div class="packet-feed"><span>Order</span><i></i><span>Tube</span><i></i><span>Patient</span></div>
-          <small>Record packet</small>
-        </div>
-        <div class="board-section-label"><span>Packet items</span><strong>${runtime.ngEvidenceSteps.length} / ${evidence.length}</strong></div>
+        <div class="board-section-label"><span>Checks before feeding</span><strong>${runtime.ngEvidenceSteps.length} / ${evidence.length}</strong></div>
         <div class="control-grid control-grid-3">
           ${evidence
             .map(
@@ -2960,17 +2916,6 @@
       };
     });
 
-    document.querySelectorAll("[data-identity-check]").forEach((button) => {
-      button.onclick = () => {
-        const check = button.dataset.identityCheck;
-        runtime.identityChecks = runtime.identityChecks.includes(check)
-          ? runtime.identityChecks.filter((value) => value !== check)
-          : [...runtime.identityChecks, check];
-        runtime.feedback = null;
-        render();
-      };
-    });
-
     document.querySelectorAll("[data-identity-action]").forEach((button) => {
       button.onclick = () => {
         runtime.identityAction = button.dataset.identityAction;
@@ -3047,21 +2992,12 @@
       };
     });
 
-    document.querySelectorAll("[data-context-record]").forEach((button) => {
-      button.onclick = () => {
-        runtime.contextRecord = button.dataset.contextRecord;
-        runtime.feedback = null;
-        render();
-      };
-    });
-
     document.querySelectorAll("[data-ng-evidence-step]").forEach((button) => {
       button.onclick = () => {
         const step = button.dataset.ngEvidenceStep;
         runtime.ngEvidenceSteps = runtime.ngEvidenceSteps.includes(step)
           ? runtime.ngEvidenceSteps.filter((value) => value !== step)
           : [...runtime.ngEvidenceSteps, step];
-        runtime.ngEvidence = runtime.ngEvidenceSteps.length === 3 ? "confirmed" : null;
         runtime.feedback = null;
         render();
       };
@@ -3070,14 +3006,6 @@
     document.querySelectorAll("[data-ng-action]").forEach((button) => {
       button.onclick = () => {
         runtime.ngAction = button.dataset.ngAction;
-        runtime.feedback = null;
-        render();
-      };
-    });
-
-    document.querySelectorAll('input[name="ng-evidence"]').forEach((input) => {
-      input.onchange = (event) => {
-        runtime.ngEvidence = event.target.value;
         runtime.feedback = null;
         render();
       };
@@ -3318,7 +3246,7 @@
     if (item.type === "dose") correct = Math.abs(runtime.tablets - 3) < 0.001;
     if (item.type === "single-choice") {
       if (item.id === "wrong-patient-distraction") {
-        const checkpoints = ["patient", "medicine", "order"];
+        const checkpoints = ["patient", "medication", "time", "dosage", "route"];
         correct =
           runtime.interruptionChecks.length === checkpoints.length &&
           checkpoints.every((check) => runtime.interruptionChecks.includes(check)) &&
@@ -3330,11 +3258,11 @@
           runtime.orderDose === "not-stated" &&
           runtime.orderAction === "clarify";
       } else if (item.id === "mouthwash-ng") {
-        const checks = ["label", "contents", "route"];
+        const checks = ["label", "contents", "medication-order"];
         correct =
           runtime.cupChecks.length === checks.length &&
           checks.every((check) => runtime.cupChecks.includes(check)) &&
-          runtime.cupAction === "hold";
+          runtime.cupAction === "clarify";
       } else if (item.id === "specimen-bottle") {
         correct = runtime.specimenStorage === "control" && runtime.specimenLabel && runtime.specimenExplained;
       } else {
@@ -3343,17 +3271,12 @@
     }
     if (item.type === "syringe") correct = runtime.volume === 3 && runtime.label && runtime.double;
     if (item.type === "identity") {
-      const checkpoints = ["wristband", "order", "double"];
-      correct =
-        runtime.identityChecks.length === checkpoints.length &&
-        checkpoints.every((check) => runtime.identityChecks.includes(check)) &&
-        runtime.identityAction === "verify";
+      correct = runtime.identityAction === "verify";
     }
     if (item.type === "barcode") correct = runtime.scanMode === "scan" && runtime.medication === "tablet";
     if (item.type === "clinical-context") {
-      const requiredChecks = ["five-rights", "allergy", "clinical-context"];
+      const requiredChecks = ["medication-order", "allergy-history", "laboratory-result"];
       correct =
-        runtime.contextRecord === "current" &&
         runtime.contextChecks.length === requiredChecks.length &&
         requiredChecks.every((check) => runtime.contextChecks.includes(check));
     }
@@ -3383,11 +3306,11 @@
         !runtime.staffHold;
     }
     if (item.type === "evidence-gate") {
-      const evidence = ["order", "cxr", "position"];
+      const evidence = ["feed-order", "cxr-available", "position-confirmed"];
       correct =
         runtime.ngEvidenceSteps.length === evidence.length &&
         evidence.every((step) => runtime.ngEvidenceSteps.includes(step)) &&
-        runtime.ngAction === "hold";
+        runtime.ngAction === "clarify";
     }
     if (item.type === "tourniquet-loop") {
       correct =

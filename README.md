@@ -3,11 +3,13 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.1.0
+## Release v7.2.0
 
-This owner refinement supersedes the v7.0.0 decision-layout experiment. The
-previous public state remains preserved by the `v7.0.0-before-decision-redesign`
-tag in the clean repository.
+This owner refinement preserves the v7.1.0 visual decision boards while
+refining six checkpoint interactions. The deployed v7.1.0 state remains
+preserved by the `v7.1.0-before-checkpoint-refinement` tag in the clean
+repository, and the earlier v7.0.0 decision-layout experiment remains
+preserved by the `v7.0.0-before-decision-redesign` tag.
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -39,9 +41,16 @@ asks the learner to check for a retained tourniquet before leaving.
 
 Decision screens now place one concise, mission-specific context block under
 `Background information`; the old `Instruction` and prompt copy are no longer
-concatenated at render time. Mission 2 uses the interruption panel, Mission 6
-uses the first medicine-check panel, and Mission 7 uses the doctor-prescribing
-panel.
+concatenated at render time. Mission 2 now checks all five rights—right
+patient, right medication, right time, right dosage, and right route. Mission 3
+uses an action-only Patient／Medication order verification choice. Mission 5
+shows the route, concentration, and dose currently specified in the
+prescription before the learner chooses Proceed or Clarify. Mission 7 checks
+the medication order, allergy history and status, and laboratory result.
+Mission 9 inspects label presence, contents, and medication order before
+Proceed or Seek clarification. Mission 12 checks the feed order, chest X-ray
+availability, and NG tube position confirmation before Proceed feeding or Seek
+clarification.
 
 The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
 displayed full-width without an overlay obscuring its Learning Points. After a
@@ -63,11 +72,11 @@ remain unchanged.
 
 Mission 1, 4, 6, 8, 11, 13, and 14 retain their existing bespoke interactions.
 The owner-refined decision controls for Missions 2, 3, 5, 7, 9, 10, 12, and 15
-use operational boards instead of explanatory MCQ cards: interruption
-checkpoints, identity verification, an incomplete-order builder, chart records,
-cup inspection, specimen storage, evidence cards, and property storage. These
-boards show the objects and available actions without printing the governing
-principle as a hint.
+use operational boards instead of explanatory MCQ cards: five-rights recovery,
+identity verification, an incomplete-prescription builder, three pre-treatment
+checks, cup inspection, specimen storage, feed evidence checks, and property
+storage. These boards show the objects and available actions without printing
+the governing principle as a hint.
 Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
 mins`, and `any order` stays together. The dashboard theme is `Break the Chain`
 with the subtitle `Real Clinical Incident Missions`. The Hospital Authority
@@ -81,8 +90,9 @@ After Mission 15, the primary result action opens course completion; the
 completed dashboard keeps an explicit completed-mission review route.
 
 Visible punctuation is normalised across the dashboard and mission flow:
-apostrophes, commas, and hyphens are followed by a space. Numeric adrenaline
-ratios retain their required thousands separators: `1:10,000` and `1:1,000`.
+apostrophes and commas are spaced consistently, while word compounds such as
+`X-ray` and `NG-tube` retain their hyphens. Numeric adrenaline ratios retain
+their required thousands separators: `1:10,000` and `1:1,000`.
 Teach-back choices are shuffled so the correct answer is not repeatedly in the
 second position.
 
