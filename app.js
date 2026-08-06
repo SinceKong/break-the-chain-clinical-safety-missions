@@ -2130,7 +2130,7 @@
             .map(
               ([value, label, short, icon]) => `
                 <button class="control-card ${runtime.interruptionChecks.includes(value) ? "selected" : ""}" data-interruption-check="${value}" type="button" aria-pressed="${runtime.interruptionChecks.includes(value)}">
-                  <span class="control-icon checkpoint-icon ${value}" aria-hidden="true">${icon}</span>
+                  ${decisionEmoji(icon)}
                   <strong>${label}</strong>
                   <small>${short}</small>
                 </button>`,
@@ -2217,9 +2217,9 @@
 
   function cupInspectionInteraction() {
     const checks = [
-      ["label", "Label present", "Cup"],
-      ["contents", "Contents", "Liquid"],
-      ["medication-order", "Medication order", "Order"],
+      ["label", "Label present", "Cup", "🏷️"],
+      ["contents", "Contents", "Liquid", "🥤"],
+      ["medication-order", "Medication order", "Order", "🧾"],
     ];
     const actions = [
       ["proceed", "Proceed", "Proceed with medication administration"],
@@ -2236,9 +2236,9 @@
         <div class="control-grid control-grid-3">
           ${checks
             .map(
-              ([value, label, short]) => `
+              ([value, label, short, icon]) => `
                 <button class="control-card ${runtime.cupChecks.includes(value) ? "selected" : ""}" data-cup-check="${value}" type="button" aria-pressed="${runtime.cupChecks.includes(value)}">
-                  <span class="control-icon ${value}"><i></i></span>
+                  ${decisionEmoji(icon)}
                   <strong>${label}</strong>
                   <small>${short}</small>
                 </button>`,
@@ -2261,9 +2261,9 @@
 
   function specimenControlInteraction() {
     const storageOptions = [
-      ["bedside", "Bedside", "Patient area"],
-      ["relative", "Relative", "Handed over"],
-      ["control", "Controlled area", "Staff area"],
+      ["bedside", "Bedside", "Patient area", "🛏️"],
+      ["relative", "Relative", "Handed over", "👪"],
+      ["control", "Controlled area", "Staff area", "🔒"],
     ];
 
     return `
@@ -2276,16 +2276,16 @@
         <div class="storage-control-grid">
           ${storageOptions
             .map(
-              ([value, label, detail]) => `
+              ([value, label, detail, icon]) => `
                 <button class="storage-control ${runtime.specimenStorage === value ? "selected" : ""}" data-specimen-storage="${value}" type="button" aria-pressed="${runtime.specimenStorage === value}">
-                  <span class="storage-control-icon ${value}"></span><strong>${label}</strong><small>${detail}</small>
+                  ${decisionEmoji(icon, "decision-emoji-storage")}<strong>${label}</strong><small>${detail}</small>
                 </button>`,
             )
             .join("")}
         </div>
         <div class="specimen-toggles">
-          ${toggle("specimenLabel", "Label attached", "Container", runtime.specimenLabel)}
-          ${toggle("specimenExplained", "Purpose explained", "Patient / relative", runtime.specimenExplained)}
+          ${toggle("specimenLabel", "Label attached", "Container", runtime.specimenLabel, "🏷️")}
+          ${toggle("specimenExplained", "Purpose explained", "Patient / relative", runtime.specimenExplained, "💬")}
         </div>
       </div>`;
   }
@@ -2340,9 +2340,14 @@
       </div>`;
   }
 
-  function toggle(name, title, subtitle, enabled) {
+  function decisionEmoji(icon, className = "") {
+    return `<span class="decision-emoji ${className}" aria-hidden="true">${icon}</span>`;
+  }
+
+  function toggle(name, title, subtitle, enabled, icon = "") {
     return `
-      <div class="toggle-row">
+      <div class="toggle-row ${icon ? "has-emoji" : ""}">
+        ${icon ? `<span class="toggle-emoji" aria-hidden="true">${icon}</span>` : ""}
         <div class="toggle-copy"><strong>${title}</strong><span>${subtitle}</span></div>
         <button class="switch ${enabled ? "on" : ""}" data-toggle="${name}" aria-pressed="${enabled}" aria-label="${title}"><i></i></button>
       </div>`;
@@ -2386,9 +2391,9 @@
 
   function clinicalContextInteraction() {
     const checks = [
-      ["medication-order", "Medication order", "Order"],
-      ["allergy-history", "Allergy history and status", "History + status"],
-      ["laboratory-result", "Laboratory result", "Current result"],
+      ["medication-order", "Medication order", "Order", "🧾"],
+      ["allergy-history", "Allergy history and status", "History + status", "⚠️"],
+      ["laboratory-result", "Laboratory result", "Current result", "🧪"],
     ];
 
     return `
@@ -2397,14 +2402,14 @@
         <div class="control-grid control-grid-3">
           ${checks
             .map(
-              ([value, label, detail]) => `
+              ([value, label, detail, icon]) => `
                 <button
                   class="control-card ${runtime.contextChecks.includes(value) ? "selected" : ""}"
                   data-context-check="${value}"
                   type="button"
                   aria-pressed="${runtime.contextChecks.includes(value)}"
                 >
-                  <span class="control-icon ${value}"><i></i></span>
+                  ${decisionEmoji(icon)}
                   <strong>${label}</strong>
                   <small>${detail}</small>
                 </button>`,
@@ -2611,9 +2616,9 @@
 
   function ngEvidenceInteraction() {
     const evidence = [
-      ["feed-order", "Feeding order", "Order"],
-      ["cxr-available", "Chest X-ray available", "CXR"],
-      ["position-confirmed", "Doctor's notes on NG tube position confirmation", "Position note"],
+      ["feed-order", "Feeding order", "Order", "🧾"],
+      ["cxr-available", "Chest X-ray available", "CXR", "🩻"],
+      ["position-confirmed", "Doctor's notes on NG tube position confirmation", "Position note", "📝"],
     ];
     const actions = [
       ["proceed", "Proceed with feeding", "Start the feeding"],
@@ -2626,9 +2631,9 @@
         <div class="control-grid control-grid-3">
           ${evidence
             .map(
-              ([value, label, short]) => `
+              ([value, label, short, icon]) => `
                 <button class="control-card ${runtime.ngEvidenceSteps.includes(value) ? "selected" : ""}" data-ng-evidence-step="${value}" type="button" aria-pressed="${runtime.ngEvidenceSteps.includes(value)}">
-                  <span class="control-icon ${value}"><i></i></span>
+                  ${decisionEmoji(icon)}
                   <strong>${label}</strong>
                   <small>${short}</small>
                 </button>`,
@@ -2702,9 +2707,9 @@
 
   function dentureAdmissionInteraction() {
     const storageOptions = [
-      ["tissue", "Tissue paper", "Bedside"],
-      ["tray", "Meal tray", "Tray"],
-      ["box", "Denture box", "Storage"],
+      ["tissue", "Tissue paper", "Bedside", "🧻"],
+      ["tray", "Meal tray", "Tray", "🍽️"],
+      ["box", "Denture box", "Storage", "📦"],
     ];
     const storageUnlocked = runtime.dentureAssessed;
     const documentationUnlocked = storageUnlocked && Boolean(runtime.dentureStorage);
@@ -2716,13 +2721,13 @@
           <div class="property-readout"><span>Personal item</span><strong>Denture</strong></div>
         </div>
         <div class="property-sequence">
-          ${toggle("dentureAssessed", "Assess the patient's denture", "Inspect the denture before choosing storage", runtime.dentureAssessed)}
+          ${toggle("dentureAssessed", "Assess the patient's denture", "Inspect the denture before choosing storage", runtime.dentureAssessed, "🦷")}
         </div>
         <div class="board-section-label"><span>Storage location</span><strong>${runtime.dentureStorage || "—"}</strong></div>
         <div class="storage-control-grid">
           ${storageOptions
             .map(
-              ([value, label, detail]) => `
+              ([value, label, detail, icon]) => `
                 <button
                   class="storage-control property-storage ${runtime.dentureStorage === value ? "selected" : ""} ${storageUnlocked ? "" : "locked"}"
                   data-denture-storage="${value}"
@@ -2731,7 +2736,7 @@
                   aria-disabled="${!storageUnlocked}"
                   aria-pressed="${runtime.dentureStorage === value}"
                 >
-                  <span class="storage-control-icon ${value}"></span>
+                  ${decisionEmoji(icon, "decision-emoji-storage")}
                   <strong>${label}</strong>
                   <small>${detail}</small>
                 </button>`,
@@ -2740,7 +2745,7 @@
         </div>
         ${
           documentationUnlocked
-            ? `<div class="property-toggles">${toggle("dentureDocumented", "Documentation regarding patient's denture", "Complete the record after selecting storage", runtime.dentureDocumented)}</div>`
+            ? `<div class="property-toggles">${toggle("dentureDocumented", "Documentation regarding patient's denture", "Complete the record after selecting storage", runtime.dentureDocumented, "📝")}</div>`
             : `<p class="property-next-step">Assess the denture first, then choose a storage location to unlock documentation.</p>`
         }
       </div>`;

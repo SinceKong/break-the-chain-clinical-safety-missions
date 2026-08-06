@@ -1512,6 +1512,26 @@ main {
   min-width: 0;
 }
 
+.toggle-row.has-emoji {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.toggle-emoji {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #c5d4e1;
+  border-radius: 10px;
+  background: #edf5fa;
+  color: #234b6e;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 19px;
+  line-height: 1;
+}
+
 .toggle-copy strong {
   font-size: 16px;
 }
@@ -4290,19 +4310,25 @@ dialog h2 {
   display: block;
 }
 
-.control-icon.checkpoint-icon {
+.decision-emoji {
   display: grid;
   place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #c5d4e1;
+  border-radius: 13px;
+  background: #edf5fa;
   color: #234b6e;
   font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   font-size: 23px;
   line-height: 1;
 }
 
-.control-icon.checkpoint-icon::before,
-.control-icon.checkpoint-icon::after {
-  content: none;
-  display: none;
+.decision-emoji-storage {
+  width: 32px;
+  height: 29px;
+  border-radius: 6px;
+  font-size: 19px;
 }
 
 .control-icon.patient::before,
@@ -4535,7 +4561,9 @@ dialog h2 {
 }
 
 .control-card.selected .control-icon,
-.storage-control.selected .storage-control-icon {
+.control-card.selected .decision-emoji,
+.storage-control.selected .storage-control-icon,
+.storage-control.selected .decision-emoji {
   border-color: var(--blue);
   background: #dcecff;
 }
@@ -4973,8 +5001,23 @@ dialog h2 {
     border-radius: 10px;
   }
 
-  .control-icon.checkpoint-icon {
+  .control-card .decision-emoji {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
     font-size: 20px;
+  }
+
+  .storage-control .decision-emoji-storage {
+    width: 30px;
+    height: 27px;
+    font-size: 18px;
+  }
+
+  .toggle-row.has-emoji .toggle-emoji {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
   }
 
   .control-card strong,

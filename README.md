@@ -3,7 +3,22 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.6.0
+## Release v7.7.0
+
+This owner refinement preserves the v7.6.0 public state while replacing the
+remaining custom decision-point glyphs in Missions 7, 9, 10, 12, and 15 with
+clear emoji markers. The text labels and accessible button names remain the
+source of meaning; the emoji provide a faster visual cue on desktop and mobile.
+The public v7.6.0 state is preserved by the
+`v7.6.0-before-decision-emoji-polish` tag in the clean repository.
+
+Mission 7 uses 🧾, ⚠️, and 🧪 for the medication order, allergy history and
+status, and laboratory result checks. Mission 9 uses 🏷️, 🥤, and 🧾 for label
+presence, contents, and medication order. Mission 10 uses 🛏️, 👪, 🔒, 🏷️,
+and 💬 for specimen location and controls. Mission 12 uses 🧾, 🩻, and 📝 for
+feeding order, chest X-ray availability, and NG-tube position confirmation.
+Mission 15 uses 🦷, 🧻, 🍽️, and 📦 for denture assessment and storage choices;
+the documentation check uses 📝 after storage is selected.
 
 This owner refinement preserves the v7.5.0 visual decision boards while
 updating the Mission 2 checkpoint icon treatment. The public v7.5.0 state is
