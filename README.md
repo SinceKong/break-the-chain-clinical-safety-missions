@@ -3,11 +3,11 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.4.0
+## Release v7.5.0
 
-This owner refinement preserves the v7.3.0 visual decision boards while
-refining punctuation, Mission 2 checkpoint geometry, Mission Stars spacing,
-Mission 15's ordered property checks, and the internal Final Quiz. The public
+This owner refinement preserves the v7.4.0 visual decision boards while
+updating the requested decision wording, Mission 15's denture flow, and the
+internal Final Quiz completion state. The public
 v7.3.0 state is preserved by the
 `v7.3.0-before-punctuation-quiz-refinement` tag in the clean repository; the
 earlier v7.2.0, v7.1.0, and v7.0.0 states remain preserved by their existing
@@ -46,19 +46,27 @@ Decision screens now place one concise, mission-specific context block under
 `Background information`; the old `Instruction` and prompt copy are no longer
 concatenated at render time. Mission 2 first asks whether to resume or start
 over; only the start-over path reveals all five rights—right patient, right
-medication, right time, right dosage, and right route—and resuming immediately
+drug, right time, right dosage, and right route—and resuming immediately
 returns an incorrect-decision prompt. Mission 3 uses an action-only
 Patient／Medication order verification choice. Mission 5 shows the route,
 concentration, and dose currently specified in the prescription before the
 learner chooses Proceed or Clarify. Mission 7 checks the medication order,
 allergy history and status, and laboratory result. Mission 9 inspects label
 presence, contents, and medication order before Proceed or Seek clarification.
-Mission 12 checks the feed order, chest X-ray availability, and
+Mission 12 checks the feeding order, chest X-ray availability, and
 `Doctor's notes on NG tube position confirmation` before Proceed feeding or
 Seek clarification. Mission 14 asks which attempted sites to select without
-revealing both sites. Mission 15 first requires an assessment of the denture,
-then unlocks storage location, then unlocks documentation regarding the
-patient's denture.
+revealing both sites. Mission 15 keeps the assessment control visible after
+selection, then unlocks storage location, then unlocks documentation regarding
+the patient's denture.
+
+The Final Quiz now opens with only its `Final Quiz` title and passing
+requirement. It samples five of the nine Question Bank items, shuffles each
+answer list, allows unlimited attempts, highlights selected wrong answers,
+and ends in the same page with a concise 5／5 completion result. No separate
+congratulations page or pending handoff message is shown; the existing blank
+`QUIZ_URL` hook remains available for the owner-supplied Hospital Authority
+destination.
 
 The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
 displayed full-width without an overlay obscuring its Learning Points. After a

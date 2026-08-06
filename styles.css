@@ -3032,28 +3032,12 @@ main {
   box-shadow: 0 18px 46px rgba(22, 56, 91, 0.11);
 }
 
-.quiz-kicker {
-  color: var(--blue);
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
 .quiz-card h1 {
   margin: 9px 0 10px;
   color: var(--ink);
   font-size: clamp(32px, 5vw, 54px);
   line-height: 1;
   letter-spacing: -0.045em;
-}
-
-.quiz-intro {
-  max-width: 700px;
-  margin: 0;
-  color: var(--ink-2);
-  font-size: 16px;
-  line-height: 1.55;
 }
 
 .quiz-rule {
@@ -3075,15 +3059,9 @@ main {
   letter-spacing: 0.08em;
 }
 
-.quiz-rule span,
-.quiz-attempt {
+.quiz-rule span {
   font-size: 13px;
   line-height: 1.4;
-}
-
-.quiz-attempt {
-  margin: 0 0 22px;
-  color: #68798c;
 }
 
 .quiz-questions {
@@ -3185,6 +3163,19 @@ main {
   background: var(--blue);
 }
 
+.quiz-option.wrong-answer:has(input:checked) {
+  border-color: #c0472c;
+  color: #873923;
+  background: #fff0e9;
+  box-shadow: 0 0 0 2px rgba(192, 71, 44, 0.1);
+}
+
+.quiz-option.wrong-answer:has(input:checked) .quiz-option-letter {
+  border-color: #c0472c;
+  color: #fff;
+  background: #c0472c;
+}
+
 .quiz-option-copy {
   min-width: 0;
   font-size: 14px;
@@ -3227,13 +3218,6 @@ main {
   justify-content: flex-start;
   gap: 10px;
   margin-top: 22px;
-}
-
-.quiz-handoff-pending {
-  margin: 16px 0 0;
-  color: #68798c;
-  font-size: 12px;
-  line-height: 1.45;
 }
 
 .quiz-completion-status {
@@ -4274,6 +4258,11 @@ dialog h2 {
 .storage-control strong {
   font-size: 14px;
   line-height: 1.25;
+}
+
+.control-grid-5 .control-card strong {
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .control-card small,

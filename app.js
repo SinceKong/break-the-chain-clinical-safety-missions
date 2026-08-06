@@ -512,7 +512,7 @@
       title: "Malposition of Nasogastric (NG) Tube feeding",
       playTitle: "Never Assume the NG Tube Is Correctly Positioned",
       summary:
-        "Decide whether a written feed order can proceed when the CXR review is not documented.",
+        "Decide whether a written feeding order can proceed when the CXR review is not documented.",
       background:
         "A doctor has written an order to start an NG tube feeding.",
       skills: ["CXR review", "Independent verification"],
@@ -522,16 +522,16 @@
       comic: "assets/ng-tube-comic-2026-08-05.png",
       thumbView: { src: "assets/ng-tube-visual-2026-08-05.png", width: 1671, height: 941, viewBox: "0 509 794 432" },
       briefingAlt: "A nasogastric tube is inserted during an operation and a chest X-ray is available for review.",
-      question: "What do you check before starting the feed?",
+      question: "What do you check before starting the feeding?",
       wrong:
-        "A written feed order alone does not document tube placement. Hold feeding until the doctor reviews the chest X-ray and records that the NG-tube position is confirmed.",
+        "A written feeding order alone does not document tube placement. Hold feeding until the doctor reviews the chest X-ray and records that the NG-tube position is confirmed.",
       teach: {
         question: "Which action closes the placement safety gate before feeding?",
         options: [
           {
             text: "Start feeding because the order was written by a doctor.",
             ok: false,
-            why: "A signed feed order does not replace documented review of the chest X-ray and tube position.",
+            why: "A signed feeding order does not replace documented review of the chest X-ray and tube position.",
           },
           {
             text: "Hold feeding, ask the doctor to review the chest X-ray, and document that the NG-tube position is confirmed.",
@@ -606,7 +606,7 @@
       comic: "assets/missing-denture-comic-2026-08-05.png",
       thumbView: { src: "assets/missing-denture-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "837 95 835 414" },
       briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
-      question: "What is the storage location for the patient's denture?",
+      question: "What are the follow-up actions for the patient's denture?",
       wrong:
         "Assess the denture first, then use the designated denture box and complete documentation regarding the patient's denture. Tissue paper and meal trays are not safe storage.",
       sourceWarning:
@@ -1407,7 +1407,7 @@
     if (item.type === "single-choice") {
       runtime.simpleChoice = item.correctDecision;
       if (item.id === "wrong-patient-distraction") {
-        runtime.interruptionChecks = ["patient", "medication", "time", "dosage", "route"];
+        runtime.interruptionChecks = ["patient", "drug", "time", "dosage", "route"];
         runtime.interruptionAction = "new-pass";
       }
       if (item.id === "adrenaline-route") {
@@ -2097,7 +2097,7 @@
   function interruptionInteraction() {
     const checkpoints = [
       ["patient", "Right patient", "Patient"],
-      ["medication", "Right medication", "Medication"],
+      ["drug", "Right drug", "Drug"],
       ["time", "Right time", "Time"],
       ["dosage", "Right dosage", "Dosage"],
       ["route", "Right route", "Route"],
@@ -2336,7 +2336,7 @@
           <div class="tip"></div>
         </div>
         ${toggle("label", "Medication label attached", "Drug, dose/concentration and preparation details", runtime.label)}
-        ${toggle("double", "Doctor administers after rechecking", "Final drug and dose check by the administering doctor", runtime.double)}
+        ${toggle("double", "Doctor to recheck the medication before administration", "Final drug and dose check before administration", runtime.double)}
       </div>`;
   }
 
@@ -2611,12 +2611,12 @@
 
   function ngEvidenceInteraction() {
     const evidence = [
-      ["feed-order", "Feed order", "Order"],
+      ["feed-order", "Feeding order", "Order"],
       ["cxr-available", "Chest X-ray available", "CXR"],
       ["position-confirmed", "Doctor's notes on NG tube position confirmation", "Position note"],
     ];
     const actions = [
-      ["proceed", "Proceed feeding", "Start the feed"],
+      ["proceed", "Proceed with feeding", "Start the feeding"],
       ["clarify", "Seek clarification", "Confirm before feeding"],
     ];
 
@@ -2716,11 +2716,7 @@
           <div class="property-readout"><span>Personal item</span><strong>Denture</strong></div>
         </div>
         <div class="property-sequence">
-          ${
-            runtime.dentureAssessed
-              ? `<div class="property-step complete"><span>1</span><div><strong>Denture assessed</strong><small>Ready to choose a storage location</small></div></div>`
-              : toggle("dentureAssessed", "Assess the patient's denture", "Inspect the denture before choosing storage", false)
-          }
+          ${toggle("dentureAssessed", "Assess the patient's denture", "Inspect the denture before choosing storage", runtime.dentureAssessed)}
         </div>
         <div class="board-section-label"><span>Storage location</span><strong>${runtime.dentureStorage || "—"}</strong></div>
         <div class="storage-control-grid">
@@ -3005,24 +3001,16 @@
     const questionCount = quizRuntime.questions.length;
     const result = quizRuntime.submitted
       ? `<div class="quiz-result ${quizRuntime.passed ? "correct" : "wrong"}" data-quiz-result>
-          <strong>${quizRuntime.passed ? `Passed - ${quizRuntime.score} / ${questionCount} correct` : `Not yet - ${quizRuntime.score} / ${questionCount} correct`}</strong>
-          <span>${quizRuntime.passed ? "All five answers are correct. You may continue to the Hospital Authority e-learning handoff when its link is connected." : "You may retry as many times as needed. A quiz attempt passes only when all five answers are correct."}</span>
+          <strong>${quizRuntime.passed ? `Quiz complete - ${quizRuntime.score} / ${questionCount} correct` : `Not yet - ${quizRuntime.score} / ${questionCount} correct`}</strong>
+          <span>${quizRuntime.passed ? `All ${questionCount} answers are correct.` : "You may retry as many times as needed. A quiz attempt passes only when all five answers are correct."}</span>
         </div>`
-      : "";
-    const handoff = quizRuntime.passed
-      ? QUIZ_URL
-        ? `<a class="primary" data-ha-handoff href="${esc(QUIZ_URL)}">Continue to Hospital Authority e-learning${ICONS.arrow}</a>`
-        : `<p class="quiz-handoff-pending">Hospital Authority e-learning link pending: the internal quiz is ready, and the external handoff URL can be connected in <code>QUIZ_URL</code>.</p>`
       : "";
 
     return `
       <div class="shell quiz-shell">
         <section class="quiz-card" aria-labelledby="final-quiz-title">
-          <div class="quiz-kicker">Final Quiz</div>
-          <h1 id="final-quiz-title">Check your safety decisions</h1>
-          <p class="quiz-intro">Five questions are selected at random from the nine-question bank. Answer choices are shuffled on every attempt.</p>
-          <div class="quiz-rule"><strong>Pass requirement</strong><span>Answer all 5 questions correctly. Unlimited attempts are allowed.</span></div>
-          <div class="quiz-attempt">Attempt ${quizRuntime.attempt} · ${questionCount} questions selected</div>
+          <h1 id="final-quiz-title">Final Quiz</h1>
+          <div class="quiz-rule"><strong>Passing requirement</strong><span>Answer all 5 questions correctly. Unlimited attempts are allowed.</span></div>
           <div class="quiz-questions">
             ${quizRuntime.questions
               .map(
@@ -3034,7 +3022,7 @@
                       ${question.options
                         .map(
                           (option, optionIndex) => `
-                            <label class="quiz-option">
+                            <label class="quiz-option ${quizRuntime.submitted && quizRuntime.answers[questionIndex] === option.sourceIndex && !option.correct ? "wrong-answer" : ""}">
                               <input
                                 type="radio"
                                 name="quiz-question-${questionIndex}"
@@ -3057,12 +3045,11 @@
           <div class="quiz-actions">
             ${
               quizRuntime.submitted
-                ? `<button class="primary" data-quiz-retry type="button">${quizRuntime.passed ? "Start another attempt" : "Retry the quiz"}${ICONS.arrow}</button>`
+                ? `${quizRuntime.passed ? "" : `<button class="primary" data-quiz-retry type="button">Retry the quiz${ICONS.arrow}</button>`}`
                 : `<button class="primary" data-quiz-submit type="button">Submit final quiz${ICONS.arrow}</button>`
             }
             <button class="secondary" data-back-complete type="button">Back to completion</button>
           </div>
-          ${handoff}
         </section>
       </div>`;
   }
@@ -3527,7 +3514,7 @@
     if (item.type === "dose") correct = Math.abs(runtime.tablets - 3) < 0.001;
     if (item.type === "single-choice") {
       if (item.id === "wrong-patient-distraction") {
-        const checkpoints = ["patient", "medication", "time", "dosage", "route"];
+        const checkpoints = ["patient", "drug", "time", "dosage", "route"];
         correct =
           runtime.interruptionChecks.length === checkpoints.length &&
           checkpoints.every((check) => runtime.interruptionChecks.includes(check)) &&
