@@ -3,7 +3,7 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v6.9
+## Release v6.9.1
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -33,17 +33,20 @@ where the cylinder main switch was not turned on, and Transfer uses the panel
 where the patient has fallen to the floor. The blood-taking mission explicitly
 asks the learner to check for a retained tourniquet before leaving.
 
-Decision screens now place one concise combined context block under
-`Background information`; the separate visible `Instruction` block has been
-removed. Mission 2 uses the interruption panel, Mission 6 uses the first
-medicine-check panel, and Mission 7 uses the doctor-prescribing panel.
+Decision screens now place one concise, mission-specific context block under
+`Background information`; the old `Instruction` and prompt copy are no longer
+concatenated at render time. Mission 2 uses the interruption panel, Mission 6
+uses the first medicine-check panel, and Mission 7 uses the doctor-prescribing
+panel.
 
 The comic zoom viewer is temporarily disabled. Each direct PowerPoint PNG is
 displayed full-width without an overlay obscuring its Learning Points. After a
 decision is correct, the review button stays disabled for 20 seconds before the
 learner can continue.
 
-Mission Stars appear only at the bottom after all mission steps are complete.
+Mission Stars appear only at the bottom after all mission steps are complete;
+the result card goes directly from the stars and completion heading to the
+compact star rules, with the Final Quiz remark left-aligned as a normal note.
 Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
 mins`, and `any order` stays together. The dashboard theme is `Break the Chain`
 with the subtitle `Real Clinical Incident Missions`. The Hospital Authority

@@ -41,8 +41,8 @@
       playTitle: "Prepare the Night Dose",
       summary:
         "Calculate the correct number of Clonazepam tablets before administration.",
-      instruction:
-        "Convert the prescribed dose into the correct tablet quantity, then test whether the double-check is truly independent.",
+      background:
+        "The prescription is Clonazepam 1.5 mg orally at night. The stock strength is 0.5 mg per tablet.",
       skills: ["Dose calculation", "Five Rights"],
       thumb: "assets/clonazepam-thumb.webp",
       briefing: "assets/clonazepam-visual-2026-08-05.png",
@@ -51,8 +51,6 @@
       thumbView: { src: "assets/clonazepam-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 507 785 434" },
       briefingAlt: "A nurse reviews the Clonazepam prescription.",
       question: "How many tablets should be prepared?",
-      prompt:
-        "Prescription: Clonazepam 1.5 mg orally at night. Stock strength: 0.5 mg per tablet.",
       wrong:
         "Recheck the units. Divide the prescribed dose by the strength in each tablet: 1.5 mg ÷ 0.5 mg per tablet.",
       teach: {
@@ -85,8 +83,8 @@
       playTitle: "Prepare the Injection",
       summary:
         "Prepare the exact prescribed volume, label the syringe, and confirm the administration check.",
-      instruction:
-        "Prepare the exact prescribed volume, label the syringe clearly, and confirm the point-of-administration check.",
+      background:
+        "The prescription is IV Dormicum 3 mg before the procedure. The prepared concentration is 15 mg in 15 mL.",
       skills: ["Exact dose", "Syringe labelling"],
       thumb: "assets/dormicum-thumb.webp",
       briefing: "assets/dormicum-visual-2026-08-05.png",
@@ -95,8 +93,6 @@
       thumbView: { src: "assets/dormicum-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 784 431" },
       briefingAlt: "The intravenous Dormicum prescription is reviewed.",
       question: "What syringe should be handed over?",
-      prompt:
-        "Prescription: IV Dormicum 3 mg before the procedure. Prepared concentration: 15 mg in 15 mL.",
       wrong:
         "All three safeguards are required: 3 mL, a clear medication label, and a drug-and-dose recheck immediately before administration.",
       teach: {
@@ -129,8 +125,8 @@
       playTitle: "Respond to the Patient Match Alert",
       summary:
         "Respond safely when the handheld scanner shows a patient mismatch alert.",
-      instruction:
-        "Respond safely to a Patient Not Match alert before the medication reaches the patient.",
+      background:
+        "You are about to start a Levofloxacin infusion. The handheld scanner shows Patient Not Match before administration.",
       skills: ["Identity verification", "Alert response"],
       thumb: "assets/patient-id-thumb.webp",
       briefing: "assets/patient-id-visual-2026-08-05.png",
@@ -139,8 +135,6 @@
       thumbView: { src: "assets/patient-id-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 505 782 436" },
       briefingAlt: "The handheld scanner shows a Patient Not Match alert.",
       question: "What should happen after the alert?",
-      prompt:
-        "The Levofloxacin infusion has not started. Choose the action that breaks the error chain.",
       wrong:
         "A Patient Not Match alert requires an immediate stop and formal identity verification. Bed location or colleague familiarity cannot replace it.",
       teach: {
@@ -173,8 +167,8 @@
       playTitle: "Pass the Medication Safety Gate",
       summary:
         "Preserve barcode gatekeeping and verify the prescribed medication formulation.",
-      instruction:
-        "Preserve barcode gatekeeping and match the supplied formulation to the prescription.",
+      background:
+        "The prescription is for Morphine Sulphate prolonged-release tablets. The barcode administration screen is ready for verification.",
       skills: ["Barcode scanning", "Formulation check"],
       thumb: "assets/barcode-thumb.webp",
       briefing: "assets/barcode-visual-2026-08-05.png",
@@ -183,8 +177,6 @@
       thumbView: { src: "assets/barcode-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 786 431" },
       briefingAlt: "The medication system presents the barcode administration workflow.",
       question: "How will you pass the safety gate?",
-      prompt:
-        "Choose the verification workflow and the formulation that matches the prescription.",
       wrong:
         "Use the 2D barcode scan and match the physical formulation to the prescribed prolonged-release tablets. Long-hold is not a shortcut.",
       teach: {
@@ -217,8 +209,8 @@
       playTitle: "Check the Patient Before Treatment",
       summary:
         "Check the patient's current parameters and clinical context before giving treatment.",
-      instruction:
-        "You are about to administer treatment to lower potassium. Decide which safety checks must be completed before the medication is given.",
+      background:
+        "Treatment to lower potassium has been prescribed. The patient record and latest potassium result must be matched before administration.",
       skills: ["Patient context", "Parameter verification"],
       thumb: "assets/misfiled-potassium-thumb.webp",
       briefing: "assets/misfiled-potassium-visual-2026-08-05.png",
@@ -227,8 +219,6 @@
       thumbView: { src: "assets/misfiled-potassium-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 510 782 431" },
       briefingAlt: "Two de-identified patient records show different potassium results.",
       question: "Which checks must be completed before you administer the treatment?",
-      prompt:
-        "A doctor has prescribed treatment to lower potassium. Select only the checks that must be completed before administration.",
       wrong:
         "Do not act on the open record alone. Complete the five medication rights, check allergy, and confirm the clinical context and indication, including the current K+ and trend.",
       teach: {
@@ -261,8 +251,8 @@
       playTitle: "Trace the Infusion Route",
       summary:
         "Prevent interruption by checking the entire IV Dopamine route before starting the infusion.",
-      instruction:
-        "You are preparing IV Dopamine for a newborn. Trace every checkpoint from the patient to the pump and confirm patency before starting.",
+      background:
+        "IV Dopamine is prepared for a newborn, but the infusion has not started. The route runs from the patient through the line and stopcock to the pump.",
       skills: ["Full-route trace", "Pre-infusion patency"],
       thumb: "assets/iv-stopcock-thumb.webp",
       briefing: "assets/iv-stopcock-visual-2026-08-05.png",
@@ -271,8 +261,6 @@
       thumbView: { src: "assets/iv-stopcock-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 507 786 434" },
       briefingAlt: "An IV Dopamine infusion route runs from the patient to the infusion pump.",
       question: "Which parts of the infusion route must you check?",
-      prompt:
-        "The IV Dopamine infusion has not started. Tap every checkpoint you must trace and verify before opening the line.",
       wrong:
         "Do not rely on a later alarm. Before starting, trace all four checkpoints: IV access, three-way stopcock, primary infusion tubing, and infusion pump.",
       teach: {
@@ -305,8 +293,8 @@
       playTitle: "Complete the Oxygen Safety Check",
       summary:
         "Complete two real-case rounds: first connect oxygen to the patient, then complete the cylinder 3-2-1 safety sequence.",
-      instruction:
-        "You are taking over oxygen care. Complete both the patient connection and cylinder safety rounds before leaving the bedside.",
+      background:
+        "You are taking over oxygen care. A patient connection and a portable-cylinder setup both need to be checked before you leave the bedside.",
       skills: ["Cylinder 3-2-1", "Final delivery check"],
       thumb: "assets/oxygen-case-2-visual-2026-08-05.png",
       thumbView: { src: "assets/oxygen-case-2-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 505 786 436" },
@@ -336,10 +324,8 @@
         {
           label: "Round 1 - Patient connection",
           playTitle: "Connect Oxygen to the Patient",
-          instruction:
-            "You are receiving a patient from A&E with oxygen prescribed at 3 L/min. Confirm that the delivery route is connected and oxygen is reaching the patient.",
-          prompt:
-            "The nasal cannula is on the patient, but the source connection and actual flow still need to be verified.",
+          background:
+            "A patient arrives from A&E with oxygen prescribed at 3 L/min. A nasal cannula is in place, but the source connection and actual flow have not been checked.",
           question: "What must you confirm before leaving the bedside?",
           briefingIndex: 0,
           comicIndex: 0,
@@ -367,10 +353,8 @@
         {
           label: "Round 2 - Cylinder check",
           playTitle: "Complete the Cylinder 3-2-1 Check",
-          instruction:
-            "You are preparing a portable oxygen cylinder. Complete the 3-2-1 sequence and confirm oxygen delivery before use.",
-          prompt:
-            "The cylinder and tubing are beside the patient, but the valve, content level, and prescribed flow have not yet been confirmed.",
+          background:
+            "A portable oxygen cylinder and tubing are beside the patient. The valve, cylinder content, prescribed flow, and delivery path have not yet been checked.",
           question: "How should you make the cylinder ready for safe use?",
           briefingIndex: 1,
           comicIndex: 1,
@@ -397,8 +381,6 @@
         },
       ],
       question: "Can you make both oxygen setups ready for the patient?",
-      prompt:
-        '<span class="prompt-round"><strong>Round 1:</strong> Receive a patient prescribed oxygen at 3 L/min.</span><span class="prompt-round"><strong>Round 2:</strong> Prepare a portable oxygen cylinder using the 3-2-1 sequence and a final delivery check.</span>',
       wrong:
         "Complete both rounds. Connect the cannula to oxygen and verify 3 L/min. Then open the cylinder valve, check the content level, set the flow, and confirm delivery.",
       teach: {
@@ -431,8 +413,8 @@
       playTitle: "Prepare for a Safe Patient Transfer",
       summary:
         "Secure and align two long transfer surfaces, then complete the sling and hoist safety gate.",
-      instruction:
-        "You are leading two transfers. Set up the lateral-transfer surfaces first, then clear every pre-lift sling check.",
+      background:
+        "Two transfers are planned: a lateral move between an electric bed and OT stretcher, followed by a bed-to-chair hoist transfer. The equipment must be prepared before either movement.",
       skills: ["Surface alignment", "Pre-lift safety gate"],
       thumb: "assets/transfer-fall-visual-2026-08-05.png",
       thumbView: { src: "assets/transfer-fall-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "512 514 514 427" },
@@ -456,8 +438,6 @@
       ],
       comic: "assets/transfer-fall-comic-2026-08-05.png",
       question: "Can you clear both transfer safety gates before movement begins?",
-      prompt:
-        '<span class="prompt-round"><strong>Round 1:</strong> Prepare an OT stretcher and electric bed for a lateral transfer.</span><span class="prompt-round"><strong>Round 2:</strong> Prepare a mechanical hoist and sling for a bed-to-chair transfer.</span>',
       wrong:
         "Complete both rounds. Secure and align the two transfer surfaces with no unsafe gap. Then select only the safe sling and hoist checks; choosing every option does not pass the safety gate.",
       teach: {
@@ -490,8 +470,8 @@
       playTitle: "Never Assume the NG Tube Is Correctly Positioned",
       summary:
         "Decide whether a written feed order can proceed when the CXR review is not documented.",
-      instruction:
-        "You are about to start an ordered NG feed. Decide what evidence and documentation you need before opening the feed.",
+      background:
+        "A doctor has written an order to start an NG feed. The record does not show that the chest X-ray was reviewed or that tube position was confirmed.",
       skills: ["CXR review", "Independent verification"],
       thumb: "assets/ng-tube-thumb.webp",
       briefing: "assets/ng-tube-visual-2026-08-05.png",
@@ -500,8 +480,6 @@
       thumbView: { src: "assets/ng-tube-visual-2026-08-05.png", width: 1671, height: 941, viewBox: "0 509 794 432" },
       briefingAlt: "A nasogastric tube is inserted during an operation and a chest X-ray is available for review.",
       question: "The feed order is written. What do you do before starting it?",
-      prompt:
-        "A doctor has written an order to start feeding. The order does not state that the chest X-ray was reviewed or that the NG-tube position was confirmed.",
       wrong:
         "A written feed order alone does not document tube placement. Hold feeding until the doctor reviews the chest X-ray and records that the NG-tube position is confirmed.",
       teach: {
@@ -534,8 +512,8 @@
       playTitle: "Check and Close the Blood-taking Procedure",
       summary:
         "Check both attempted sites for a retained tourniquet, remove it, and account for it before leaving.",
-      instruction:
-        "You have completed blood taking after attempts on both arms. Check both limbs specifically for any retained tourniquet, remove it immediately, and return it to storage.",
+      background:
+        "Blood taking was attempted on both upper limbs and the sample was obtained from the left arm. The final patient and equipment check has not been completed.",
       skills: ["Immediate removal", "Equipment close-out"],
       thumb: "assets/retained-tourniquet-thumb.webp",
       briefing: "assets/retained-tourniquet-visual-2026-08-05.png",
@@ -544,8 +522,6 @@
       thumbView: { src: "assets/retained-tourniquet-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 511 812 430" },
       briefingAlt: "Staff attempt blood taking while a tourniquet remains around a patient's upper limb.",
       question: "Where must you check for a tourniquet, and how must you close out the procedure?",
-      prompt:
-        "You attempted blood taking on both upper limbs and obtained the sample from the left arm. Check specifically for a retained tourniquet during the final patient and equipment sweep.",
       wrong:
         "Inspect both upper limbs because blood taking was attempted on both sides. Then remove the tourniquet immediately and return it to storage before leaving the patient.",
       teach: {
@@ -578,8 +554,8 @@
       playTitle: "Protect a Patient's Denture",
       summary:
         "Identify, store, and document the denture when the patient is admitted.",
-      instruction:
-        "During admission, you identify that the patient has a denture. Set up safe storage and an accountable record before routine care begins.",
+      background:
+        "A patient with a denture is being admitted. The denture needs an accountable storage and recording process before routine care continues.",
       skills: ["Inventory", "Designated storage"],
       thumb: "assets/missing-denture-thumb.webp",
       briefing: "assets/missing-denture-visual-2026-08-05.png",
@@ -588,8 +564,6 @@
       thumbView: { src: "assets/missing-denture-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "837 95 835 414" },
       briefingAlt: "A patient with a denture is being admitted and needs designated storage and documentation.",
       question: "What should you do when the denture is identified at admission?",
-      prompt:
-        "Choose the storage method and complete both admission-time accountability checks.",
       wrong:
         "Use the designated denture box, complete the denture inventory, and document the denture information. Tissue paper and meal trays are not safe storage.",
       sourceWarning:
@@ -624,8 +598,8 @@
       playTitle: "Restart the Check After an Interruption",
       summary:
         "Restart the medication and identity checks after a distraction before administration.",
-      instruction:
-        "You have just checked the medication against the patient wristband when a patient care assistant interrupts you and asks for help. Decide how to restart safely before administration.",
+      background:
+        "You checked the medication against the patient's wristband, then a patient-care assistant interrupted you. You are returning to the bedside before administration.",
       skills: ["Interruption recovery", "Patient identity"],
       briefing: "assets/wrong-patient-distraction-visual-2026-08-05.png",
       briefingView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "1084 96 588 393" },
@@ -633,8 +607,6 @@
       thumbView: { src: "assets/wrong-patient-distraction-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 506 778 435" },
       briefingAlt: "A patient care assistant interrupts a nurse during medication administration.",
       question: "What should you do when you return after the interruption?",
-      prompt:
-        "The medication and wristband check was completed immediately before the interruption.",
       correctDecision: "restart",
       decisionOptions: [
         {
@@ -685,8 +657,8 @@
       playTitle: "Clarify the Adrenaline Order",
       summary:
         "Clarify the indication, route, concentration, and dose before preparing adrenaline.",
-      instruction:
-        "A doctor gives a verbal order for adrenaline injection during an allergic reaction. Resolve every ambiguity before preparation and administration.",
+      background:
+        "During an allergic reaction, a doctor gives a verbal adrenaline order. The route, concentration, and dose are not specified.",
       skills: ["Order clarification", "Route and concentration"],
       briefing: "assets/adrenaline-route-visual-2026-08-05.png",
       briefingView: { src: "assets/adrenaline-route-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "898 110 774 405" },
@@ -694,8 +666,6 @@
       thumbView: { src: "assets/adrenaline-route-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 514 786 427" },
       briefingAlt: "A doctor gives an urgent verbal order for adrenaline injection.",
       question: "What must happen before adrenaline is prepared?",
-      prompt:
-        "The verbal order does not specify the route, concentration, or dose.",
       correctDecision: "clarify",
       decisionOptions: [
         {
@@ -746,8 +716,8 @@
       playTitle: "Clarify Before NG Administration",
       summary:
         "Never assume what an unlabelled cup contains - pause and clarify before NG administration.",
-      instruction:
-        "You are about to administer prepared medicines through an NG tube. An unlabelled cup is on the tray. Decide what to do before anything is given.",
+      background:
+        "During NG medication administration, an unlabelled cup is on the tray. Its contents, purpose, and intended route have not been confirmed.",
       skills: ["Situational awareness", "Clarification"],
       briefing: "assets/mouthwash-ng-visual-2026-08-05.png",
       briefingView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "576 96 518 413" },
@@ -755,8 +725,6 @@
       thumbView: { src: "assets/mouthwash-ng-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 504 784 437" },
       briefingAlt: "A cup of mouthwash is beside a syringe and other medicines.",
       question: "You find an unlabelled cup during NG medication administration. What should you do?",
-      prompt:
-        "The liquid's identity, purpose, and intended route have not been confirmed.",
       correctDecision: "clarify-cup",
       decisionOptions: [
         {
@@ -807,8 +775,8 @@
       playTitle: "Keep Specimen Preservative Away from the Patient",
       summary:
         "Control, explain, and label specimen containers so their contents cannot be mistaken for medication.",
-      instruction:
-        "A specimen container with preservative powder is about to be left at the bedside for later collection. Decide how to keep it controlled.",
+      background:
+        "A specimen container with preservative powder is ready for later collection. The patient and relative are nearby, and its purpose has not been explained.",
       skills: ["Specimen control", "Patient and carer communication"],
       briefing: "assets/specimen-bottle-visual-2026-08-05.png",
       briefingView: { src: "assets/specimen-bottle-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 104 543 408" },
@@ -816,8 +784,6 @@
       thumbView: { src: "assets/specimen-bottle-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "0 511 784 430" },
       briefingAlt: "A urine specimen bottle containing white preservative powder is placed beside the patient.",
       question: "What should you do with the specimen bottle?",
-      prompt:
-        "The patient and relative may mistake the powder for medication if the container is left unattended.",
       correctDecision: "control",
       decisionOptions: [
         {
@@ -874,7 +840,6 @@
         consequences: [
           "Severe allergic reaction",
           "Deterioration from delayed treatment",
-          "Serious harm from the wrong medication",
         ],
       },
     ],
@@ -1709,7 +1674,7 @@
           <div class="challenge-kicker">${ICONS.alert}Decision point</div>
           <div class="key-information">
             <span>Background information</span>
-            <p>${round.instruction} ${round.prompt}</p>
+            <p>${round.background}</p>
           </div>
           <h2>${round.question}</h2>
           <div class="decision-controls" ${decisionComplete ? 'inert aria-disabled="true"' : ""}>
@@ -1820,7 +1785,7 @@
           <div class="challenge-kicker">${ICONS.alert}Decision point</div>
           <div class="key-information">
             <span>Background information</span>
-            <p>${item.instruction} ${item.prompt}</p>
+            <p>${item.background}</p>
           </div>
           <h2>${item.question}</h2>
           <div class="decision-controls" ${decisionComplete ? 'inert aria-disabled="true"' : ""}>
@@ -2456,7 +2421,6 @@
         <span class="mission-result-kicker">Mission Stars</span>
         <strong class="mission-result-stars">${starDisplay(stars)}</strong>
         <h2>Mission ${item.n} complete</h2>
-        <p class="mission-result-summary">You completed ${item.type === "oxygen-combined" ? "both real-case rounds" : "all three steps"}. Your Mission Stars are based on your decision attempts.</p>
         <div class="mission-result-reassurance" aria-label="How Mission Stars are earned">
           <span>Stars obtained are based only on Part 1 of each mission:</span>
           <span><strong>3 ★:</strong> Correct on the 1st attempt</span>

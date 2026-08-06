@@ -2988,9 +2988,11 @@ main {
 }
 
 .mission-result-remark {
+  width: min(100%, 620px);
   margin: 0 0 22px !important;
   font-size: 12px !important;
   line-height: 1.4;
+  text-align: left;
 }
 
 .mission-result-remark strong {
