@@ -1282,9 +1282,16 @@
         .replace(/\s*,\s*/g, ", ")
         .replace(/\b(1|10), 000\b/g, "$1,000")
         .replace(/\s*-\s*(?=\S)/g, "- ")
+        .replace(/-\s+([A-Za-z])/g, (match, letter, offset, text) => {
+          const precedingWords = text.slice(0, offset).match(/[A-Za-z]+/g) || [];
+          const precedingWord = precedingWords[precedingWords.length - 1] || "";
+          const followsCapitalizedWord = /^[A-Z]/.test(precedingWord);
+          const normalizedLetter = followsCapitalizedWord ? letter.toUpperCase() : letter.toLowerCase();
+          return `- ${normalizedLetter}`;
+        })
         .replace(/\s*:\s*(?=\S)/g, ": ")
         .replace(/\s*(['’])\s*(?=\S)/g, "$1 ")
-        .replace(/([-:])\s+([a-z])/g, (_, punctuation, letter) => `${punctuation} ${letter.toUpperCase()}`);
+        .replace(/:\s+([a-z])/g, (_, letter) => `: ${letter.toUpperCase()}`);
     }
   }
 
@@ -3388,9 +3395,7 @@
       if (Date.now() < runtime.comicReadyAt) return;
       runtime.phase = "debrief";
       render();
-      requestAnimationFrame(() =>
-        document.getElementById("debrief-section")?.scrollIntoView({ behavior: "smooth", block: "start" }),
-      );
+      scrollToRenderedTarget(() => document.getElementById("debrief-section"), "start");
     });
 
     document.querySelectorAll("[data-next-oxygen-debrief]").forEach((button) => {
@@ -3400,8 +3405,9 @@
         runtime.oxygenRoundStates[roundIndex].comicDone = true;
         runtime.phase = `oxygen-${roundIndex + 1}-debrief`;
         render();
-        requestAnimationFrame(() =>
-          document.getElementById(`oxygen-debrief-${roundIndex + 1}`)?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        scrollToRenderedTarget(
+          () => document.getElementById(`oxygen-debrief-${roundIndex + 1}`),
+          "start",
         );
       });
     });
@@ -3424,6 +3430,26 @@
       };
     });
 
+    function scrollToRenderedTarget(getTarget, block = "start") {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          getTarget()?.scrollIntoView({ behavior: "smooth", block });
+        });
+      });
+    }
+
+    function scrollToNextDebriefAction() {
+      scrollToRenderedTarget(
+        () =>
+          document.querySelector("[data-finish]") ||
+          document.querySelector("[data-next-oxygen-round]") ||
+          document.querySelector("[data-confirm]") ||
+          document.querySelector("[data-confirm-oxygen]") ||
+          document.querySelector(".feedback"),
+        "center",
+      );
+    }
+
     document.querySelector("[data-confirm]")?.addEventListener("click", () => {
       if (runtime.teachChoice == null) {
         runtime.teachCorrect = false;
@@ -3434,6 +3460,7 @@
         runtime.teachFeedback = answer.why;
       }
       render();
+      scrollToNextDebriefAction();
     });
 
     document.querySelectorAll("[data-confirm-oxygen]").forEach((button) => {
@@ -3449,6 +3476,7 @@
           roundState.teachFeedback = answer.why;
         }
         render();
+        scrollToNextDebriefAction();
       });
     });
 

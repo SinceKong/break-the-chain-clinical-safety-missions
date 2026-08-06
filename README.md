@@ -3,7 +3,36 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.7.0
+## Release v7.9.2
+
+After a learner reviews an incident comic, the newly unlocked Takeaway section
+now receives a delayed smooth scroll after the re-render has settled. After a
+learner confirms a debrief reflection, the feedback and next action are
+similarly brought into view with the same stable scroll timing. This keeps the
+flow moving down to the next stage without the re-render making the viewport
+appear to jump upward.
+
+The confirmed v7.9.2 web build is preserved separately as
+`/Users/since/Downloads/incident_learning_game_v4_FINAL_v7.9.2`. A separate
+SCORM 1.2 upload package is available at
+`/Users/since/Downloads/break-the-chain-clinical-safety-missions_SCORM_1.2_v7.9.2.zip`;
+its upload and LMS tracking notes are in `README_SCORM.md` inside the package.
+A SCORM 2004 fallback upload package is also available at
+`/Users/since/Downloads/break-the-chain-clinical-safety-missions_SCORM_2004_v7.9.2.zip`;
+its manifest targets SCORM 2004 4th Edition and its upload/tracking notes are
+in `README_SCORM.md` inside the matching SCORM 2004 staging folder.
+
+The v7.8.1 conditional hyphen-capitalisation refinement remains unchanged
+below.
+
+This typography refinement keeps visible hyphens tight before the mark and
+separated by one space after it. The first letter after a hyphen follows the
+case of the preceding word: it is capitalised when that word starts with a
+capital letter, and lower-case otherwise. The rule is applied consistently to
+dashboard, mission, decision, incident-comment, debrief, completion, and quiz
+copy.
+
+The v7.7.0 decision-point emoji refinement remains unchanged below.
 
 This owner refinement preserves the v7.6.0 public state while replacing the
 remaining custom decision-point glyphs in Missions 7, 9, 10, 12, and 15 with
@@ -123,10 +152,12 @@ After Mission 15, the primary result action opens course completion; the
 completed dashboard keeps an explicit completed-mission review route.
 
 Visible punctuation is normalised across the dashboard and mission flow:
-hyphens have no preceding space and one following space; colons and
-apostrophes have one following space; and the word after a hyphen or colon is
-capitalised. Numeric adrenaline ratios retain their required thousands
-separators without a following space: `1:10,000` and `1:1,000`.
+hyphens have no preceding space and one following space; the first letter
+after a hyphen is capitalised only when the preceding word starts with a
+capital letter; colons and apostrophes have one following space, with the
+colon rule continuing to capitalise its next word. Numeric adrenaline ratios
+retain their required thousands separators without a following space:
+`1:10,000` and `1:1,000`.
 Teach-back choices are shuffled so the correct answer is not repeatedly in the
 second position.
 
