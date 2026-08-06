@@ -8,6 +8,49 @@
   const INCIDENT_COUNT = 17;
   const OXYGEN_SAFETY_POSTER = "assets/oxygen-cylinder-safety-3-2-1.png";
 
+  function runtimeAssetBase(src) {
+    return src.split("/").pop().replace(/\.[^.]+$/, "");
+  }
+
+  function runtimeCropAsset(src, viewBox, variant) {
+    if (!src || !viewBox) return null;
+    const box = viewBox.trim().split(/\s+/).map(Number);
+    if (box.length !== 4 || box.some((value) => !Number.isFinite(value))) return null;
+    return `assets/runtime/${variant}/${runtimeAssetBase(src)}-${box.join("-")}.webp`;
+  }
+
+  function runtimeFullAsset(src, variant) {
+    return src ? `assets/runtime/${variant}/${runtimeAssetBase(src)}.webp` : null;
+  }
+
+  function viewBoxSize(viewBox) {
+    const box = viewBox?.trim().split(/\s+/).map(Number) || [];
+    return box.length === 4 && box.slice(2).every((value) => Number.isFinite(value))
+      ? { width: box[2], height: box[3] }
+      : null;
+  }
+
+  function briefingMedia(briefing) {
+    const optimizedSrc = runtimeCropAsset(briefing.src, briefing.viewBox, "briefing");
+    const size = viewBoxSize(briefing.viewBox);
+    if (optimizedSrc && size) {
+      return `<img class="briefing-crop-image" data-lazy-src="${optimizedSrc}" width="${size.width}" height="${size.height}" loading="lazy" decoding="async" role="img" aria-label="${esc(briefing.alt)}">`;
+    }
+    return `<svg class="briefing-crop" data-lazy-src="${esc(briefing.src)}" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
+              <image width="${briefing.width}" height="${briefing.height}"></image>
+            </svg>`;
+  }
+
+  function comicMedia(comic, title) {
+    const optimizedSrc = runtimeFullAsset(comic.src, "comics");
+    const size = comic.className === "oxygen-safety-poster" ? { width: 1796, height: 2400 } : { width: 1600, height: 900 };
+    if (!optimizedSrc) return `<img src="${comic.src}" width="${size.width}" height="${size.height}" loading="lazy" decoding="async" alt="${esc(`${title} - ${comic.label || "Incident comic"}`)}">`;
+    return `<picture class="comic-picture">
+              <source data-lazy-src="${optimizedSrc}" type="image/webp">
+              <img data-lazy-src="${esc(comic.src)}" width="${size.width}" height="${size.height}" loading="lazy" decoding="async" alt="${esc(`${title} - ${comic.label || "Incident comic"}`)}">
+            </picture>`;
+  }
+
   const ICONS = {
     rewind:
       '<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8v5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.4 12.6A7.5 7.5 0 1 0 7.2 7.7L4 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4l2.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -1321,6 +1364,7 @@
       const tagName = element.tagName.toLowerCase();
       if (tagName === "svg") element.querySelector("image")?.setAttribute("href", src);
       else if (tagName === "image") element.setAttribute("href", src);
+      else if (tagName === "source") element.setAttribute("srcset", src);
       else element.setAttribute("src", src);
       element.removeAttribute("data-lazy-src");
     };
@@ -1472,6 +1516,11 @@
 
   function missionThumbnail(thumb) {
     if (typeof thumb === "string") return `<img src="${thumb}" loading="lazy" decoding="async" alt="">`;
+    const optimizedSrc = runtimeCropAsset(thumb.src, thumb.viewBox, "dashboard");
+    const size = viewBoxSize(thumb.viewBox);
+    if (optimizedSrc && size) {
+      return `<img class="mission-thumb" data-lazy-src="${optimizedSrc}" width="${size.width}" height="${size.height}" loading="lazy" decoding="async" alt="">`;
+    }
     return `
       <svg class="mission-thumb" data-lazy-src="${esc(thumb.src)}" viewBox="${thumb.viewBox}" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
         <image width="${thumb.width}" height="${thumb.height}"></image>
@@ -1701,9 +1750,7 @@
       <div class="case-grid">
         <section class="briefing-card">
           <figure class="briefing-frame">
-            <svg class="briefing-crop" data-lazy-src="${esc(briefing.src)}" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
-              <image width="${briefing.width}" height="${briefing.height}"></image>
-            </svg>
+            ${briefingMedia(briefing)}
           </figure>
         </section>
         <aside class="challenge combined-challenge">
@@ -1805,13 +1852,7 @@
                     (briefing) => `
                       <figure class="briefing-frame">
                         ${briefing.label ? `<figcaption>${esc(briefing.label)}</figcaption>` : ""}
-                        ${
-                          briefing.viewBox
-                            ? `<svg class="briefing-crop" data-lazy-src="${esc(briefing.src)}" viewBox="${briefing.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(briefing.alt)}">
-                                <image width="${briefing.width}" height="${briefing.height}"></image>
-                              </svg>`
-                            : `<img src="${briefing.src}" loading="lazy" decoding="async" alt="${esc(briefing.alt)}">`
-                        }
+                        ${briefing.viewBox ? briefingMedia(briefing) : `<img src="${briefing.src}" loading="lazy" decoding="async" alt="${esc(briefing.alt)}">`}
                       </figure>`,
                   )
                   .join("")
@@ -2365,11 +2406,11 @@
                 <figure class="comic-panel ${comic.className ? esc(comic.className) : ""}">
                   <div class="comic-reveal" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
                     ${
-                        comic.viewBox
-                          ? `<svg class="comic-crop" data-lazy-src="${esc(comic.src)}" viewBox="${comic.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
+                      comic.viewBox
+                        ? `<svg class="comic-crop" data-lazy-src="${esc(comic.src)}" viewBox="${comic.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">
                             <image width="${comic.width}" height="${comic.height}"></image>
-                            </svg>`
-                        : `<img src="${comic.src}" loading="lazy" decoding="async" alt="${esc(`${item.title} - ${comic.label || "Incident comic"}`)}">`
+                          </svg>`
+                        : comicMedia(comic, item.title)
                     }
                   </div>
                 </figure>`,

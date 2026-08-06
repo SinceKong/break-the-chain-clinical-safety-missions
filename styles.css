@@ -3835,3 +3835,30 @@ dialog h2 {
     transition-duration: 0.01ms !important;
   }
 }
+
+.briefing-card .briefing-crop-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.comic-reveal picture {
+  display: block;
+  width: 100%;
+}
+
+.comic-reveal picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .briefing-card .briefing-crop-image {
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+  }
+}
