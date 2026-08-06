@@ -460,7 +460,7 @@
         "Two transfers are planned: a lateral move between an electric bed and OT stretcher, followed by a bed-to-chair hoist transfer. The equipment must be prepared before either movement.",
       skills: ["Surface alignment", "Pre-lift safety gate"],
       thumb: "assets/transfer-fall-visual-2026-08-05.png",
-      thumbView: { src: "assets/transfer-fall-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "512 514 514 427" },
+      thumbView: { src: "assets/transfer-fall-visual-2026-08-05.png", width: 1672, height: 941, viewBox: "512 107 514 420" },
       briefings: [
         {
           label: "Round 1 - Lateral transfer",
@@ -1896,7 +1896,7 @@
   }
 
   function singleChoiceInteraction(item) {
-    return `<div class="choices">${item.decisionOptions
+    const choices = item.decisionOptions
       .map((option) =>
         choice(
           "single-choice",
@@ -1906,7 +1906,87 @@
           runtime.simpleChoice === option.value,
         ),
       )
-      .join("")}</div>`;
+      .join("");
+
+    if (item.id === "wrong-patient-distraction") {
+      return `
+        <div class="decision-layout decision-layout-interruption">
+          <div class="interrupt-alert">
+            <span class="layout-kicker">Interruption detected</span>
+            <strong>Checking sequence broken</strong>
+            <span class="layout-chip">RESET</span>
+          </div>
+          <div class="reset-path" aria-label="Safe recovery path">
+            <span class="layout-kicker">Safe recovery path</span>
+            <div class="reset-path-steps">
+              <span><i>1</i>Pause</span>
+              <span><i>2</i>Restart identity</span>
+              <span><i>3</i>Recheck medicine</span>
+            </div>
+          </div>
+          <span class="decision-layout-label">Choose the next move</span>
+          <div class="choices interruption-options">${choices}</div>
+        </div>`;
+    }
+
+    if (item.id === "adrenaline-route") {
+      return `
+        <div class="decision-layout decision-layout-verbal-order">
+          <div class="verbal-order-card">
+            <div>
+              <span class="layout-kicker">Urgent verbal order</span>
+              <strong>ADRENALINE</strong>
+            </div>
+            <span class="order-state">INCOMPLETE</span>
+            <div class="order-fields">
+              <span>Indication <b>allergic reaction</b></span>
+              <span>Route <b>?</b></span>
+              <span>Concentration <b>?</b></span>
+              <span>Dose <b>?</b></span>
+            </div>
+          </div>
+          <span class="decision-layout-label">Choose how you will close the order gap</span>
+          <div class="choices order-options">${choices}</div>
+        </div>`;
+    }
+
+    if (item.id === "mouthwash-ng") {
+      return `
+        <div class="decision-layout decision-layout-unknown-cup">
+          <div class="unknown-cup-scene">
+            <div class="unknown-cup" aria-hidden="true"><i>?</i></div>
+            <div>
+              <span class="layout-kicker">Tray item</span>
+              <strong>Unlabelled cup</strong>
+              <span>Contents and intended route are unknown.</span>
+            </div>
+            <span class="layout-chip danger">STOP</span>
+          </div>
+          <span class="decision-layout-label">Choose the safest response before any administration</span>
+          <div class="choices cup-options">${choices}</div>
+        </div>`;
+    }
+
+    if (item.id === "specimen-bottle") {
+      return `
+        <div class="decision-layout decision-layout-specimen">
+          <div class="specimen-chain" aria-label="Specimen control chain">
+            <span class="layout-kicker">Control chain</span>
+            <div class="specimen-chain-steps">
+              <span><i>01</i>Control</span>
+              <b aria-hidden="true">→</b>
+              <span><i>02</i>Label</span>
+              <b aria-hidden="true">→</b>
+              <span><i>03</i>Explain</span>
+            </div>
+            <small>Keep the preservative away from an unattended patient area.</small>
+          </div>
+          <span class="decision-layout-label">Choose the action that protects the whole chain</span>
+          <div class="choices specimen-options">${choices}</div>
+        </div>`;
+    }
+
+    return `<div class="choices">${choices}</div>`;
   }
 
   function doseInteraction() {
@@ -1982,9 +2062,28 @@
       ["verify", "Stop, use two identifiers to recheck the patient and order, then repeat the independent double-check.", "Resolve the mismatch before administration."],
       ["ask", "Ask whether this bed normally receives the antibiotic and continue if a colleague agrees.", "Use colleague familiarity instead of formal verification."],
     ];
-    return `<div class="choices">${options
-      .map((option) => choice("identity", option[0], option[1], option[2], runtime.idChoice === option[0]))
-      .join("")}</div>`;
+    return `
+      <div class="decision-layout decision-layout-identity">
+        <div class="scanner-alert">
+          <div>
+            <span class="layout-kicker">Handheld scanner</span>
+            <strong>Patient Not Match</strong>
+            <span>Administration is blocked until the mismatch is resolved.</span>
+          </div>
+          <span class="layout-chip danger">HARD STOP</span>
+        </div>
+        <div class="verification-path" aria-label="Identity verification path">
+          <span><i>1</i>Stop</span>
+          <b aria-hidden="true">→</b>
+          <span><i>2</i>Use two identifiers</span>
+          <b aria-hidden="true">→</b>
+          <span><i>3</i>Resolve alert</span>
+        </div>
+        <span class="decision-layout-label">Choose the response that restores the safety gate</span>
+        <div class="choices identity-options">${options
+          .map((option) => choice("identity", option[0], option[1], option[2], runtime.idChoice === option[0]))
+          .join("")}</div>
+      </div>`;
   }
 
   function clinicalContextInteraction() {
@@ -1995,12 +2094,34 @@
       ["open-record", "The open record is enough", "Assume the result belongs to this patient because it appears here"],
     ];
 
+    const requiredChecks = ["five-rights", "allergy", "clinical-context"];
+    const safeSelected = runtime.contextChecks.filter((value) => requiredChecks.includes(value)).length;
+
     return `
       <div class="context-check">
+        <div class="chart-review-board">
+          <div class="chart-review-head">
+            <span class="layout-kicker">Patient record cross-check</span>
+            <strong>${safeSelected} / ${requiredChecks.length} safeguards</strong>
+          </div>
+          <div class="chart-review-lanes">
+            <div class="chart-review-lane">
+              <span>Open record</span>
+              <strong>Order and identity</strong>
+              <small>Match the treatment to this patient.</small>
+            </div>
+            <b aria-hidden="true">↔</b>
+            <div class="chart-review-lane emphasis">
+              <span>Current context</span>
+              <strong>Parameters and trend</strong>
+              <small>Confirm the indication before giving treatment.</small>
+            </div>
+          </div>
+        </div>
         <div class="context-alert">
           <span>Before medication</span>
           <strong>Treatment to lower potassium prescribed</strong>
-          <small>Decide what must be checked before administration</small>
+          <small>Tap every check that independently closes the clinical context gap.</small>
         </div>
         <div class="context-pick">
           ${checks
@@ -2237,13 +2358,29 @@
       ],
     ];
 
+    const ready = runtime.ngEvidence === "confirmed";
     return `
       <div class="evidence-gate">
-        <div class="gate-status ${runtime.ngEvidence === "confirmed" ? "ready" : ""}">
-          <span>Feed order gate</span>
-          <strong>${runtime.ngEvidence === "confirmed" ? "Evidence ready for decision" : "Hold - Placement not confirmed"}</strong>
+        <div class="evidence-board">
+          <div class="evidence-board-head">
+            <span class="layout-kicker">Placement evidence route</span>
+            <strong>${ready ? "Gate ready" : "Gate on hold"}</strong>
+          </div>
+          <div class="evidence-route" aria-label="NG tube placement evidence route">
+            <span><i>01</i>Feed order</span>
+            <b aria-hidden="true">+</b>
+            <span><i>02</i>Chest X-ray</span>
+            <b aria-hidden="true">+</b>
+            <span><i>03</i>Documented confirmation</span>
+          </div>
+          <div class="evidence-board-note">The order starts the process; it does not prove tube position.</div>
         </div>
-        <div class="choices">
+        <div class="gate-status ${ready ? "ready" : ""}">
+          <span>Feed order gate</span>
+          <strong>${ready ? "Evidence ready for decision" : "Hold - Placement not confirmed"}</strong>
+        </div>
+        <span class="decision-layout-label">Choose the action that closes the placement gate</span>
+        <div class="choices evidence-options">
           ${options
             .map((option) =>
               choice("ng-evidence", option[0], option[1], option[2], runtime.ngEvidence === option[0]),
@@ -2311,9 +2448,25 @@
       ["box", "Designated denture box", "Protected and clearly identifiable storage"],
     ];
 
+    const closedSteps = [runtime.dentureStorage === "box", runtime.dentureInventory, runtime.dentureDocumented].filter(Boolean).length;
+
     return `
       <div class="denture-check">
-        <span class="form-label">Choose the storage method</span>
+        <div class="admission-inventory-board">
+          <div class="admission-inventory-head">
+            <span class="layout-kicker">Admission inventory</span>
+            <strong>${closedSteps} / 3 controls closed</strong>
+          </div>
+          <div class="admission-item-card">
+            <span class="denture-silhouette" aria-hidden="true"></span>
+            <div>
+              <strong>Patient denture</strong>
+              <small>Identify → designated storage → document</small>
+            </div>
+            <span class="inventory-state ${closedSteps === 3 ? "ready" : ""}">${closedSteps === 3 ? "ACCOUNTED" : "OPEN"}</span>
+          </div>
+        </div>
+        <span class="form-label">1 · Choose the storage method</span>
         <div class="storage-pick">
           ${storageOptions
             .map(
@@ -2330,6 +2483,7 @@
             )
             .join("")}
         </div>
+        <span class="form-label">2 · Close the accountability loop</span>
         <div class="route-checklist">
           ${toggle("dentureInventory", "Denture inventory completed", "Confirm and record the item under the patient's care", runtime.dentureInventory)}
           ${toggle("dentureDocumented", "Denture information documented", "Maintain accountability from admission through ongoing care", runtime.dentureDocumented)}
@@ -2499,7 +2653,6 @@
         <strong class="mission-result-stars">${starDisplay(stars)}</strong>
         <h2>Mission ${item.n} complete</h2>
         <div class="mission-result-reassurance" aria-label="How Mission Stars are earned">
-          <span>Stars obtained are based only on Part 1 of each mission:</span>
           <span><strong>3 ★:</strong> Correct on the 1st attempt</span>
           <span><strong>2 ★:</strong> Correct on the 2nd attempt</span>
           <span><strong>1 ★:</strong> Correct on the 3rd or later attempt</span>

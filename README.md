@@ -3,7 +3,7 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v6.9.6
+## Release v7.0.0
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -29,8 +29,8 @@ Each Incident Comic is a 2000×1125 PNG exported directly by Microsoft
 PowerPoint, preserving the slide title, caption boxes, and Learning Points.
 Decision scenes use the supplied text-free 1672×941 source artwork. Dashboard
 thumbnails use the impact-line or error focal panel: Oxygen uses only the panel
-where the cylinder main switch was not turned on, and Transfer uses the panel
-where the patient has fallen to the floor. The blood-taking mission explicitly
+where the cylinder main switch was not turned on, and Transfer uses the upper
+transfer panel with the impact lines. The blood-taking mission explicitly
 asks the learner to check for a retained tourniquet before leaving.
 
 Decision screens now place one concise, mission-specific context block under
@@ -56,6 +56,12 @@ does not decode a full 1672×941 source when only one crop is visible. Incident
 comics and the Oxygen poster use deferred WebP runtime copies with the original
 PowerPoint PNGs preserved as fallback. All source artwork and direct exports
 remain unchanged.
+
+The decision controls use scene-led layouts for the remaining standard missions:
+interruption recovery, identity mismatch, incomplete adrenaline order, clinical
+context cross-check, unlabelled NG cup, specimen control, NG placement evidence,
+and denture admission inventory. Mission 1, 4, 6, 8, 11, 13, and 14 retain their
+existing bespoke interactions.
 Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
 mins`, and `any order` stays together. The dashboard theme is `Break the Chain`
 with the subtitle `Real Clinical Incident Missions`. The Hospital Authority
