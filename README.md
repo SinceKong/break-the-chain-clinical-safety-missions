@@ -3,7 +3,11 @@
 Open `index.html` in a modern browser, or serve this folder with any simple
 static web server.
 
-## Release v7.0.0
+## Release v7.1.0
+
+This owner refinement supersedes the v7.0.0 decision-layout experiment. The
+previous public state remains preserved by the `v7.0.0-before-decision-redesign`
+tag in the clean repository.
 
 The current build covers 17 incidents across 15 missions in the exact order of
 `/Users/since/Downloads/Package/Incident Sharing (Comic).pptx`. The two Oxygen
@@ -57,11 +61,13 @@ comics and the Oxygen poster use deferred WebP runtime copies with the original
 PowerPoint PNGs preserved as fallback. All source artwork and direct exports
 remain unchanged.
 
-The decision controls use scene-led layouts for the remaining standard missions:
-interruption recovery, identity mismatch, incomplete adrenaline order, clinical
-context cross-check, unlabelled NG cup, specimen control, NG placement evidence,
-and denture admission inventory. Mission 1, 4, 6, 8, 11, 13, and 14 retain their
-existing bespoke interactions.
+Mission 1, 4, 6, 8, 11, 13, and 14 retain their existing bespoke interactions.
+The owner-refined decision controls for Missions 2, 3, 5, 7, 9, 10, 12, and 15
+use operational boards instead of explanatory MCQ cards: interruption
+checkpoints, identity verification, an incomplete-order builder, chart records,
+cup inspection, specimen storage, evidence cards, and property storage. These
+boards show the objects and available actions without printing the governing
+principle as a hint.
 Completed dashboard cards use `Mission Stars`, unfinished cards use `3- 5
 mins`, and `any order` stays together. The dashboard theme is `Break the Chain`
 with the subtitle `Real Clinical Incident Missions`. The Hospital Authority

@@ -1208,9 +1208,12 @@
       double: false,
       simpleChoice: null,
       idChoice: null,
+      identityChecks: [],
+      identityAction: null,
       scanMode: null,
       medication: null,
       contextChecks: [],
+      contextRecord: null,
       infusionPoints: [],
       oxygenSource: null,
       oxygenFlow: 0,
@@ -1225,11 +1228,25 @@
       testLift: false,
       staffHold: false,
       ngEvidence: null,
+      ngEvidenceSteps: [],
+      ngAction: null,
       tourniquetArms: [],
       tourniquetAction: null,
       dentureStorage: null,
       dentureInventory: false,
+      dentureTagged: false,
       dentureDocumented: false,
+      interruptionChecks: [],
+      interruptionAction: null,
+      orderRoute: null,
+      orderConcentration: null,
+      orderDose: null,
+      orderAction: null,
+      cupChecks: [],
+      cupAction: null,
+      specimenStorage: null,
+      specimenLabel: false,
+      specimenExplained: false,
       teachChoice: null,
       teachCorrect: false,
       teachFeedback: null,
@@ -1257,19 +1274,45 @@
     runtime.attempts = completion.attempts || 1;
 
     if (item.type === "dose") runtime.tablets = 3;
-    if (item.type === "single-choice") runtime.simpleChoice = item.correctDecision;
+    if (item.type === "single-choice") {
+      runtime.simpleChoice = item.correctDecision;
+      if (item.id === "wrong-patient-distraction") {
+        runtime.interruptionChecks = ["patient", "medicine", "order"];
+        runtime.interruptionAction = "new-pass";
+      }
+      if (item.id === "adrenaline-route") {
+        runtime.orderRoute = "not-stated";
+        runtime.orderConcentration = "not-stated";
+        runtime.orderDose = "not-stated";
+        runtime.orderAction = "clarify";
+      }
+      if (item.id === "mouthwash-ng") {
+        runtime.cupChecks = ["label", "contents", "route"];
+        runtime.cupAction = "hold";
+      }
+      if (item.id === "specimen-bottle") {
+        runtime.specimenStorage = "control";
+        runtime.specimenLabel = true;
+        runtime.specimenExplained = true;
+      }
+    }
     if (item.type === "syringe") {
       runtime.volume = 3;
       runtime.label = true;
       runtime.double = true;
     }
-    if (item.type === "identity") runtime.idChoice = "verify";
+    if (item.type === "identity") {
+      runtime.idChoice = "verify";
+      runtime.identityChecks = ["wristband", "order", "double"];
+      runtime.identityAction = "verify";
+    }
     if (item.type === "barcode") {
       runtime.scanMode = "scan";
       runtime.medication = "tablet";
     }
     if (item.type === "clinical-context") {
       runtime.contextChecks = ["five-rights", "allergy", "clinical-context"];
+      runtime.contextRecord = "current";
     }
     if (item.type === "infusion-route") {
       runtime.infusionPoints = ["iv-access", "stopcock", "tubing", "pump"];
@@ -1298,7 +1341,11 @@
       runtime.testLift = false;
       runtime.staffHold = false;
     }
-    if (item.type === "evidence-gate") runtime.ngEvidence = "confirmed";
+    if (item.type === "evidence-gate") {
+      runtime.ngEvidence = "confirmed";
+      runtime.ngEvidenceSteps = ["order", "cxr", "position"];
+      runtime.ngAction = "hold";
+    }
     if (item.type === "tourniquet-loop") {
       runtime.tourniquetArms = ["left", "right"];
       runtime.tourniquetAction = "remove-store";
@@ -1306,6 +1353,7 @@
     if (item.type === "denture-admission") {
       runtime.dentureStorage = "box";
       runtime.dentureInventory = true;
+      runtime.dentureTagged = true;
       runtime.dentureDocumented = true;
     }
 
@@ -1896,7 +1944,12 @@
   }
 
   function singleChoiceInteraction(item) {
-    const choices = item.decisionOptions
+    if (item.id === "wrong-patient-distraction") return interruptionInteraction();
+    if (item.id === "adrenaline-route") return orderClarificationInteraction();
+    if (item.id === "mouthwash-ng") return cupInspectionInteraction();
+    if (item.id === "specimen-bottle") return specimenControlInteraction();
+
+    return `<div class="choices">${item.decisionOptions
       .map((option) =>
         choice(
           "single-choice",
@@ -1906,87 +1959,200 @@
           runtime.simpleChoice === option.value,
         ),
       )
-      .join("");
+      .join("")}</div>`;
+  }
 
-    if (item.id === "wrong-patient-distraction") {
-      return `
-        <div class="decision-layout decision-layout-interruption">
-          <div class="interrupt-alert">
-            <span class="layout-kicker">Interruption detected</span>
-            <strong>Checking sequence broken</strong>
-            <span class="layout-chip">RESET</span>
-          </div>
-          <div class="reset-path" aria-label="Safe recovery path">
-            <span class="layout-kicker">Safe recovery path</span>
-            <div class="reset-path-steps">
-              <span><i>1</i>Pause</span>
-              <span><i>2</i>Restart identity</span>
-              <span><i>3</i>Recheck medicine</span>
-            </div>
-          </div>
-          <span class="decision-layout-label">Choose the next move</span>
-          <div class="choices interruption-options">${choices}</div>
-        </div>`;
-    }
+  function interruptionInteraction() {
+    const checkpoints = [
+      ["patient", "Wristband", "Patient"],
+      ["medicine", "Medication", "Medicine"],
+      ["order", "Order", "Order"],
+    ];
+    const actions = [
+      ["resume", "Resume", "Continue the pass"],
+      ["new-pass", "Start again", "Begin a new pass"],
+    ];
 
-    if (item.id === "adrenaline-route") {
-      return `
-        <div class="decision-layout decision-layout-verbal-order">
-          <div class="verbal-order-card">
-            <div>
-              <span class="layout-kicker">Urgent verbal order</span>
-              <strong>ADRENALINE</strong>
-            </div>
-            <span class="order-state">INCOMPLETE</span>
-            <div class="order-fields">
-              <span>Indication <b>allergic reaction</b></span>
-              <span>Route <b>?</b></span>
-              <span>Concentration <b>?</b></span>
-              <span>Dose <b>?</b></span>
-            </div>
-          </div>
-          <span class="decision-layout-label">Choose how you will close the order gap</span>
-          <div class="choices order-options">${choices}</div>
-        </div>`;
-    }
+    return `
+      <div class="interactive-board interruption-board">
+        <div class="board-console">
+          <div class="board-console-head"><span>Medication pass</span><strong>Interrupted</strong></div>
+          <div class="board-console-track"><i></i><b></b><i></i><b></b><i></i></div>
+          <div class="board-console-foot"><span>Bedside</span><span>Check</span><span>Ready</span></div>
+        </div>
+        <div class="board-section-label"><span>Checkpoints</span><strong>${runtime.interruptionChecks.length} / ${checkpoints.length}</strong></div>
+        <div class="control-grid control-grid-3">
+          ${checkpoints
+            .map(
+              ([value, label, short]) => `
+                <button class="control-card ${runtime.interruptionChecks.includes(value) ? "selected" : ""}" data-interruption-check="${value}" type="button" aria-pressed="${runtime.interruptionChecks.includes(value)}">
+                  <span class="control-icon ${value}"><i></i></span>
+                  <strong>${label}</strong>
+                  <small>${short}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
+        <div class="board-section-label action-label"><span>Action</span></div>
+        <div class="action-pick action-pick-2">
+          ${actions
+            .map(
+              ([value, label, detail]) => `
+                <button class="action-button ${runtime.interruptionAction === value ? "selected" : ""}" data-interruption-action="${value}" type="button" aria-pressed="${runtime.interruptionAction === value}">
+                  <strong>${label}</strong><small>${detail}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
+      </div>`;
+  }
 
-    if (item.id === "mouthwash-ng") {
-      return `
-        <div class="decision-layout decision-layout-unknown-cup">
-          <div class="unknown-cup-scene">
-            <div class="unknown-cup" aria-hidden="true"><i>?</i></div>
-            <div>
-              <span class="layout-kicker">Tray item</span>
-              <strong>Unlabelled cup</strong>
-              <span>Contents and intended route are unknown.</span>
-            </div>
-            <span class="layout-chip danger">STOP</span>
-          </div>
-          <span class="decision-layout-label">Choose the safest response before any administration</span>
-          <div class="choices cup-options">${choices}</div>
-        </div>`;
-    }
+  function orderClarificationInteraction() {
+    const fields = [
+      [
+        "orderRoute",
+        "Route",
+        [
+          ["not-stated", "Not stated"],
+          ["iv", "IV"],
+          ["im", "IM"],
+        ],
+      ],
+      [
+        "orderConcentration",
+        "Concentration",
+        [
+          ["not-stated", "Not stated"],
+          ["1:10,000", "1:10,000"],
+          ["1:1,000", "1:1,000"],
+        ],
+      ],
+      [
+        "orderDose",
+        "Dose",
+        [
+          ["not-stated", "Not stated"],
+          ["1 mg", "1 mg"],
+          ["0.5 mg", "0.5 mg"],
+        ],
+      ],
+    ];
+    const actions = [
+      ["prepare", "Prepare", "Make up the injection"],
+      ["clarify", "Clarify", "Complete the order"],
+    ];
 
-    if (item.id === "specimen-bottle") {
-      return `
-        <div class="decision-layout decision-layout-specimen">
-          <div class="specimen-chain" aria-label="Specimen control chain">
-            <span class="layout-kicker">Control chain</span>
-            <div class="specimen-chain-steps">
-              <span><i>01</i>Control</span>
-              <b aria-hidden="true">→</b>
-              <span><i>02</i>Label</span>
-              <b aria-hidden="true">→</b>
-              <span><i>03</i>Explain</span>
-            </div>
-            <small>Keep the preservative away from an unattended patient area.</small>
-          </div>
-          <span class="decision-layout-label">Choose the action that protects the whole chain</span>
-          <div class="choices specimen-options">${choices}</div>
-        </div>`;
-    }
+    return `
+      <div class="interactive-board order-board">
+        <div class="order-slip">
+          <div class="order-slip-head"><span>Verbal order</span><strong>ADRENALINE</strong></div>
+          <div class="order-slip-line"><span>Urgent</span><i></i><span>Injection</span></div>
+        </div>
+        <div class="order-fields">
+          ${fields
+            .map(
+              ([field, label, options]) => `
+                <div class="order-field">
+                  <div class="board-section-label"><span>${label}</span><strong>${runtime[field] || "—"}</strong></div>
+                  <div class="order-values">
+                    ${options
+                      .map(
+                        ([value, optionLabel]) => `
+                          <button class="order-value ${runtime[field] === value ? "selected" : ""}" data-order-field="${field}" data-order-value="${value}" type="button" aria-pressed="${runtime[field] === value}">${optionLabel}</button>`,
+                      )
+                      .join("")}
+                  </div>
+                </div>`,
+            )
+            .join("")}
+        </div>
+        <div class="board-section-label action-label"><span>Action</span></div>
+        <div class="action-pick action-pick-2">
+          ${actions
+            .map(
+              ([value, label, detail]) => `
+                <button class="action-button ${runtime.orderAction === value ? "selected" : ""}" data-order-action="${value}" type="button" aria-pressed="${runtime.orderAction === value}">
+                  <strong>${label}</strong><small>${detail}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
+      </div>`;
+  }
 
-    return `<div class="choices">${choices}</div>`;
+  function cupInspectionInteraction() {
+    const checks = [
+      ["label", "Label", "Cup"],
+      ["contents", "Contents", "Liquid"],
+      ["route", "Route", "NG"],
+    ];
+    const actions = [
+      ["continue", "Continue", "Proceed with the round"],
+      ["hold", "Hold", "Leave the cup closed"],
+    ];
+
+    return `
+      <div class="interactive-board tray-board">
+        <div class="tray-visual">
+          <div class="tray-surface"><div class="cup-visual"><i>?</i><span></span></div><div class="tray-syringe"><i></i></div><div class="tray-strip"></div></div>
+          <div class="tray-readout"><span>Tray item</span><strong>Unlabelled cup</strong></div>
+        </div>
+        <div class="board-section-label"><span>Inspection</span><strong>${runtime.cupChecks.length} / ${checks.length}</strong></div>
+        <div class="control-grid control-grid-3">
+          ${checks
+            .map(
+              ([value, label, short]) => `
+                <button class="control-card ${runtime.cupChecks.includes(value) ? "selected" : ""}" data-cup-check="${value}" type="button" aria-pressed="${runtime.cupChecks.includes(value)}">
+                  <span class="control-icon ${value}"><i></i></span>
+                  <strong>${label}</strong>
+                  <small>${short}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
+        <div class="board-section-label action-label"><span>Action</span></div>
+        <div class="action-pick action-pick-2">
+          ${actions
+            .map(
+              ([value, label, detail]) => `
+                <button class="action-button ${runtime.cupAction === value ? "selected" : ""}" data-cup-action="${value}" type="button" aria-pressed="${runtime.cupAction === value}">
+                  <strong>${label}</strong><small>${detail}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
+      </div>`;
+  }
+
+  function specimenControlInteraction() {
+    const storageOptions = [
+      ["bedside", "Bedside", "Patient area"],
+      ["relative", "Relative", "Handed over"],
+      ["control", "Controlled area", "Staff area"],
+    ];
+
+    return `
+      <div class="interactive-board specimen-board">
+        <div class="specimen-visual">
+          <div class="specimen-bottle"><i></i><b></b><span></span></div>
+          <div class="specimen-readout"><span>Specimen container</span><strong>Preservative present</strong></div>
+        </div>
+        <div class="board-section-label"><span>Location</span><strong>${runtime.specimenStorage || "—"}</strong></div>
+        <div class="storage-control-grid">
+          ${storageOptions
+            .map(
+              ([value, label, detail]) => `
+                <button class="storage-control ${runtime.specimenStorage === value ? "selected" : ""}" data-specimen-storage="${value}" type="button" aria-pressed="${runtime.specimenStorage === value}">
+                  <span class="storage-control-icon ${value}"></span><strong>${label}</strong><small>${detail}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
+        <div class="specimen-toggles">
+          ${toggle("specimenLabel", "Label attached", "Container", runtime.specimenLabel)}
+          ${toggle("specimenExplained", "Purpose explained", "Patient / relative", runtime.specimenExplained)}
+        </div>
+      </div>`;
   }
 
   function doseInteraction() {
@@ -2057,90 +2223,98 @@
   }
 
   function identityInteraction() {
-    const options = [
-      ["continue", "Silence the warning because the patient is in the expected bed.", "Use bed location instead of identity verification."],
-      ["verify", "Stop, use two identifiers to recheck the patient and order, then repeat the independent double-check.", "Resolve the mismatch before administration."],
-      ["ask", "Ask whether this bed normally receives the antibiotic and continue if a colleague agrees.", "Use colleague familiarity instead of formal verification."],
+    const checkpoints = [
+      ["wristband", "Wristband", "Patient"],
+      ["order", "eMAR order", "Order"],
+      ["double", "Second check", "Check"],
     ];
+    const actions = [
+      ["continue", "Continue", "Release medication"],
+      ["verify", "Verify", "Run identity check"],
+    ];
+
     return `
-      <div class="decision-layout decision-layout-identity">
-        <div class="scanner-alert">
-          <div>
-            <span class="layout-kicker">Handheld scanner</span>
-            <strong>Patient Not Match</strong>
-            <span>Administration is blocked until the mismatch is resolved.</span>
-          </div>
-          <span class="layout-chip danger">HARD STOP</span>
+      <div class="interactive-board scanner-board">
+        <div class="scanner-console">
+          <div class="scanner-console-head"><span>Patient identity</span><strong>Alert</strong></div>
+          <div class="scanner-window"><span class="scanner-corner top-left"></span><span class="scanner-corner top-right"></span><span class="scanner-corner bottom-left"></span><span class="scanner-corner bottom-right"></span><i></i><b>NOT MATCHED</b></div>
+          <div class="scanner-console-foot"><span>Patient</span><b>≠</b><span>Order</span></div>
         </div>
-        <div class="verification-path" aria-label="Identity verification path">
-          <span><i>1</i>Stop</span>
-          <b aria-hidden="true">→</b>
-          <span><i>2</i>Use two identifiers</span>
-          <b aria-hidden="true">→</b>
-          <span><i>3</i>Resolve alert</span>
+        <div class="board-section-label"><span>Checkpoints</span><strong>${runtime.identityChecks.length} / ${checkpoints.length}</strong></div>
+        <div class="control-grid control-grid-3">
+          ${checkpoints
+            .map(
+              ([value, label, short]) => `
+                <button class="control-card ${runtime.identityChecks.includes(value) ? "selected" : ""}" data-identity-check="${value}" type="button" aria-pressed="${runtime.identityChecks.includes(value)}">
+                  <span class="control-icon ${value}"><i></i></span>
+                  <strong>${label}</strong>
+                  <small>${short}</small>
+                </button>`,
+            )
+            .join("")}
         </div>
-        <span class="decision-layout-label">Choose the response that restores the safety gate</span>
-        <div class="choices identity-options">${options
-          .map((option) => choice("identity", option[0], option[1], option[2], runtime.idChoice === option[0]))
-          .join("")}</div>
+        <div class="board-section-label action-label"><span>Action</span></div>
+        <div class="action-pick action-pick-2">
+          ${actions
+            .map(
+              ([value, label, detail]) => `
+                <button class="action-button ${runtime.identityAction === value ? "selected" : ""}" data-identity-action="${value}" type="button" aria-pressed="${runtime.identityAction === value}">
+                  <strong>${label}</strong><small>${detail}</small>
+                </button>`,
+            )
+            .join("")}
+        </div>
       </div>`;
   }
 
   function clinicalContextInteraction() {
+    const records = [
+      ["current", "Treatment chart", "Current"],
+      ["comparison", "Previous result", "History"],
+    ];
     const checks = [
-      ["five-rights", "Right patient, right medication, right time, right dosage, right routes", "Complete all five medication rights before administration"],
-      ["allergy", "Check allergy", "Confirm the patient's documented allergy status"],
-      ["clinical-context", "Clinical context and indication", "Review the current K+ level and trend"],
-      ["open-record", "The open record is enough", "Assume the result belongs to this patient because it appears here"],
+      ["five-rights", "Medication card", "Dose"],
+      ["allergy", "Allergy status", "Record"],
+      ["clinical-context", "K+ result", "Trend"],
+      ["open-record", "Open record", "Tab"],
     ];
 
-    const requiredChecks = ["five-rights", "allergy", "clinical-context"];
-    const safeSelected = runtime.contextChecks.filter((value) => requiredChecks.includes(value)).length;
-
     return `
-      <div class="context-check">
-        <div class="chart-review-board">
-          <div class="chart-review-head">
-            <span class="layout-kicker">Patient record cross-check</span>
-            <strong>${safeSelected} / ${requiredChecks.length} safeguards</strong>
-          </div>
-          <div class="chart-review-lanes">
-            <div class="chart-review-lane">
-              <span>Open record</span>
-              <strong>Order and identity</strong>
-              <small>Match the treatment to this patient.</small>
-            </div>
-            <b aria-hidden="true">↔</b>
-            <div class="chart-review-lane emphasis">
-              <span>Current context</span>
-              <strong>Parameters and trend</strong>
-              <small>Confirm the indication before giving treatment.</small>
-            </div>
-          </div>
+      <div class="interactive-board chart-board">
+        <div class="chart-console">
+          <div class="chart-console-head"><span>Medication chart</span><strong>${runtime.contextRecord === "current" ? "Record A" : runtime.contextRecord === "comparison" ? "Record B" : "Select record"}</strong></div>
+          <div class="chart-console-grid"><span>K+</span><i></i><b>treatment</b><i></i><span>patient</span></div>
+          <small>Chart view</small>
         </div>
-        <div class="context-alert">
-          <span>Before medication</span>
-          <strong>Treatment to lower potassium prescribed</strong>
-          <small>Tap every check that independently closes the clinical context gap.</small>
+        <div class="board-section-label"><span>Record</span><strong>${runtime.contextRecord ? (runtime.contextRecord === "current" ? "A" : "B") : "—"}</strong></div>
+        <div class="record-picker">
+          ${records
+            .map(
+              ([value, label, short]) => `
+                <button class="record-card ${runtime.contextRecord === value ? "selected" : ""}" data-context-record="${value}" type="button" aria-pressed="${runtime.contextRecord === value}">
+                  <span class="record-card-icon"><i></i></span><strong>${label}</strong><small>${short}</small>
+                </button>`,
+            )
+            .join("")}
         </div>
-        <div class="context-pick">
+        <div class="board-section-label action-label"><span>Checks</span><strong>${runtime.contextChecks.filter((check) => check !== "open-record").length} / 3</strong></div>
+        <div class="control-grid context-control-grid">
           ${checks
             .map(
               ([value, label, detail]) => `
                 <button
-                  class="context-option ${runtime.contextChecks.includes(value) ? "selected" : ""}"
+                  class="control-card context-control ${runtime.contextChecks.includes(value) ? "selected" : ""}"
                   data-context-check="${value}"
                   type="button"
                   aria-pressed="${runtime.contextChecks.includes(value)}"
                 >
-                  <i>${runtime.contextChecks.includes(value) ? "✓" : ""}</i>
+                  <span class="control-icon ${value}"><i></i></span>
                   <strong>${label}</strong>
                   <small>${detail}</small>
                 </button>`,
             )
             .join("")}
         </div>
-        <p class="interaction-note">Select the checks that independently confirm whether this treatment is safe for this patient now.</p>
       </div>`;
   }
 
@@ -2340,50 +2514,44 @@
   }
 
   function ngEvidenceInteraction() {
-    const options = [
-      [
-        "order-only",
-        "Start feeding from the written order",
-        "The order does not document review of the chest X-ray or confirmation of tube position.",
-      ],
-      [
-        "image-only",
-        "Check that a chest X-ray exists",
-        "The image is available, but no documented placement review is recorded.",
-      ],
-      [
-        "confirmed",
-        "Hold and obtain documented confirmation",
-        "Ask the doctor to review the chest X-ray and document that the NG-tube position is confirmed.",
-      ],
+    const evidence = [
+      ["order", "Feed order", "Order"],
+      ["cxr", "CXR", "Image"],
+      ["position", "Position note", "Record"],
+    ];
+    const actions = [
+      ["start", "Start feed", "Begin administration"],
+      ["hold", "Hold", "Keep the feed closed"],
     ];
 
-    const ready = runtime.ngEvidence === "confirmed";
     return `
-      <div class="evidence-gate">
-        <div class="evidence-board">
-          <div class="evidence-board-head">
-            <span class="layout-kicker">Placement evidence route</span>
-            <strong>${ready ? "Gate ready" : "Gate on hold"}</strong>
-          </div>
-          <div class="evidence-route" aria-label="NG tube placement evidence route">
-            <span><i>01</i>Feed order</span>
-            <b aria-hidden="true">+</b>
-            <span><i>02</i>Chest X-ray</span>
-            <b aria-hidden="true">+</b>
-            <span><i>03</i>Documented confirmation</span>
-          </div>
-          <div class="evidence-board-note">The order starts the process; it does not prove tube position.</div>
+      <div class="interactive-board evidence-packet">
+        <div class="packet-console">
+          <div class="packet-console-head"><span>NG feed</span><strong>${runtime.ngEvidenceSteps.length} / ${evidence.length}</strong></div>
+          <div class="packet-feed"><span>Order</span><i></i><span>Tube</span><i></i><span>Patient</span></div>
+          <small>Record packet</small>
         </div>
-        <div class="gate-status ${ready ? "ready" : ""}">
-          <span>Feed order gate</span>
-          <strong>${ready ? "Evidence ready for decision" : "Hold - Placement not confirmed"}</strong>
+        <div class="board-section-label"><span>Packet items</span><strong>${runtime.ngEvidenceSteps.length} / ${evidence.length}</strong></div>
+        <div class="control-grid control-grid-3">
+          ${evidence
+            .map(
+              ([value, label, short]) => `
+                <button class="control-card ${runtime.ngEvidenceSteps.includes(value) ? "selected" : ""}" data-ng-evidence-step="${value}" type="button" aria-pressed="${runtime.ngEvidenceSteps.includes(value)}">
+                  <span class="control-icon ${value}"><i></i></span>
+                  <strong>${label}</strong>
+                  <small>${short}</small>
+                </button>`,
+            )
+            .join("")}
         </div>
-        <span class="decision-layout-label">Choose the action that closes the placement gate</span>
-        <div class="choices evidence-options">
-          ${options
-            .map((option) =>
-              choice("ng-evidence", option[0], option[1], option[2], runtime.ngEvidence === option[0]),
+        <div class="board-section-label action-label"><span>Action</span></div>
+        <div class="action-pick action-pick-2">
+          ${actions
+            .map(
+              ([value, label, detail]) => `
+                <button class="action-button ${runtime.ngAction === value ? "selected" : ""}" data-ng-action="${value}" type="button" aria-pressed="${runtime.ngAction === value}">
+                  <strong>${label}</strong><small>${detail}</small>
+                </button>`,
             )
             .join("")}
         </div>
@@ -2443,50 +2611,39 @@
 
   function dentureAdmissionInteraction() {
     const storageOptions = [
-      ["tissue", "Tissue paper", "Can be mistaken for waste"],
-      ["tray", "Meal tray", "Can leave the ward with catering items"],
-      ["box", "Designated denture box", "Protected and clearly identifiable storage"],
+      ["tissue", "Tissue paper", "Bedside"],
+      ["tray", "Meal tray", "Tray"],
+      ["box", "Denture box", "Storage"],
     ];
 
-    const closedSteps = [runtime.dentureStorage === "box", runtime.dentureInventory, runtime.dentureDocumented].filter(Boolean).length;
-
     return `
-      <div class="denture-check">
-        <div class="admission-inventory-board">
-          <div class="admission-inventory-head">
-            <span class="layout-kicker">Admission inventory</span>
-            <strong>${closedSteps} / 3 controls closed</strong>
-          </div>
-          <div class="admission-item-card">
-            <span class="denture-silhouette" aria-hidden="true"></span>
-            <div>
-              <strong>Patient denture</strong>
-              <small>Identify → designated storage → document</small>
-            </div>
-            <span class="inventory-state ${closedSteps === 3 ? "ready" : ""}">${closedSteps === 3 ? "ACCOUNTED" : "OPEN"}</span>
-          </div>
+      <div class="interactive-board property-board">
+        <div class="property-visual">
+          <div class="denture-visual"><span></span><i></i></div>
+          <div class="property-readout"><span>Personal item</span><strong>Denture</strong></div>
         </div>
-        <span class="form-label">1 · Choose the storage method</span>
-        <div class="storage-pick">
+        <div class="board-section-label"><span>Location</span><strong>${runtime.dentureStorage || "—"}</strong></div>
+        <div class="storage-control-grid">
           ${storageOptions
             .map(
               ([value, label, detail]) => `
                 <button
-                  class="storage-option ${runtime.dentureStorage === value ? "selected" : ""}"
+                  class="storage-control property-storage ${runtime.dentureStorage === value ? "selected" : ""}"
                   data-denture-storage="${value}"
                   type="button"
+                  aria-pressed="${runtime.dentureStorage === value}"
                 >
-                  <span class="storage-icon ${value}"></span>
+                  <span class="storage-control-icon ${value}"></span>
                   <strong>${label}</strong>
                   <small>${detail}</small>
                 </button>`,
             )
             .join("")}
         </div>
-        <span class="form-label">2 · Close the accountability loop</span>
-        <div class="route-checklist">
-          ${toggle("dentureInventory", "Denture inventory completed", "Confirm and record the item under the patient's care", runtime.dentureInventory)}
-          ${toggle("dentureDocumented", "Denture information documented", "Maintain accountability from admission through ongoing care", runtime.dentureDocumented)}
+        <div class="property-toggles">
+          ${toggle("dentureInventory", "Inventory logged", "Admission list", runtime.dentureInventory)}
+          ${toggle("dentureTagged", "Property tag attached", "Denture box", runtime.dentureTagged)}
+          ${toggle("dentureDocumented", "Admission note added", "Patient record", runtime.dentureDocumented)}
         </div>
       </div>`;
   }
@@ -2784,6 +2941,87 @@
       };
     });
 
+    document.querySelectorAll("[data-interruption-check]").forEach((button) => {
+      button.onclick = () => {
+        const check = button.dataset.interruptionCheck;
+        runtime.interruptionChecks = runtime.interruptionChecks.includes(check)
+          ? runtime.interruptionChecks.filter((value) => value !== check)
+          : [...runtime.interruptionChecks, check];
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-interruption-action]").forEach((button) => {
+      button.onclick = () => {
+        runtime.interruptionAction = button.dataset.interruptionAction;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-identity-check]").forEach((button) => {
+      button.onclick = () => {
+        const check = button.dataset.identityCheck;
+        runtime.identityChecks = runtime.identityChecks.includes(check)
+          ? runtime.identityChecks.filter((value) => value !== check)
+          : [...runtime.identityChecks, check];
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-identity-action]").forEach((button) => {
+      button.onclick = () => {
+        runtime.identityAction = button.dataset.identityAction;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-order-field]").forEach((button) => {
+      button.onclick = () => {
+        runtime[button.dataset.orderField] = button.dataset.orderValue;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-order-action]").forEach((button) => {
+      button.onclick = () => {
+        runtime.orderAction = button.dataset.orderAction;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-cup-check]").forEach((button) => {
+      button.onclick = () => {
+        const check = button.dataset.cupCheck;
+        runtime.cupChecks = runtime.cupChecks.includes(check)
+          ? runtime.cupChecks.filter((value) => value !== check)
+          : [...runtime.cupChecks, check];
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-cup-action]").forEach((button) => {
+      button.onclick = () => {
+        runtime.cupAction = button.dataset.cupAction;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-specimen-storage]").forEach((button) => {
+      button.onclick = () => {
+        runtime.specimenStorage = button.dataset.specimenStorage;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
     document.querySelectorAll('input[name="identity"]').forEach((input) => {
       input.onchange = (event) => {
         runtime.idChoice = event.target.value;
@@ -2804,6 +3042,34 @@
         runtime.contextChecks = runtime.contextChecks.includes(check)
           ? runtime.contextChecks.filter((value) => value !== check)
           : [...runtime.contextChecks, check];
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-context-record]").forEach((button) => {
+      button.onclick = () => {
+        runtime.contextRecord = button.dataset.contextRecord;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-ng-evidence-step]").forEach((button) => {
+      button.onclick = () => {
+        const step = button.dataset.ngEvidenceStep;
+        runtime.ngEvidenceSteps = runtime.ngEvidenceSteps.includes(step)
+          ? runtime.ngEvidenceSteps.filter((value) => value !== step)
+          : [...runtime.ngEvidenceSteps, step];
+        runtime.ngEvidence = runtime.ngEvidenceSteps.length === 3 ? "confirmed" : null;
+        runtime.feedback = null;
+        render();
+      };
+    });
+
+    document.querySelectorAll("[data-ng-action]").forEach((button) => {
+      button.onclick = () => {
+        runtime.ngAction = button.dataset.ngAction;
         runtime.feedback = null;
         render();
       };
@@ -3050,13 +3316,44 @@
   function submitDecision(item) {
     let correct = false;
     if (item.type === "dose") correct = Math.abs(runtime.tablets - 3) < 0.001;
-    if (item.type === "single-choice") correct = runtime.simpleChoice === item.correctDecision;
+    if (item.type === "single-choice") {
+      if (item.id === "wrong-patient-distraction") {
+        const checkpoints = ["patient", "medicine", "order"];
+        correct =
+          runtime.interruptionChecks.length === checkpoints.length &&
+          checkpoints.every((check) => runtime.interruptionChecks.includes(check)) &&
+          runtime.interruptionAction === "new-pass";
+      } else if (item.id === "adrenaline-route") {
+        correct =
+          runtime.orderRoute === "not-stated" &&
+          runtime.orderConcentration === "not-stated" &&
+          runtime.orderDose === "not-stated" &&
+          runtime.orderAction === "clarify";
+      } else if (item.id === "mouthwash-ng") {
+        const checks = ["label", "contents", "route"];
+        correct =
+          runtime.cupChecks.length === checks.length &&
+          checks.every((check) => runtime.cupChecks.includes(check)) &&
+          runtime.cupAction === "hold";
+      } else if (item.id === "specimen-bottle") {
+        correct = runtime.specimenStorage === "control" && runtime.specimenLabel && runtime.specimenExplained;
+      } else {
+        correct = runtime.simpleChoice === item.correctDecision;
+      }
+    }
     if (item.type === "syringe") correct = runtime.volume === 3 && runtime.label && runtime.double;
-    if (item.type === "identity") correct = runtime.idChoice === "verify";
+    if (item.type === "identity") {
+      const checkpoints = ["wristband", "order", "double"];
+      correct =
+        runtime.identityChecks.length === checkpoints.length &&
+        checkpoints.every((check) => runtime.identityChecks.includes(check)) &&
+        runtime.identityAction === "verify";
+    }
     if (item.type === "barcode") correct = runtime.scanMode === "scan" && runtime.medication === "tablet";
     if (item.type === "clinical-context") {
       const requiredChecks = ["five-rights", "allergy", "clinical-context"];
       correct =
+        runtime.contextRecord === "current" &&
         runtime.contextChecks.length === requiredChecks.length &&
         requiredChecks.every((check) => runtime.contextChecks.includes(check));
     }
@@ -3086,7 +3383,11 @@
         !runtime.staffHold;
     }
     if (item.type === "evidence-gate") {
-      correct = runtime.ngEvidence === "confirmed";
+      const evidence = ["order", "cxr", "position"];
+      correct =
+        runtime.ngEvidenceSteps.length === evidence.length &&
+        evidence.every((step) => runtime.ngEvidenceSteps.includes(step)) &&
+        runtime.ngAction === "hold";
     }
     if (item.type === "tourniquet-loop") {
       correct =
@@ -3097,6 +3398,7 @@
       correct =
         runtime.dentureStorage === "box" &&
         runtime.dentureInventory &&
+        runtime.dentureTagged &&
         runtime.dentureDocumented;
     }
 
